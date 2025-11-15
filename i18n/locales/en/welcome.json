@@ -1,0 +1,8 @@
+{
+    "title": "Hello",
+    "text": "To get started, please enter a display name that others will see in conversations. It can be your real name, a nickname, or any name you're comfortable with. This name is only used for display purposes and isn’t linked to your unique account ID.",
+    "label": "Enter your name",
+    "button": "Get started",
+    "rule": "Click “Get started” you agree to the",
+    "link": "terms of service"
+}
