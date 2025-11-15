@@ -1,0 +1,18 @@
+name: amy-client
+
+on:
+  - push
+  - pull_request
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+
+      - name: dependency installation
+        run: npm ci
+
+      - name: running linter
+        run: npm run lint
