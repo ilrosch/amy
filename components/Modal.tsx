@@ -1,6 +1,16 @@
-import { Image, Modal, Pressable, StyleSheet, Text, View } from "react-native";
+import {
+  Animated,
+  Image,
+  KeyboardAvoidingView,
+  Modal,
+  Platform,
+  Pressable,
+  StyleSheet,
+  View,
+} from "react-native";
 import SeparatorLine from "./SeparatorLine";
-import { ReactNode } from "react";
+import { ReactNode, useEffect, useRef, useState } from "react";
+import ThemedText from "./ThemedText";
 
 export type ModalCustomType = {
   title: string;
@@ -19,40 +29,118 @@ export default function ModalCustom({
   line = false,
   visible = true,
 }: ModalCustomType) {
+  const [hiddenOverlay, setHiddenOverlay] = useState(false);
+
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+  const translateYAnim = useRef(new Animated.Value(1000)).current;
+
+  const fadeIn = () => {
+    setHiddenOverlay(false);
+
+    Animated.parallel([
+      Animated.timing(fadeAnim, {
+        toValue: 1,
+        duration: 300,
+        useNativeDriver: true,
+      }),
+      Animated.timing(translateYAnim, {
+        toValue: 0,
+        duration: 500,
+        useNativeDriver: true,
+      }),
+    ]).start();
+  };
+
+  const fadeOut = () => {
+    Animated.parallel([
+      Animated.timing(fadeAnim, {
+        toValue: 0,
+        duration: 500,
+        useNativeDriver: true,
+      }),
+      Animated.timing(translateYAnim, {
+        toValue: 1000,
+        duration: 300,
+        useNativeDriver: true,
+      }),
+    ]).start(() => {
+      setHiddenOverlay(true);
+    });
+  };
+
+  useEffect(() => {
+    if (visible) {
+      fadeIn();
+    } else {
+      fadeOut();
+    }
+  }, [visible]);
+
   return (
-    <Modal animationType="fade" transparent={true} visible={visible}>
-      <View style={styles.overlay}>
-        <View style={styles.modal}>
-          <Pressable
-            style={({ pressed }) => [
-              styles.close,
-              pressed && styles.closePress,
-            ]}
-            onPress={handleClose}
+    <Animated.View
+      style={[
+        styles.overlay,
+        {
+          opacity: fadeAnim,
+        },
+        hiddenOverlay && { display: "none" },
+      ]}
+    >
+      <Modal animationType="none" transparent={true} visible={visible}>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+          style={styles.modal}
+        >
+          <Animated.View
+            style={[{ transform: [{ translateY: translateYAnim }] }]}
           >
-            <Image source={require("@/assets/images/close.png")} alt="close" />
-          </Pressable>
-          <View style={styles.modalBody}>
-            <Text style={styles.title}>{title}</Text>
-            <Text style={styles.text}>{text}</Text>
-            {line && <SeparatorLine style={styles.line} />}
-            {children}
-          </View>
-        </View>
-      </View>
-    </Modal>
+            <Pressable
+              style={({ pressed }) => [
+                styles.close,
+                pressed && styles.closePress,
+              ]}
+              onPress={() => {
+                fadeOut();
+                handleClose();
+              }}
+            >
+              <Image
+                source={require("@/assets/images/close.png")}
+                alt="close"
+              />
+            </Pressable>
+            <View style={styles.modalBody}>
+              <ThemedText title={true} size={"l"} style={styles.title}>
+                {title}
+              </ThemedText>
+              <ThemedText size={"m"} style={styles.text}>
+                {text}
+              </ThemedText>
+              {line && <SeparatorLine style={styles.line} />}
+              {children}
+            </View>
+          </Animated.View>
+        </KeyboardAvoidingView>
+      </Modal>
+    </Animated.View>
   );
 }
 
 const styles = StyleSheet.create({
   overlay: {
-    flex: 1,
+    ...StyleSheet.absoluteFillObject,
     backgroundColor: "#00000099",
-    padding: 20,
+    zIndex: 9,
   },
+
   modal: {
-    marginTop: 30,
+    flex: 1,
+    justifyContent: "flex-end",
+    alignItems: "center",
+    marginBottom: 40,
+    padding: 12,
   },
+
   close: {
     width: 68,
     height: 68,
@@ -70,30 +158,19 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
   closePress: {
-    opacity: 0.9,
+    opacity: 0.95,
   },
   modalBody: {
-    borderRadius: 8,
+    borderRadius: 12,
     backgroundColor: "#FFFFFF",
     paddingVertical: 32,
-    paddingHorizontal: 16,
+    paddingHorizontal: 28,
     gap: 14,
   },
   title: {
-    fontSize: 22,
-    fontWeight: "500",
-    fontStyle: "normal",
-    lineHeight: 28,
     color: "#151515",
-    textAlign: "center",
   },
   text: {
-    fontSize: 16,
-    fontWeight: "400",
-    fontStyle: "normal",
-    lineHeight: 24,
-    letterSpacing: 0.5,
-    textAlign: "center",
     color: "#151515CC",
   },
   line: {

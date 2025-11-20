@@ -4,6 +4,7 @@ import errors from "./errors.json";
 import actions from "./actions.json";
 import chats from "./chats.json";
 import modal from "./modal.json";
+import infoMsg from "./infoMsg.json";
 
 export default {
   welcome,
@@ -12,4 +13,5 @@ export default {
   actions,
   chats,
   modal,
+  infoMsg,
 };

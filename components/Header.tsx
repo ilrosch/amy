@@ -1,5 +1,6 @@
 import MaskedView from "@react-native-masked-view/masked-view";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
+import ThemedText from "./ThemedText";
 
 type HeaderType = {
   title: string;
@@ -13,7 +14,7 @@ export default function Header({ title }: HeaderType) {
         style={styles.maskView}
         maskElement={
           <View style={styles.maskElementView}>
-            <Text style={styles.title}>{title.toUpperCase()}</Text>
+            <ThemedText size={"xl"}>{title.toUpperCase()}</ThemedText>
           </View>
         }
       >
@@ -32,30 +33,24 @@ const styles = StyleSheet.create({
   headerBg: {
     height: 100,
     backgroundColor: "#86A788",
-    shadowColor: "rgba(0, 0, 0, 0.05)",
+    shadowColor: "#000000",
     shadowOffset: {
       width: 0,
       height: 2,
     },
     shadowRadius: 4,
-    shadowOpacity: 1,
+    shadowOpacity: 0.05,
   },
   maskView: {
     flex: 1,
     height: "100%",
-    marginTop: -45,
+    marginTop: -40,
   },
   maskElementView: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "transparent",
-  },
-  title: {
-    fontSize: 40,
-    fontWeight: "500",
-    fontStyle: "normal",
-    textAlign: "center",
   },
   variable: {
     flex: 1,

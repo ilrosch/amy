@@ -1,8 +1,8 @@
 import ActionButtonBox from "@/components/ActionButtonBox";
 import SeparatorLine from "@/components/SeparatorLine";
 import handleCopyID from "@/scripts/handleCopyID";
-import { useAppSelector } from "@/store/hooks";
-import { selectUserID, selectUserName } from "@/store/slices/auth";
+import { useAppSelector } from "@/lib/store/hooks";
+import { selectUserID, selectUserName } from "@/lib/store/slices/auth";
 import { useTranslation } from "react-i18next";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 

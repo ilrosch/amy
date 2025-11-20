@@ -12,7 +12,6 @@ const styles = StyleSheet.create({
   line: {
     width: 120,
     height: 2,
-    backgroundColor: "rgba(217, 217, 217, 1.0)",
     alignSelf: "center",
     marginVertical: 12,
   },

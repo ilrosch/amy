@@ -3,8 +3,8 @@ import { StyleSheet, View, ViewStyle } from "react-native";
 import ActionButton, { ActionButtonProps } from "./ActionButton";
 
 type ActionButtonBoxType = {
-  style?: ViewStyle | ViewStyle[];
   buttons: ActionButtonProps[];
+  style?: ViewStyle | ViewStyle[];
 };
 
 export default function ActionButtonBox({

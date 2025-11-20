@@ -1,4 +1,4 @@
-import { store } from "@/store";
+import { store } from "@/lib/store";
 import * as Clipboard from "expo-clipboard";
 
 const handleCopyID = async () => {

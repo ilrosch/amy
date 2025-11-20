@@ -2,12 +2,12 @@ import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { Provider } from "react-redux";
 
-import "@/i18n/";
-import { store } from "@/store";
+import "@/lib/i18n";
+import { store } from "@/lib/store";
 import { useEffect, useState } from "react";
 import prepareData from "@/scripts/prepareData";
-import { useAppSelector } from "@/store/hooks";
-import { selectUserToken } from "@/store/slices/auth";
+import { useAppSelector } from "@/lib/store/hooks";
+import { selectUserToken } from "@/lib/store/slices/auth";
 
 function LayoutContent() {
   const [isLoading, setLoading] = useState(false);
