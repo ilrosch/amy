@@ -1,8 +1,8 @@
 import MaskedView from "@react-native-masked-view/masked-view";
 import { StyleSheet, View } from "react-native";
-import ThemedText from "./ThemedText";
+import ThemedText from "../ThemedText";
 
-type HeaderType = {
+export type HeaderType = {
   title: string;
 };
 

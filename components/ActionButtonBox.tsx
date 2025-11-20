@@ -1,6 +1,7 @@
 import { StyleSheet, View, ViewStyle } from "react-native";
 
 import ActionButton, { ActionButtonProps } from "./ActionButton";
+import SeparatorLine from "./SeparatorLine";
 
 type ActionButtonBoxType = {
   buttons: ActionButtonProps[];
@@ -12,6 +13,7 @@ export default function ActionButtonBox({
   style,
 }: ActionButtonBoxType) {
   return (
+    <>
     <View style={[styles.actions, style]}>
       {buttons.map((btn) => (
         <ActionButton
@@ -22,6 +24,8 @@ export default function ActionButtonBox({
         />
       ))}
     </View>
+          <SeparatorLine style={styles.line} />
+    </>
   );
 }
 
@@ -31,5 +35,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     flexWrap: "wrap",
     gap: 14,
+  },
+  line: {
+    backgroundColor: "#D9D9D9",
   },
 });

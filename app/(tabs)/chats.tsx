@@ -45,7 +45,6 @@ export default function Chats() {
           },
         ]}
       />
-      <SeparatorLine style={styles.line} />
       <ScrollView style={styles.chats}>
         <Text style={styles.bage}>{t('infoMsg.noChats')}</Text>
       </ScrollView>
@@ -69,8 +68,5 @@ const styles = StyleSheet.create({
     letterSpacing: 0.5,
     textAlign: "center",
     color: "#151515",
-  },
-  line: {
-    backgroundColor: "#D9D9D9",
   },
 });

@@ -37,8 +37,6 @@ export default function Contacts() {
         ]}
       />
 
-      <SeparatorLine style={styles.line} />
-
       {contactItems.length ? (
         <FlatList
           data={contactItems}

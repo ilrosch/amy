@@ -4,7 +4,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Tabs } from "expo-router";
 import { Image } from "react-native";
 
-import Header from "@/components/Header";
+import Header from "@/components/header/Header";
 
 import chatsIcon from "@/assets/images/chat.png";
 import contactIcon from "@/assets/images/contact.png";
