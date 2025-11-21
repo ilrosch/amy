@@ -1,22 +1,23 @@
-import ActionButtonBox from "@/components/ActionButtonBox";
-import Avatar from "@/components/Avatar";
-import BtnAction, { BtnActionType } from "@/components/BtnAction";
-import ThemedText from "@/components/ThemedText";
-import { useAppSelector } from "@/lib/store/hooks";
-import { selectContact } from "@/lib/store/slices/contacts";
+import { StyleSheet, View } from "react-native";
 import { useLocalSearchParams } from "expo-router";
 import { useTranslation } from "react-i18next";
-import { FlatList, StyleSheet, View } from "react-native";
+
+import { useAppSelector } from "@/lib/store/hooks";
+import { selectContact } from "@/lib/store/slices/contacts";
+
+import { ContactType } from "@/scripts/database/handlers/add-contact-db";
+
+import Avatar from "@/components/Avatar";
+import ThemedText from "@/components/ThemedText";
+import BtnActionIconBox from "@/components/action/BtnActionIconBox";
+import BtnActionTextBox from "@/components/action/BtnActionTextBox";
 
 export default function Profile() {
   const { t } = useTranslation();
-  const currentParams = useLocalSearchParams<{ id: string }>();
+
+  const currentParams = useLocalSearchParams<ContactType>();
   const currentUser = useAppSelector((state) =>
     selectContact(state, currentParams.id)
-  );
-
-  const readerBtnAction = ({ item }: { item: BtnActionType }) => (
-    <BtnAction {...item} />
   );
 
   return (
@@ -31,8 +32,8 @@ export default function Profile() {
         <ThemedText size={"l"} title={true} style={styles.title}>
           {currentUser.name}
         </ThemedText>
-        <ActionButtonBox
-          buttons={[
+        <BtnActionIconBox
+          btnData={[
             {
               title: t("actions.add-chat"),
               source: require("@/assets/images/add-chat.png"),
@@ -43,8 +44,8 @@ export default function Profile() {
             },
           ]}
         />
-        <FlatList
-          data={[
+        <BtnActionTextBox
+          btnData={[
             { title: t("actions.rename") },
             { title: t("actions.clear-chat"), styleText: styles.btnDander },
             {
@@ -52,9 +53,6 @@ export default function Profile() {
               styleText: styles.btnDander,
             },
           ]}
-          renderItem={readerBtnAction}
-          keyExtractor={(_, index) => index.toString()}
-          contentContainerStyle={{ gap: 8, marginTop: 20 }}
         />
       </View>
     </View>

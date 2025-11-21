@@ -3,24 +3,23 @@ import {
   ImageSourcePropType,
   Pressable,
   StyleSheet,
-  Text,
   ViewStyle,
 } from "react-native";
-import ThemedText from "./ThemedText";
+import ThemedText from "../ThemedText";
 
-export type ActionButtonProps = {
+export type BtnActionIconType = {
   title?: string;
   source?: ImageSourcePropType;
   style?: ViewStyle | ViewStyle[];
   handle?: () => void;
 };
 
-export default function ActionButton({
+export default function BtnActionIcon({
   style,
   title,
   source,
   handle,
-}: ActionButtonProps) {
+}: BtnActionIconType) {
   return (
     <Pressable
       style={({ pressed }) => [
@@ -53,7 +52,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.05,
     paddingVertical: 12,
     paddingHorizontal: 6,
-    width: "30%",
+    minWidth: 100,
   },
   buttonPress: {
     opacity: 0.8,

@@ -1,7 +1,7 @@
-import { StyleSheet, ViewStyle, View } from "react-native";
+import { StyleSheet, ViewStyle, View, StyleProp } from "react-native";
 
 export type SeparatorLineProps = {
-  style?: ViewStyle | ViewStyle[];
+  style?: StyleProp<ViewStyle>;
 };
 
 export default function SeparatorLine({ style }: SeparatorLineProps) {

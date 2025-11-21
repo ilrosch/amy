@@ -1,6 +1,6 @@
 import { FlatList, ScrollView, StyleSheet, Text, View } from "react-native";
 import { useTranslation } from "react-i18next";
-import ActionButtonBox from "@/components/ActionButtonBox";
+import ActionButtonBox from "@/components/action/ActionButtonBox";
 import SeparatorLine from "@/components/SeparatorLine";
 import handleCopyID from "@/scripts/handleCopyID";
 import { useAppSelector } from "@/lib/store/hooks";

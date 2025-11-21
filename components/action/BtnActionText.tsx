@@ -5,21 +5,21 @@ import {
   TextStyle,
   ViewStyle,
 } from "react-native";
-import ThemedText from "./ThemedText";
+import ThemedText from "../ThemedText";
 
-export type BtnActionType = {
+export type BtnActionTextType = {
   title?: string;
   handle?: () => void;
   styleBtn?: StyleProp<ViewStyle>;
   styleText?: StyleProp<TextStyle>;
 };
 
-export default function BtnAction({
+export default function BtnActionText({
   title,
   handle,
   styleBtn,
   styleText,
-}: BtnActionType) {
+}: BtnActionTextType) {
   return (
     <Pressable
       style={({ pressed }) => [

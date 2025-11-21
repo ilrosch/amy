@@ -1,7 +1,7 @@
 import { StyleSheet, View, ViewStyle } from "react-native";
 
-import ActionButton, { ActionButtonProps } from "./ActionButton";
-import SeparatorLine from "./SeparatorLine";
+import ActionButton, { ActionButtonProps } from "./BtnActionIcon";
+import SeparatorLine from "../SeparatorLine";
 
 type ActionButtonBoxType = {
   buttons: ActionButtonProps[];
@@ -24,7 +24,7 @@ export default function ActionButtonBox({
         />
       ))}
     </View>
-          <SeparatorLine style={styles.line} />
+      <SeparatorLine style={styles.line} />
     </>
   );
 }
