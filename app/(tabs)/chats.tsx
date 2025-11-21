@@ -1,25 +1,10 @@
-import {
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { useTranslation } from "react-i18next";
-import ActionButtonBox from "@/components/action/ActionButtonBox";
-import SeparatorLine from "@/components/SeparatorLine";
-import handleCopyID from "@/scripts/handleCopyID";
-import { useContext, useState } from "react";
-import ModalCustom from "@/components/Modal";
-import handleCreateAccount from "@/scripts/handleAddContact";
-import Form, { FormDataType } from "@/components/Form";
-import Loader from "@/components/Loader";
-import handlerErrors from "@/scripts/utils/handlerErrors";
-import addContactHandler from "@/scripts/handlers/add-contact";
-import NewContactModal from "@/components/modal/NewContactModal";
-import { ModalContext } from "./_layout";
+
 import useModal from "@/hooks/use-modal";
+import handleCopyID from "@/scripts/handleCopyID";
+
+import BtnActionIconBox from "@/components/action/BtnActionIconBox";
 
 export default function Chats() {
   const { t } = useTranslation();
@@ -27,8 +12,8 @@ export default function Chats() {
 
   return (
     <View style={styles.container}>
-      <ActionButtonBox
-        buttons={[
+      <BtnActionIconBox
+        btnData={[
           {
             title: t("actions.add-chat"),
             source: require("@/assets/images/add-chat.png"),
@@ -46,7 +31,7 @@ export default function Chats() {
         ]}
       />
       <ScrollView style={styles.chats}>
-        <Text style={styles.bage}>{t('infoMsg.noChats')}</Text>
+        <Text style={styles.bage}>{t("infoMsg.noChats")}</Text>
       </ScrollView>
     </View>
   );

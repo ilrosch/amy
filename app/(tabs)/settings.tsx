@@ -1,10 +1,11 @@
-import ActionButtonBox from "@/components/action/ActionButtonBox";
-import SeparatorLine from "@/components/SeparatorLine";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { useTranslation } from "react-i18next";
+
 import handleCopyID from "@/scripts/handleCopyID";
 import { useAppSelector } from "@/lib/store/hooks";
 import { selectUserID, selectUserName } from "@/lib/store/slices/auth";
-import { useTranslation } from "react-i18next";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+
+import BtnActionIconBox from "@/components/action/BtnActionIconBox";
 
 export default function Settings() {
   const { t } = useTranslation();
@@ -13,8 +14,8 @@ export default function Settings() {
 
   return (
     <View style={styles.container}>
-      <ActionButtonBox
-        buttons={[
+      <BtnActionIconBox
+        btnData={[
           {
             title: t("actions.copy"),
             source: require("@/assets/images/copy.png"),
@@ -22,7 +23,6 @@ export default function Settings() {
           },
         ]}
       />
-      <SeparatorLine />
       <ScrollView style={styles.chats}>
         <Text style={styles.bage}>Привет, {name}!</Text>
         <Text style={styles.bage}>ID: {uuid}</Text>

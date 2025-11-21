@@ -1,18 +1,15 @@
+import { Tabs } from "expo-router";
+import { Image } from "react-native";
+import { createContext, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { Tabs } from "expo-router";
-import { Image } from "react-native";
-
 import Header from "@/components/header/Header";
+import NewContactModal from "@/components/modal/NewContactModal";
 
 import chatsIcon from "@/assets/images/chat.png";
 import contactIcon from "@/assets/images/contact.png";
 import settingsIcon from "@/assets/images/settings.png";
-import NewContactModal from "@/components/modal/NewContactModal";
-import SafeView from "@/components/SafeView";
-import { createContext, useState } from "react";
-import Loader from "@/components/Loader";
 
 export const ModalContext = createContext({});
 
@@ -20,7 +17,7 @@ export default function TabsLayout() {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
 
-  const [isLoading, setLoading] = useState<boolean>(false);
+  // const [isLoading, setLoading] = useState<boolean>(false);
   const [showContactModal, setShowContactModal] = useState<boolean>(false);
 
   const tabIcon = (source: any, focused: boolean) => (

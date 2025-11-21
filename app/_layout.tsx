@@ -1,15 +1,16 @@
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { Provider } from "react-redux";
-
-import "@/lib/i18n";
-import { store } from "@/lib/store";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+
 import prepareData from "@/scripts/prepareData";
+import { store } from "@/lib/store";
 import { useAppSelector } from "@/lib/store/hooks";
 import { selectUserToken } from "@/lib/store/slices/auth";
+import "@/lib/i18n";
+
 import HeaderSecondary from "@/components/header/HeaderSecondary";
-import { useTranslation } from "react-i18next";
 
 function LayoutContent() {
   const { t } = useTranslation();

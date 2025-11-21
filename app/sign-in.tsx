@@ -8,13 +8,14 @@ import {
   View,
 } from "react-native";
 import { router } from "expo-router";
+
 import { useAppDispatch } from "@/lib/store/hooks";
 import { addAuth } from "@/lib/store/slices/auth";
+import handlerErrors from "@/scripts/utils/handlerErrors";
+import createAccount from "@/scripts/handlers/createAccount";
 
 import SafeView from "@/components/SafeView";
 import Form, { FormDataType } from "@/components/Form";
-import handlerErrors from "@/scripts/utils/handlerErrors";
-import createAccount from "@/scripts/handlers/createAccount";
 import ThemedText from "@/components/ThemedText";
 import SeparatorLine from "@/components/SeparatorLine";
 import Loader from "@/components/Loader";

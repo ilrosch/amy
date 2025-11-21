@@ -1,14 +1,15 @@
-import { FlatList, ScrollView, StyleSheet, Text, View } from "react-native";
+import { FlatList, StyleSheet, View } from "react-native";
 import { useTranslation } from "react-i18next";
-import ActionButtonBox from "@/components/action/ActionButtonBox";
-import SeparatorLine from "@/components/SeparatorLine";
+
 import handleCopyID from "@/scripts/handleCopyID";
 import { useAppSelector } from "@/lib/store/hooks";
 import { selectAllContacts } from "@/lib/store/slices/contacts";
-import ThemedText from "@/components/ThemedText";
-import ContactItem from "@/components/contact/ContactItem";
 import { ContactType } from "@/scripts/database/handlers/add-contact-db";
 import useModal from "@/hooks/use-modal";
+
+import ThemedText from "@/components/ThemedText";
+import ContactItem from "@/components/contact/ContactItem";
+import BtnActionIconBox from "@/components/action/BtnActionIconBox";
 
 export default function Contacts() {
   const { t } = useTranslation();
@@ -22,8 +23,8 @@ export default function Contacts() {
 
   return (
     <View style={styles.container}>
-      <ActionButtonBox
-        buttons={[
+      <BtnActionIconBox
+        btnData={[
           {
             title: t("actions.add-user"),
             source: require("@/assets/images/add-user.png"),
