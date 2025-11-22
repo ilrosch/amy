@@ -15,7 +15,7 @@ export const contactSlice = createSlice({
   },
 });
 
-export const { addContact, addContacts } = contactSlice.actions;
+export const { addContact, addContacts, updateContact } = contactSlice.actions;
 
 const contactSelectors = contactsAdapter.getSelectors(
   (state: RootState) => state.contacts

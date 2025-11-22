@@ -1,10 +1,10 @@
 import { store } from "@/lib/store";
 import * as Clipboard from "expo-clipboard";
 
-const handleCopyID = async () => {
+const handleCopy = (value?: string) => async () => {
   const { id } = store.getState().auth;
-  await Clipboard.setStringAsync(id ?? "");
+  await Clipboard.setStringAsync((value || id) ?? "");
   alert("Copy success!");
 };
 
-export default handleCopyID;
+export default handleCopy;

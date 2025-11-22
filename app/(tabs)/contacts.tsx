@@ -33,7 +33,7 @@ export default function Contacts() {
           {
             title: t("actions.copy"),
             source: require("@/assets/images/copy.png"),
-            handle: handleCopyID,
+            handle: handleCopyID(),
           },
         ]}
       />

@@ -2,7 +2,7 @@ import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { useTranslation } from "react-i18next";
 
 import useModal from "@/hooks/use-modal";
-import handleCopyID from "@/scripts/handleCopyID";
+import handleCopy from "@/scripts/handleCopyID";
 
 import BtnActionIconBox from "@/components/action/BtnActionIconBox";
 
@@ -26,7 +26,7 @@ export default function Chats() {
           {
             title: t("actions.copy"),
             source: require("@/assets/images/copy.png"),
-            handle: handleCopyID,
+            handle: handleCopy(),
           },
         ]}
       />

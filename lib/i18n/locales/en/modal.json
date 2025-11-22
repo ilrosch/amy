@@ -1,7 +1,11 @@
 {
-  "rename": "Rename",
   "add-contact": "Add contact",
   "add-contact-text": "Please ask a friend to send you their ID and paste it in the field below.",
   "add-contact-label": "ID",
-  "add-contact-btn": "Connect"
+  "add-contact-btn": "Connect",
+
+  "rename-contact": "Rename contact",
+  "rename-contact-text": "Please enter a new name for this contact.",
+  "rename-contact-label": "Contact name",
+  "rename-contact-btn": "Save"
 }

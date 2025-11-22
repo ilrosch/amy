@@ -10,6 +10,7 @@ import NewContactModal from "@/components/modal/NewContactModal";
 import chatsIcon from "@/assets/images/chat.png";
 import contactIcon from "@/assets/images/contact.png";
 import settingsIcon from "@/assets/images/settings.png";
+import RenameContactModal from "@/components/modal/RenameContactModal";
 
 export const ModalContext = createContext({});
 
@@ -33,7 +34,12 @@ export default function TabsLayout() {
 
   return (
     <>
-      <ModalContext.Provider value={{ showContactModal, setShowContactModal }}>
+      <ModalContext.Provider
+        value={{
+          showContactModal,
+          setShowContactModal,
+        }}
+      >
         <Tabs
           screenOptions={{
             tabBarStyle: {

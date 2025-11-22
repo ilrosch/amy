@@ -19,7 +19,8 @@ export type FormDataType = {
 export type FormType = {
   buttonText: string;
   placeholder: string;
-  handler: (data: FormDataType) => void;
+  handler: (data: FormDataType | any) => void;
+  valueField?: string;
   style?: {
     input?: TextStyle | TextStyle[];
     button?: ViewStyle | ViewStyle[];
@@ -31,8 +32,9 @@ export default function Form({
   placeholder,
   handler,
   style = {},
+  valueField = "",
 }: FormType) {
-  const [value, setValue] = useState<string>("");
+  const [value, setValue] = useState<string>(valueField);
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
 
