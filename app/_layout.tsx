@@ -11,17 +11,21 @@ import { selectUserToken } from "@/lib/store/slices/auth";
 import "@/lib/i18n";
 
 import HeaderSecondary from "@/components/header/HeaderSecondary";
+import ws from "@/lib/clients/ws";
+import Modals from "@/components/modal/Modals";
 
 function LayoutContent() {
   const { t } = useTranslation();
-  const [isLoading, setLoading] = useState(false);
+  const [isLoading, setLoading] = useState(true);
   const token = useAppSelector(selectUserToken);
 
   useEffect(() => {
-    prepareData().then(() => setLoading(true));
+    prepareData()
+      .then(() => ws())
+      .then(() => setLoading(false));
   }, []);
 
-  if (!isLoading) {
+  if (isLoading) {
     return null;
   }
 
@@ -48,6 +52,7 @@ export default function RootLayout() {
     <>
       <Provider store={store}>
         <LayoutContent />
+        <Modals />
       </Provider>
       <StatusBar style="auto" />
     </>

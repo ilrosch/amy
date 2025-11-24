@@ -9,7 +9,7 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
   (config) => {
     const token = selectUserToken(store.getState());
-    if (token) config.headers.set("X-Token", token);
+    if (token) config.headers.set("Authorization", `Bearer ${token}`);
     return config;
   },
   (error) => Promise.reject(error),

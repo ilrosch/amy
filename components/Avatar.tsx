@@ -9,12 +9,17 @@ import ThemedText, { TextSizeType } from "./ThemedText";
 
 export type AvatarType = {
   name: string;
-  sizeText: TextSizeType,
+  sizeText: TextSizeType;
   styleBox?: StyleProp<ViewStyle>;
   styleText?: StyleProp<TextStyle>;
 };
 
-export default function Avatar({ name, sizeText, styleBox, styleText }: AvatarType) {
+export default function Avatar({
+  name,
+  sizeText,
+  styleBox,
+  styleText,
+}: AvatarType) {
   const words = name.split(" ");
   const text = words.length < 2 ? name.slice(0, 2) : words[0][0] + words[1][0];
 

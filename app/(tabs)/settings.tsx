@@ -1,16 +1,15 @@
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { useTranslation } from "react-i18next";
 
-import handleCopyID from "@/scripts/handleCopyID";
-import { useAppSelector } from "@/lib/store/hooks";
-import { selectUserID, selectUserName } from "@/lib/store/slices/auth";
+import { useAppDispatch } from "@/lib/store/hooks";
 
 import BtnActionIconBox from "@/components/action/BtnActionIconBox";
+import handleCopy from "@/scripts/handleCopyID";
+import BtnActionTextBox from "@/components/action/BtnActionTextBox";
 
 export default function Settings() {
   const { t } = useTranslation();
-  const uuid = useAppSelector(selectUserID);
-  const name = useAppSelector(selectUserName);
+  const dispatch = useAppDispatch();
 
   return (
     <View style={styles.container}>
@@ -19,14 +18,25 @@ export default function Settings() {
           {
             title: t("actions.copy"),
             source: require("@/assets/images/copy.png"),
-            handle: handleCopyID,
+            handle: handleCopy,
           },
         ]}
       />
-      <ScrollView style={styles.chats}>
-        <Text style={styles.bage}>Привет, {name}!</Text>
-        <Text style={styles.bage}>ID: {uuid}</Text>
-      </ScrollView>
+      <BtnActionTextBox
+        btnData={[
+          {
+            title: t("actions.rename"),
+          },
+          {
+            title: t("actions.clear-chat"),
+            styleText: styles.btnDander,
+          },
+          {
+            title: t("actions.delete-contact"),
+            styleText: styles.btnDander,
+          },
+        ]}
+      />
     </View>
   );
 }
@@ -36,16 +46,29 @@ const styles = StyleSheet.create({
     paddingTop: 16,
     paddingHorizontal: 24,
   },
-  chats: {
-    paddingVertical: 16,
+  headerBox: {
+    height: 80,
+    backgroundColor: "#86A788",
+    shadowColor: "#000000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowRadius: 4,
+    shadowOpacity: 0.05,
   },
-  bage: {
-    fontSize: 16,
-    fontWeight: "400",
-    fontStyle: "normal",
-    lineHeight: 24,
-    letterSpacing: 0.5,
-    textAlign: "center",
-    color: "#151515",
+  headerAvatar: {
+    width: 100,
+    height: 100,
+    marginTop: -66,
+    alignSelf: "center",
+  },
+  title: {
+    marginTop: 22,
+    marginBottom: 12,
+    color: "#151515CC",
+  },
+  btnDander: {
+    color: "#E41D30",
   },
 });

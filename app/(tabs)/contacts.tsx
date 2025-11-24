@@ -2,18 +2,18 @@ import { FlatList, StyleSheet, View } from "react-native";
 import { useTranslation } from "react-i18next";
 
 import handleCopyID from "@/scripts/handleCopyID";
-import { useAppSelector } from "@/lib/store/hooks";
+import { useAppDispatch, useAppSelector } from "@/lib/store/hooks";
 import { selectAllContacts } from "@/lib/store/slices/contacts";
 import { ContactType } from "@/scripts/database/handlers/add-contact-db";
-import useModal from "@/hooks/use-modal";
 
 import ThemedText from "@/components/ThemedText";
 import ContactItem from "@/components/contact/ContactItem";
 import BtnActionIconBox from "@/components/action/BtnActionIconBox";
+import { openModal } from "@/lib/store/slices/modals";
 
 export default function Contacts() {
   const { t } = useTranslation();
-  const { setShowContactModal } = useModal();
+  const dispatch = useAppDispatch();
 
   const contactItems = useAppSelector(selectAllContacts);
 
@@ -28,7 +28,7 @@ export default function Contacts() {
           {
             title: t("actions.add-user"),
             source: require("@/assets/images/add-user.png"),
-            handle: () => setShowContactModal(true),
+            handle: () => dispatch(openModal({ name: "add-contact" })),
           },
           {
             title: t("actions.copy"),

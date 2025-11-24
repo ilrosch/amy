@@ -1,14 +1,15 @@
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { useTranslation } from "react-i18next";
 
-import useModal from "@/hooks/use-modal";
 import handleCopy from "@/scripts/handleCopyID";
 
 import BtnActionIconBox from "@/components/action/BtnActionIconBox";
+import { useAppDispatch } from "@/lib/store/hooks";
+import { openModal } from "@/lib/store/slices/modals";
 
 export default function Chats() {
   const { t } = useTranslation();
-  const { setShowContactModal } = useModal();
+  const dispatch = useAppDispatch();
 
   return (
     <View style={styles.container}>
@@ -21,7 +22,7 @@ export default function Chats() {
           {
             title: t("actions.add-user"),
             source: require("@/assets/images/add-user.png"),
-            handle: () => setShowContactModal(true),
+            handle: () => dispatch(openModal({ name: "add-contact" })),
           },
           {
             title: t("actions.copy"),

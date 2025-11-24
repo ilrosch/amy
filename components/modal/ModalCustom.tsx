@@ -8,9 +8,9 @@ import {
   StyleSheet,
   View,
 } from "react-native";
-import SeparatorLine from "./SeparatorLine";
+import SeparatorLine from "../SeparatorLine";
 import { ReactNode, useEffect, useRef, useState } from "react";
-import ThemedText from "./ThemedText";
+import ThemedText from "../ThemedText";
 
 export type ModalCustomType = {
   title: string;

@@ -1,11 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import auth from "./slices/auth";
 import contacts from "./slices/contacts";
+import modals from "./slices/modals";
 
 export const store = configureStore({
   reducer: {
     auth,
     contacts,
+    modals,
   },
 });
 

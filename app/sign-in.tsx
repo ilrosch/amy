@@ -33,7 +33,7 @@ export default function SingIn() {
     try {
       const authData = await createAccount(value);
       dispatch(addAuth(authData));
-      router.replace("/");
+      router.replace("/chats");
     } catch (err) {
       console.log(err);
       const textErr = handlerErrors(err);

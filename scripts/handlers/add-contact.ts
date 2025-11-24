@@ -9,8 +9,9 @@ const addContactHandler = async (id: string) => {
     const { data } = await axiosInstance.get(routes.addContact(id));
     await addContactDB(data);
     store.dispatch(addContact(data));
+    console.log("success add contact: ", id);
   } catch (err) {
-    console.log("Failed add contact: ", err);
+    console.log("failed add contact: ", err);
     throw err;
   }
 };

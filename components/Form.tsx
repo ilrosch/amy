@@ -1,7 +1,5 @@
 import { Dispatch, SetStateAction, useState } from "react";
 import {
-  ActivityIndicator,
-  Pressable,
   StyleSheet,
   Text,
   TextInput,
@@ -9,7 +7,7 @@ import {
   View,
   ViewStyle,
 } from "react-native";
-import ThemedText from "./ThemedText";
+import Btn from "./Btn";
 
 export type FormDataType = {
   value: string;
@@ -59,23 +57,12 @@ export default function Form({
         />
         {error && <Text style={styles.error}>{error}</Text>}
       </View>
-      <Pressable
-        disabled={loading}
-        style={({ pressed }) => [
-          styles.button,
-          style.button,
-          pressed && styles.buttonPress,
-        ]}
-        onPress={handleSubmit}
-      >
-        {loading ? (
-          <ActivityIndicator size="small" color="#FFFFFF" />
-        ) : (
-          <ThemedText title={true} size={"m"} style={styles.buttonText}>
-            {buttonText}
-          </ThemedText>
-        )}
-      </Pressable>
+      <Btn
+        btnText={buttonText}
+        color={"success"}
+        handler={handleSubmit}
+        loadStatus={loading}
+      />
     </View>
   );
 }
@@ -112,22 +99,5 @@ const styles = StyleSheet.create({
     lineHeight: 24,
     letterSpacing: 0.15,
     color: "#E41D30",
-  },
-
-  button: {
-    borderRadius: 8,
-    backgroundColor: "#86A788",
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-    marginTop: 14,
-    minHeight: 48,
-  },
-
-  buttonPress: {
-    backgroundColor: "#608862ff",
-  },
-
-  buttonText: {
-    color: "#FFFFFF",
   },
 });

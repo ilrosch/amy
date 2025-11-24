@@ -7,5 +7,13 @@
   "rename-contact": "Rename contact",
   "rename-contact-text": "Please enter a new name for this contact.",
   "rename-contact-label": "Contact name",
-  "rename-contact-btn": "Save"
+  "rename-contact-btn": "Save",
+
+  "remove-contact": "Delete contact",
+  "remove-contact-text": "Warming: ...",
+  "remove-contact-btn": "Delete",
+
+  "clear-chat-contact": "Clear chat",
+  "clear-chat-contact-text": "Warning: will delete all messages with your contact. This action affects only your device and cannot be undone.",
+  "clear-chat-contact-btn": "Clear"
 }

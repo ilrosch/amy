@@ -12,7 +12,6 @@ const addContactDB = async ({ id, name }: ContactType) => {
     await stmt.executeAsync(id, name);
     await stmt.finalizeAsync();
   } catch (err) {
-    console.log("Add contact DB: ", err.code);
     switch (err.code) {
       case "ERR_INTERNAL_SQLITE_ERROR":
         throw "Contact is exist";
