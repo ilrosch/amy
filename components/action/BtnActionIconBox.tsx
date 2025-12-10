@@ -1,26 +1,17 @@
-import { FlatList, StyleProp, ViewStyle } from "react-native";
-import BtnActionIcon, { BtnActionIconType } from "./BtnActionIcon";
-import SeparatorLine from "../SeparatorLine";
+import { FlatList, StyleProp, View, ViewStyle } from 'react-native';
+import BtnActionIcon, { BtnActionIconType } from './BtnActionIcon';
+import { Colors } from '@/assets/tokens';
 
-const readerBtn = ({ item }: { item: BtnActionIconType }) => (
-  <BtnActionIcon {...item} />
-);
+const readerBtn = ({ item }: { item: BtnActionIconType }) => <BtnActionIcon {...item} />;
 
 export type BtnActionIconBoxType = {
   btnData: BtnActionIconType[];
-  line?: boolean;
   styleBox?: StyleProp<ViewStyle>;
-  styleLine?: StyleProp<ViewStyle>;
 };
 
-export default function BtnActionIconBox({
-  btnData,
-  line = true,
-  styleBox,
-  styleLine,
-}: BtnActionIconBoxType) {
+export default function BtnActionIconBox({ btnData, styleBox }: BtnActionIconBoxType) {
   return (
-    <>
+    <View>
       <FlatList
         data={btnData}
         renderItem={readerBtn}
@@ -28,16 +19,16 @@ export default function BtnActionIconBox({
         horizontal={true}
         contentContainerStyle={[
           {
-            minWidth: "100%",
-            justifyContent: "center",
+            minWidth: '100%',
+            borderRadius: 10,
+            backgroundColor: Colors.white,
+            paddingHorizontal: 12,
+            justifyContent: 'center',
             gap: 14,
           },
           styleBox,
         ]}
       />
-      {line && (
-        <SeparatorLine style={[{ backgroundColor: "#D9D9D9" }, styleLine]} />
-      )}
-    </>
+    </View>
   );
 }

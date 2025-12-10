@@ -1,9 +1,9 @@
-import { useAppDispatch, useAppSelector } from "@/lib/store/hooks";
-import ConfirmModal from "./ConfirmModal";
-import FormModal from "./FormModal";
-import { closeModal } from "@/lib/store/slices/modals";
-import ModalCustom from "./ModalCustom";
-import modalData from "@/lib/modalData";
+import { useAppDispatch, useAppSelector } from '@/lib/store/hooks';
+import ConfirmModal from './ConfirmModal';
+import FormModal from './FormModal';
+import { closeModal } from '@/lib/store/slices/modals';
+import ModalCustom from './ModalCustom';
+import modalData from '@/lib/modalData';
 
 const ModalComponents = {
   confirm: ConfirmModal,

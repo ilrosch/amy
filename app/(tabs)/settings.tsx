@@ -1,23 +1,26 @@
-import { StyleSheet, View } from "react-native";
-import { useTranslation } from "react-i18next";
+import { StyleSheet, View } from 'react-native';
+import { useTranslation } from 'react-i18next';
 
-import { useAppDispatch } from "@/lib/store/hooks";
+// import { useAppDispatch } from '@/lib/store/hooks';
+import handleCopy from '@/scripts/handleCopyID';
+import { Colors } from '@/assets/tokens';
 
-import BtnActionIconBox from "@/components/action/BtnActionIconBox";
-import handleCopy from "@/scripts/handleCopyID";
-import BtnActionTextBox from "@/components/action/BtnActionTextBox";
+import CopyIcon from '@/assets/icons/copy-icon';
+
+import BtnActionIconBox from '@/components/action/BtnActionIconBox';
+import BtnActionTextBox from '@/components/action/BtnActionTextBox';
 
 export default function Settings() {
   const { t } = useTranslation();
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
 
   return (
     <View style={styles.container}>
       <BtnActionIconBox
         btnData={[
           {
-            title: t("actions.copy"),
-            source: require("@/assets/images/copy.png"),
+            Icon: CopyIcon,
+            title: t('actions.copy'),
             handle: handleCopy,
           },
         ]}
@@ -25,14 +28,14 @@ export default function Settings() {
       <BtnActionTextBox
         btnData={[
           {
-            title: t("actions.rename"),
+            title: t('actions.rename'),
           },
           {
-            title: t("actions.clear-chat"),
+            title: t('actions.clear-chat'),
             styleText: styles.btnDander,
           },
           {
-            title: t("actions.delete-contact"),
+            title: t('actions.delete-contact'),
             styleText: styles.btnDander,
           },
         ]}
@@ -43,32 +46,12 @@ export default function Settings() {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 16,
-    paddingHorizontal: 24,
-  },
-  headerBox: {
-    height: 80,
-    backgroundColor: "#86A788",
-    shadowColor: "#000000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowRadius: 4,
-    shadowOpacity: 0.05,
-  },
-  headerAvatar: {
-    width: 100,
-    height: 100,
-    marginTop: -66,
-    alignSelf: "center",
-  },
-  title: {
-    marginTop: 22,
-    marginBottom: 12,
-    color: "#151515CC",
+    paddingVertical: 6,
+    paddingHorizontal: 12,
+    flex: 1,
+    gap: 6,
   },
   btnDander: {
-    color: "#E41D30",
+    color: Colors.danger,
   },
 });

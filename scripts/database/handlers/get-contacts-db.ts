@@ -1,6 +1,6 @@
-import { db } from "../init";
-import { ContactType } from "./add-contact-db";
-import reqs from "./reqs";
+import { db } from '../init';
+import { ContactType } from './add-contact-db';
+import reqs from './reqs';
 
 const getContacts = async (): Promise<ContactType[]> => {
   try {
@@ -10,7 +10,7 @@ const getContacts = async (): Promise<ContactType[]> => {
     await stmt.finalizeAsync();
     return contacts;
   } catch (error) {
-    console.error("Error fetching contacts:", error);
+    console.error('Error fetching contacts:', error);
     throw error;
   }
 };

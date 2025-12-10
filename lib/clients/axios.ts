@@ -1,6 +1,6 @@
-import axios from "axios";
-import { store } from "@/lib/store";
-import { selectUserToken } from "@/lib/store/slices/auth";
+import axios from 'axios';
+import { store } from '@/lib/store';
+import { selectUserToken } from '@/lib/store/slices/auth';
 
 const axiosInstance = axios.create({
   timeout: 5000,
@@ -9,7 +9,7 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
   (config) => {
     const token = selectUserToken(store.getState());
-    if (token) config.headers.set("Authorization", `Bearer ${token}`);
+    if (token) config.headers.set('Authorization', `Bearer ${token}`);
     return config;
   },
   (error) => Promise.reject(error),

@@ -1,17 +1,17 @@
-import axiosInstance from "@/lib/clients/axios";
-import routes from "@/lib/routes";
-import addContactDB from "../database/handlers/add-contact-db";
-import { store } from "@/lib/store";
-import { addContact } from "@/lib/store/slices/contacts";
+import axiosInstance from '@/lib/clients/axios';
+import routes from '@/lib/routes';
+import addContactDB from '../database/handlers/add-contact-db';
+import { store } from '@/lib/store';
+import { addContact } from '@/lib/store/slices/contacts';
 
 const addContactHandler = async (id: string) => {
   try {
     const { data } = await axiosInstance.get(routes.addContact(id));
     await addContactDB(data);
     store.dispatch(addContact(data));
-    console.log("success add contact: ", id);
+    console.log('success add contact: ', id);
   } catch (err) {
-    console.log("failed add contact: ", err);
+    console.log('failed add contact: ', err);
     throw err;
   }
 };

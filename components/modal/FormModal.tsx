@@ -1,6 +1,6 @@
-import ModalCustom from "./ModalCustom";
-import Form, { FormDataType } from "../Form";
-import { useTranslation } from "react-i18next";
+import ModalCustom from './ModalCustom';
+import Form, { FormDataType } from '../shared/Form';
+import { useTranslation } from 'react-i18next';
 
 export type FormModalType = {
   title: string;
@@ -19,7 +19,7 @@ export default function FormModal({
   text,
   btnText,
   placeholder,
-  valueField = "",
+  valueField = '',
   handler,
   open,
   close,
@@ -28,7 +28,7 @@ export default function FormModal({
   const { t } = useTranslation();
 
   const handleSubmit = async ({ value, setError }: FormDataType) => {
-    setError("");
+    setError('');
     try {
       await handler(value, userID);
       close();
@@ -38,19 +38,8 @@ export default function FormModal({
   };
 
   return (
-    <ModalCustom
-      title={t(title)}
-      text={t(text)}
-      line={true}
-      visible={open}
-      handleClose={close}
-    >
-      <Form
-        buttonText={t(btnText)}
-        placeholder={t(placeholder)}
-        valueField={valueField}
-        handler={handleSubmit}
-      />
+    <ModalCustom title={t(title)} text={t(text)} line={true} visible={open} close={close}>
+      <Form buttonText={t(btnText)} placeholder={t(placeholder)} valueField={valueField} handler={handleSubmit} />
     </ModalCustom>
   );
 }

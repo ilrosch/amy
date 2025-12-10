@@ -1,5 +1,6 @@
 {
-  "short": "Minimum 2 symbols",
+  "error": "Oops...",
+  "invalid-name": "Your name invalid. Minimum 2 symbols",
   "server": "Server error",
   "unknown": "Unknown error"
 }

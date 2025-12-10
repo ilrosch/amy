@@ -1,36 +1,25 @@
-import {
-  Image,
-  ImageSourcePropType,
-  Pressable,
-  StyleSheet,
-  ViewStyle,
-} from "react-native";
-import ThemedText from "../ThemedText";
+import { ComponentType } from 'react';
+import { Pressable, StyleSheet, View, ViewStyle } from 'react-native';
+import { SvgProps } from 'react-native-svg';
+
+import { Colors } from '@/assets/tokens';
+
+import ThemedText from '../shared/ThemedText';
 
 export type BtnActionIconType = {
+  Icon: ComponentType<SvgProps>;
   title?: string;
-  source?: ImageSourcePropType;
   style?: ViewStyle | ViewStyle[];
   handle?: () => void;
 };
 
-export default function BtnActionIcon({
-  style,
-  title,
-  source,
-  handle,
-}: BtnActionIconType) {
+export default function BtnActionIcon({ Icon, style, title, handle }: BtnActionIconType) {
   return (
-    <Pressable
-      style={({ pressed }) => [
-        styles.button,
-        style,
-        pressed && styles.buttonPress,
-      ]}
-      onPress={handle}
-    >
-      <Image source={source} style={styles.buttonIcon} />
-      <ThemedText title={true} size={"s"} style={styles.buttonText}>
+    <Pressable style={({ pressed }) => [styles.button, style, pressed && styles.buttonPressed]} onPress={handle}>
+      <View style={styles.iconBox}>
+        <Icon color={Colors.textDark} width={24} height={24} />
+      </View>
+      <ThemedText title={true} size={'s'} style={styles.buttonText}>
         {title}
       </ThemedText>
     </Pressable>
@@ -39,31 +28,26 @@ export default function BtnActionIcon({
 
 const styles = StyleSheet.create({
   button: {
-    alignItems: "center",
-    justifyContent: "center",
+    width: 95,
+    paddingVertical: 12,
+    gap: 4,
+  },
+  buttonPressed: {},
+  iconBox: {
+    alignItems: 'center',
+    paddingVertical: 8,
+    paddingHorizontal: 12,
     borderRadius: 8,
-    backgroundColor: "#FFFFFF",
-    shadowColor: "#000000",
+    backgroundColor: Colors.light,
+    shadowColor: Colors.black,
     shadowOffset: {
       width: 0,
       height: 1,
     },
     shadowRadius: 4,
-    shadowOpacity: 0.05,
-    paddingVertical: 12,
-    paddingHorizontal: 6,
-    minWidth: 100,
-  },
-  buttonPress: {
-    opacity: 0.8,
-  },
-  buttonIcon: {
-    width: 24,
-    height: 24,
-    marginBottom: 6,
-    tintColor: "rgba(21, 21, 21, 0.6)",
+    shadowOpacity: 0.1,
   },
   buttonText: {
-    color: "#15151599",
+    color: Colors.textDark,
   },
 });

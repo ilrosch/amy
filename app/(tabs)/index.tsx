@@ -1,58 +1,60 @@
-import { ScrollView, StyleSheet, Text, View } from "react-native";
-import { useTranslation } from "react-i18next";
+import { StyleSheet, View } from 'react-native';
+import { useTranslation } from 'react-i18next';
 
-import handleCopy from "@/scripts/handleCopyID";
+import { useAppDispatch, useAppSelector } from '@/lib/store/hooks';
+import { openModal } from '@/lib/store/slices/modals';
+import { selectAllChats } from '@/lib/store/slices/chats';
+import handleCopy from '@/scripts/handleCopyID';
 
-import BtnActionIconBox from "@/components/action/BtnActionIconBox";
-import { useAppDispatch } from "@/lib/store/hooks";
-import { openModal } from "@/lib/store/slices/modals";
+import AddChatIcon from '@/assets/icons/add-chat-icon';
+import AddUserIcon from '@/assets/icons/add-user-icon';
+import CopyIcon from '@/assets/icons/copy-icon';
+
+import BtnActionIconBox from '@/components/action/BtnActionIconBox';
+import ChatContactsList from '@/components/widgets/ChatContactsList';
 
 export default function Chats() {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
+  const chats = useAppSelector(selectAllChats);
 
   return (
     <View style={styles.container}>
       <BtnActionIconBox
         btnData={[
           {
-            title: t("actions.add-chat"),
-            source: require("@/assets/images/add-chat.png"),
+            Icon: AddChatIcon,
+            title: t('actions.add-chat'),
+            handle: () =>
+              dispatch(
+                openModal({
+                  name: 'new-chat',
+                }),
+              ),
           },
           {
-            title: t("actions.add-user"),
-            source: require("@/assets/images/add-user.png"),
-            handle: () => dispatch(openModal({ name: "add-contact" })),
+            Icon: AddUserIcon,
+            title: t('actions.add-user'),
+            handle: () => dispatch(openModal({ name: 'add-contact' })),
           },
           {
-            title: t("actions.copy"),
-            source: require("@/assets/images/copy.png"),
+            Icon: CopyIcon,
+            title: t('actions.copy'),
             handle: handleCopy(),
           },
         ]}
       />
-      <ScrollView style={styles.chats}>
-        <Text style={styles.bage}>{t("infoMsg.noChats")}</Text>
-      </ScrollView>
+
+      <ChatContactsList items={chats} />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 16,
-    paddingHorizontal: 24,
-  },
-  chats: {
-    paddingVertical: 16,
-  },
-  bage: {
-    fontSize: 16,
-    fontWeight: "400",
-    fontStyle: "normal",
-    lineHeight: 24,
-    letterSpacing: 0.5,
-    textAlign: "center",
-    color: "#151515",
+    paddingVertical: 6,
+    paddingHorizontal: 12,
+    flex: 1,
+    gap: 6,
   },
 });

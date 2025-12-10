@@ -1,14 +1,16 @@
-import { SQLiteDatabase } from "expo-sqlite";
+import { SQLiteDatabase } from 'expo-sqlite';
 
 const createChatsTable = async (db: SQLiteDatabase) => {
   const req = `
     CREATE TABLE IF NOT EXISTS chats (
       id TEXT PRIMARY KEY,
-      name TEXT,
-      create_time DATETIME DEFAULT CURRENT_TIMESTAMP
+      user_id TEXT NOT NULL,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (user_id) REFERENCES contacts(id)
     );
   `;
 
+  // return db.execAsync("DROP TABLE chats");
   return db.execAsync(req);
 };
 

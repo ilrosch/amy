@@ -1,5 +1,5 @@
-import { db } from "../init";
-import reqs from "./reqs";
+import { db } from '../init';
+import reqs from './reqs';
 
 export type ContactType = {
   id: string;
@@ -13,8 +13,8 @@ const addContactDB = async ({ id, name }: ContactType) => {
     await stmt.finalizeAsync();
   } catch (err) {
     switch (err.code) {
-      case "ERR_INTERNAL_SQLITE_ERROR":
-        throw "Contact is exist";
+      case 'ERR_INTERNAL_SQLITE_ERROR':
+        throw 'Contact is exist';
       default:
         throw err;
     }

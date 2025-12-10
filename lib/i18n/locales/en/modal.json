@@ -15,5 +15,8 @@
 
   "clear-chat-contact": "Clear chat",
   "clear-chat-contact-text": "Warning: will delete all messages with your contact. This action affects only your device and cannot be undone.",
-  "clear-chat-contact-btn": "Clear"
+  "clear-chat-contact-btn": "Clear",
+
+  "new-chat": "New chat",
+  "new-chat-text": "Please select a contact to start chatting."
 }

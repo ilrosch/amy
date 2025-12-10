@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "amy",
+    "name": "Amy",
     "slug": "amy",
     "scheme": "amy",
     "version": "1.0.0",
@@ -9,7 +9,7 @@
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
-      "image": "./assets/splash-icon.png",
+      "image": "./assets/icon.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -18,15 +18,11 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": true,
+      "softwareKeyboardLayoutMode": "pan",
       "package": "com.anonymous.amy"
-    },
-    "web": {
-      "favicon": "./assets/favicon.png"
     },
     "plugins": [
       "expo-router",
@@ -52,9 +48,7 @@
           ]
         }
       ],
-      [
-        "expo-localization"
-      ],
+      ["expo-localization"],
       [
         "expo-sqlite",
         {
@@ -65,12 +59,11 @@
             "useSQLCipher": false
           },
           "ios": {
-            "customBuildFlags": [
-              "-DSQLITE_ENABLE_DBSTAT_VTAB=1 -DSQLITE_ENABLE_SNAPSHOT=1"
-            ]
+            "customBuildFlags": ["-DSQLITE_ENABLE_DBSTAT_VTAB=1 -DSQLITE_ENABLE_SNAPSHOT=1"]
           }
         }
-      ]
+      ],
+      "expo-secure-store"
     ]
   }
 }

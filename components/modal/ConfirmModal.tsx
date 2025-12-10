@@ -1,7 +1,7 @@
-import { useState } from "react";
-import ModalCustom from "./ModalCustom";
-import Btn from "../Btn";
-import { useTranslation } from "react-i18next";
+import { useState } from 'react';
+import ModalCustom from './ModalCustom';
+import Btn from '../shared/Btn';
+import { useTranslation } from 'react-i18next';
 
 export type ConfirmModalType = {
   title: string;
@@ -12,14 +12,7 @@ export type ConfirmModalType = {
   handler: () => void;
 };
 
-export default function ConfirmModal({
-  title,
-  text,
-  btnText,
-  open,
-  close,
-  handler,
-}: ConfirmModalType) {
+export default function ConfirmModal({ title, text, btnText, open, close, handler }: ConfirmModalType) {
   const { t } = useTranslation();
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -31,19 +24,8 @@ export default function ConfirmModal({
   };
 
   return (
-    <ModalCustom
-      title={t(title)}
-      text={t(text)}
-      line={false}
-      visible={open}
-      handleClose={close}
-    >
-      <Btn
-        btnText={t(btnText)}
-        color={"danger"}
-        handler={handleSubmit}
-        loadStatus={loading}
-      />
+    <ModalCustom title={t(title)} text={t(text)} line={false} visible={open} close={close}>
+      <Btn btnText={t(btnText)} color={'danger'} handler={handleSubmit} loadStatus={loading} />
     </ModalCustom>
   );
 }

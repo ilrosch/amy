@@ -1,43 +1,69 @@
-import { Stack } from "expo-router";
-import { StatusBar } from "expo-status-bar";
-import { Provider } from "react-redux";
-import { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
+import * as SplashScreen from 'expo-splash-screen';
+import { useEffect, useState } from 'react';
+import { Stack } from 'expo-router';
+import { Provider } from 'react-redux';
+import { StatusBar } from 'expo-status-bar';
+import { useTranslation } from 'react-i18next';
+import { initialWindowMetrics, SafeAreaProvider } from 'react-native-safe-area-context';
 
-import prepareData from "@/scripts/prepareData";
-import { store } from "@/lib/store";
-import { useAppSelector } from "@/lib/store/hooks";
-import { selectUserToken } from "@/lib/store/slices/auth";
-import "@/lib/i18n";
+import '@/lib/i18n';
+import { store } from '@/lib/store';
+import { useAppSelector } from '@/lib/store/hooks';
+import { selectUserToken } from '@/lib/store/slices/auth';
+import prepareData from '@/scripts/prepareData';
 
-import HeaderSecondary from "@/components/header/HeaderSecondary";
-import ws from "@/lib/clients/ws";
-import Modals from "@/components/modal/Modals";
+import HeaderSecondary from '@/components/header/HeaderSecondary';
+import Modals from '@/components/modal/Modals';
+import Notice from '@/components/Notice';
+import Header from '@/components/header/Header';
+
+SplashScreen.setOptions({ duration: 1000, fade: true });
+SplashScreen.preventAutoHideAsync();
 
 function LayoutContent() {
   const { t } = useTranslation();
-  const [isLoading, setLoading] = useState(true);
   const token = useAppSelector(selectUserToken);
 
+  const [isReady, setIsReady] = useState<boolean>(false);
+
   useEffect(() => {
-    prepareData()
-      .then(() => ws())
-      .then(() => setLoading(false));
+    if (isReady) {
+      SplashScreen.hide();
+    }
+  }, [isReady]);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        await prepareData();
+      } catch (err) {
+        console.log('Prepare data:', err);
+      } finally {
+        setIsReady(true);
+      }
+    })();
   }, []);
 
-  if (isLoading) {
+  if (!isReady) {
     return null;
   }
 
   return (
-    <Stack screenOptions={{ headerShown: false }}>
+    <Stack screenOptions={{ headerShown: false, animation: 'ios_from_right' }}>
       <Stack.Protected guard={!!token}>
         <Stack.Screen name="(tabs)" />
         <Stack.Screen
           name="profile/[id]"
           options={{
             headerShown: true,
-            header: () => <HeaderSecondary title={t("pages.profile")} />,
+            header: () => <Header title={t('pages.profile')} />,
+          }}
+        />
+        <Stack.Screen
+          name="chat/[id]"
+          options={{
+            headerShown: true,
+            header: () => <HeaderSecondary title={t('pages.chat')} />,
           }}
         />
       </Stack.Protected>
@@ -50,10 +76,13 @@ function LayoutContent() {
 export default function RootLayout() {
   return (
     <>
-      <Provider store={store}>
-        <LayoutContent />
-        <Modals />
-      </Provider>
+      <SafeAreaProvider initialMetrics={initialWindowMetrics}>
+        <Provider store={store}>
+          <LayoutContent />
+          <Modals />
+          <Notice />
+        </Provider>
+      </SafeAreaProvider>
       <StatusBar style="auto" />
     </>
   );

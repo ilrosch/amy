@@ -1,6 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit";
-import type { PayloadAction } from "@reduxjs/toolkit";
-import type { RootState } from "..";
+import { createSlice } from '@reduxjs/toolkit';
+import type { PayloadAction } from '@reduxjs/toolkit';
+import type { RootState } from '..';
 
 interface AuthState {
   id: string | null;
@@ -15,13 +15,10 @@ const initialState: AuthState = {
 };
 
 export const counterSlice = createSlice({
-  name: "auth",
+  name: 'auth',
   initialState,
   reducers: {
-    addAuth: (
-      state,
-      { payload: { id, token, name } }: PayloadAction<AuthState>,
-    ) => {
+    addAuth: (state, { payload: { id, token, name } }: PayloadAction<AuthState>) => {
       state.id = id;
       state.token = token;
       state.name = name;

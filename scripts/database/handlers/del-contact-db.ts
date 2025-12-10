@@ -1,5 +1,5 @@
-import { db } from "../init";
-import reqs from "./reqs";
+import { db } from '../init';
+import reqs from './reqs';
 
 const removeContactDB = async (id: string) => {
   try {
@@ -8,7 +8,7 @@ const removeContactDB = async (id: string) => {
     await stmt.executeAsync(id);
     await stmt.finalizeAsync();
   } catch (err) {
-    console.log("Remove contact DB: ", err.code);
+    console.log('Remove contact DB: ', err.code);
     switch (err.code) {
       default:
         throw err;

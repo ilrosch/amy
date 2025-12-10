@@ -1,34 +1,20 @@
-import {
-  Animated,
-  Image,
-  KeyboardAvoidingView,
-  Modal,
-  Platform,
-  Pressable,
-  StyleSheet,
-  View,
-} from "react-native";
-import SeparatorLine from "../SeparatorLine";
-import { ReactNode, useEffect, useRef, useState } from "react";
-import ThemedText from "../ThemedText";
+import { Animated, Image, KeyboardAvoidingView, Modal, Platform, Pressable, StyleSheet, View } from 'react-native';
+import SeparatorLine from '../shared/SeparatorLine';
+import { ReactNode, useEffect, useRef, useState } from 'react';
+import ThemedText from '../shared/ThemedText';
+import { useTranslation } from 'react-i18next';
 
 export type ModalCustomType = {
   title: string;
   text: string;
   line?: boolean;
-  handleClose: () => void;
+  close: () => void;
   visible?: boolean;
   children?: ReactNode;
 };
 
-export default function ModalCustom({
-  title,
-  text,
-  handleClose,
-  children,
-  line = false,
-  visible = true,
-}: ModalCustomType) {
+export default function ModalCustom({ title, text, close, children, line = false, visible = true }: ModalCustomType) {
+  const { t } = useTranslation();
   const [hiddenOverlay, setHiddenOverlay] = useState(false);
 
   const fadeAnim = useRef(new Animated.Value(0)).current;
@@ -83,38 +69,27 @@ export default function ModalCustom({
         {
           opacity: fadeAnim,
         },
-        hiddenOverlay && { display: "none" },
+        hiddenOverlay && { display: 'none' },
       ]}
     >
       <Modal animationType="none" transparent={true} visible={visible}>
-        <KeyboardAvoidingView
-          behavior={Platform.OS === "ios" ? "padding" : "height"}
-          style={styles.modal}
-        >
-          <Animated.View
-            style={[{ transform: [{ translateY: translateYAnim }] }]}
-          >
+        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.modal}>
+          <Animated.View style={[{ transform: [{ translateY: translateYAnim }] }]}>
             <Pressable
-              style={({ pressed }) => [
-                styles.close,
-                pressed && styles.closePress,
-              ]}
+              style={({ pressed }) => [styles.close, pressed && styles.closePress]}
               onPress={() => {
                 fadeOut();
-                handleClose();
+                close();
               }}
             >
-              <Image
-                source={require("@/assets/images/close.png")}
-                alt="close"
-              />
+              <Image source={require('@/assets/images/close.png')} alt="close" />
             </Pressable>
             <View style={styles.modalBody}>
-              <ThemedText title={true} size={"l"} style={styles.title}>
-                {title}
+              <ThemedText title={true} size={'l'} style={styles.title}>
+                {t(title)}
               </ThemedText>
-              <ThemedText size={"m"} style={styles.text}>
-                {text}
+              <ThemedText size={'m'} style={styles.text}>
+                {t(text)}
               </ThemedText>
               {line && <SeparatorLine style={styles.line} />}
               {children}
@@ -129,14 +104,13 @@ export default function ModalCustom({
 const styles = StyleSheet.create({
   overlay: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: "#00000099",
+    backgroundColor: '#00000099',
     zIndex: 9,
   },
 
   modal: {
     flex: 1,
-    justifyContent: "flex-end",
-    alignItems: "center",
+    justifyContent: 'flex-end',
     marginBottom: 40,
     padding: 12,
   },
@@ -145,15 +119,15 @@ const styles = StyleSheet.create({
     width: 68,
     height: 68,
     borderRadius: 100,
-    backgroundColor: "#FFFFFF",
-    shadowColor: "#000",
+    backgroundColor: '#FFFFFF',
+    shadowColor: '#000000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.05,
     shadowRadius: 4,
-    elevation: 5,
-    justifyContent: "center",
-    alignItems: "center",
-    alignSelf: "center",
+    elevation: 4,
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'center',
     marginBottom: -17,
     zIndex: 1,
   },
@@ -161,20 +135,23 @@ const styles = StyleSheet.create({
     opacity: 0.95,
   },
   modalBody: {
+    width: '100%',
+    maxWidth: 600,
+    alignSelf: 'center',
     borderRadius: 12,
-    backgroundColor: "#FFFFFF",
+    backgroundColor: '#FFFFFF',
     paddingVertical: 32,
     paddingHorizontal: 28,
     gap: 14,
   },
   title: {
-    color: "#151515",
+    color: '#151515',
   },
   text: {
-    color: "#151515CC",
+    color: '#151515CC',
   },
   line: {
     width: 80,
-    backgroundColor: "rgba(134, 167, 136, 1.0)",
+    backgroundColor: 'rgba(134, 167, 136, 1.0)',
   },
 });

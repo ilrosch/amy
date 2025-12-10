@@ -1,5 +1,5 @@
-import React from "react";
-import { View, ActivityIndicator, StyleSheet } from "react-native";
+import React from 'react';
+import { View, ActivityIndicator, StyleSheet } from 'react-native';
 
 export default function Loader() {
   return (
@@ -15,12 +15,12 @@ const styles = StyleSheet.create({
   overlay: {
     ...StyleSheet.absoluteFillObject,
     zIndex: 3,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   loaderContainer: {
-    backgroundColor: "rgba(0, 0, 0, 0.7)",
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
     padding: 20,
     borderRadius: 8,
   },

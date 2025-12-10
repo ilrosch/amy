@@ -1,4 +1,4 @@
-import { SQLiteDatabase } from "expo-sqlite";
+import { SQLiteDatabase } from 'expo-sqlite';
 
 const createContactsTable = async (db: SQLiteDatabase) => {
   const req = `

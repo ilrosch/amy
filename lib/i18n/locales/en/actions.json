@@ -1,8 +1,10 @@
 {
   "add-chat": "New chat",
   "add-user": "New user",
-  "call": "New call",
+  "call": "Call",
+  "new-call": "New call",
   "copy": "Copy ID",
+  "chat": "Chat",
   "rename": "Rename",
   "clear-chat": "Clear chat",
   "delete-contact": "Delete contact"
