@@ -6,8 +6,8 @@ import { Dispatch } from '@reduxjs/toolkit';
 import initDB from './database/init';
 import getContacts from './database/handlers/get-contacts-db';
 import { addContacts } from '@/lib/store/slices/contacts';
-import { addChats } from '@/lib/store/slices/chats';
-import { getChats } from './database/handlers/create-chat-db';
+import { addChats, ChatType } from '@/lib/store/slices/chats';
+import { getChats, getLastMessage } from './database/handlers/create-chat-db';
 
 const prepareAuthData = async (dispatch: Dispatch) => {
   const psID = SecureStore.getItemAsync('id');
@@ -23,8 +23,16 @@ const prepareContactsData = async (dispatch: Dispatch) => {
 };
 
 const prepareChatsData = async (dispatch: Dispatch) => {
-  const chats = await getChats();
-  return dispatch(addChats(chats));
+  const chats = (await getChats()) as ChatType[];
+  const lastMessagePS = chats?.map((chat) => getLastMessage(chat.id).then((msg) => msg?.body || null));
+  const lastMessages = await Promise.all(lastMessagePS);
+
+  const chatsData = chats?.map((chat, index) => ({
+    ...chat,
+    message: lastMessages[index],
+  }));
+
+  return dispatch(addChats(chatsData));
 };
 
 const prepareData = async () => {

@@ -6,10 +6,12 @@
       "@/*": [
         "./*"
       ]
-    }
+    },
+    "allowSyntheticDefaultImports": true
   },
   "include": [
     "**/*.ts",
-    "**/*.tsx", "eslint.config.js",
+    "**/*.tsx",
+    "eslint.config.js",
   ]
 }

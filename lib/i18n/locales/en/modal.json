@@ -13,9 +13,13 @@
   "remove-contact-text": "Warming: ...",
   "remove-contact-btn": "Delete",
 
-  "clear-chat-contact": "Clear chat",
-  "clear-chat-contact-text": "Warning: will delete all messages with your contact. This action affects only your device and cannot be undone.",
-  "clear-chat-contact-btn": "Clear",
+  "clear-chat": "Clear chat",
+  "clear-chat-text": "Warning: will delete all messages with your contact. This action affects only your device and cannot be undone.",
+  "clear-chat-btn": "Clear",
+
+  "remove-chat": "Delete chat",
+  "remove-chat-text": "Warning: will delete all messages with your contact. This action affects only your device and cannot be undone.",
+  "remove-chat-btn": "Delete",
 
   "new-chat": "New chat",
   "new-chat-text": "Please select a contact to start chatting."

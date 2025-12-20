@@ -2,7 +2,7 @@ import { StyleSheet, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
 // import { useAppDispatch } from '@/lib/store/hooks';
-import handleCopy from '@/scripts/handleCopyID';
+import { handleCopyCurrentID } from '@/scripts/handleCopyID';
 import { Colors } from '@/assets/tokens';
 
 import CopyIcon from '@/assets/icons/copy-icon';
@@ -12,7 +12,6 @@ import BtnActionTextBox from '@/components/action/BtnActionTextBox';
 
 export default function Settings() {
   const { t } = useTranslation();
-  // const dispatch = useAppDispatch();
 
   return (
     <View style={styles.container}>
@@ -21,7 +20,7 @@ export default function Settings() {
           {
             Icon: CopyIcon,
             title: t('actions.copy'),
-            handle: handleCopy,
+            handle: handleCopyCurrentID,
           },
         ]}
       />

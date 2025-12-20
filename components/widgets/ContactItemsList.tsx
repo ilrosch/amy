@@ -1,5 +1,5 @@
-import { FlatList, Pressable, StyleSheet, View } from 'react-native';
-import { router } from 'expo-router';
+import { FlatList, Pressable, StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
+import { useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 
 import { ContactType } from '@/scripts/database/handlers/add-contact-db';
@@ -7,16 +7,19 @@ import { Colors } from '@/assets/tokens';
 
 import ThemedText from '../shared/ThemedText';
 import Avatar from '../shared/Avatar';
+import { handleRouterChat } from '@/scripts/handlers/router-chat';
 
 export type ContactItemsListType = {
   items: ContactType[];
-  route: string;
+  route?: string;
   handler?: () => void;
+  scroll?: boolean;
   style?: Record<string, StyleProp<ViewStyle>>;
 };
 
-export default function ContactItemsList({ items, route, handler, style }: ContactItemsListType) {
+export default function ContactItemsList({ items, route, handler, style, scroll = true }: ContactItemsListType) {
   const { t } = useTranslation();
+  const router = useRouter();
 
   const renderItem = ({ item }: { item: ContactType }) => (
     <Pressable
@@ -24,7 +27,11 @@ export default function ContactItemsList({ items, route, handler, style }: Conta
         if (handler) {
           handler();
         }
-        router.push(`${route}/${item.id}`);
+        if (route) {
+          router.push(`${route}/${item.id}`);
+        } else {
+          handleRouterChat(item.id);
+        }
       }}
     >
       <View style={styles.item}>
@@ -46,8 +53,9 @@ export default function ContactItemsList({ items, route, handler, style }: Conta
       keyExtractor={(item) => item.id}
       renderItem={renderItem}
       ListEmptyComponent={renderEmpty}
-      style={styles.box}
+      style={[styles.box, style?.box]}
       contentContainerStyle={[styles.contentBox, style?.contentBox]}
+      scrollEnabled={scroll}
     />
   );
 }

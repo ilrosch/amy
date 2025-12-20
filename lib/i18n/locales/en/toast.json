@@ -1,0 +1,14 @@
+{
+  "conn-server": "Connected server",
+  "connecting-server": "Connecting server",
+  "re-conn-server": "Reconnecting server",
+  "copy-id": "Copped your ID",
+  "copy": "Copped",
+  "rename-contact": "Renamed contact",
+  "remove-chat": "Removed chat",
+  "clear-chat": "Clear chat",
+
+  "conn": "Connected",
+  "conn-ing": "Connecting",
+  "re-conn": "Reconnecting"
+}

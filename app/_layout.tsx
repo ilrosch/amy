@@ -13,9 +13,11 @@ import { selectUserToken } from '@/lib/store/slices/auth';
 import prepareData from '@/scripts/prepareData';
 
 import HeaderSecondary from '@/components/header/HeaderSecondary';
-import Modals from '@/components/modal/Modals';
 import Notice from '@/components/Notice';
 import Header from '@/components/header/Header';
+import { Button, View } from 'react-native';
+import Toast from 'react-native-toast-message';
+import { Foo } from '@/components/Test';
 
 SplashScreen.setOptions({ duration: 1000, fade: true });
 SplashScreen.preventAutoHideAsync();
@@ -59,11 +61,48 @@ function LayoutContent() {
             header: () => <Header title={t('pages.profile')} />,
           }}
         />
+        <Stack.Screen name="chat/[id]" />
+        <Stack.Screen name="call/[id]" />
+
         <Stack.Screen
-          name="chat/[id]"
+          name="(modals)/new-chat"
           options={{
-            headerShown: true,
-            header: () => <HeaderSecondary title={t('pages.chat')} />,
+            presentation: 'transparentModal',
+            animation: 'fade',
+            animationDuration: 300,
+          }}
+        />
+        <Stack.Screen
+          name="(modals)/add-contact"
+          options={{
+            presentation: 'transparentModal',
+            animation: 'fade',
+            animationDuration: 300,
+          }}
+        />
+        <Stack.Screen
+          name="(modals)/rename-contact"
+          options={{
+            presentation: 'transparentModal',
+            animation: 'fade',
+            animationDuration: 300,
+          }}
+        />
+
+        <Stack.Screen
+          name="(modals)/clear-chat"
+          options={{
+            presentation: 'transparentModal',
+            animation: 'fade',
+            animationDuration: 300,
+          }}
+        />
+        <Stack.Screen
+          name="(modals)/remove-chat"
+          options={{
+            presentation: 'transparentModal',
+            animation: 'fade',
+            animationDuration: 300,
           }}
         />
       </Stack.Protected>
@@ -79,8 +118,7 @@ export default function RootLayout() {
       <SafeAreaProvider initialMetrics={initialWindowMetrics}>
         <Provider store={store}>
           <LayoutContent />
-          <Modals />
-          <Notice />
+          <Toast autoHide position={'top'} visibilityTime={3000} swipeable />
         </Provider>
       </SafeAreaProvider>
       <StatusBar style="auto" />

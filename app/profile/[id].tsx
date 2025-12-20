@@ -1,18 +1,17 @@
 import { StyleSheet, View } from 'react-native';
-import { useLocalSearchParams } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import handleCopy from '@/scripts/handleCopyID';
+import { handleCopy } from '@/scripts/handleCopyID';
 import { handleRouterChat } from '@/scripts/handlers/router-chat';
-import { useAppDispatch, useAppSelector } from '@/lib/store/hooks';
+import { useAppSelector } from '@/lib/store/hooks';
 import { selectContact } from '@/lib/store/slices/contacts';
-import { openModal } from '@/lib/store/slices/modals';
 
 import { Colors } from '@/assets/tokens';
 import AddChatIcon from '@/assets/icons/add-chat-icon';
 import CopyIcon from '@/assets/icons/copy-icon';
-import CallIcon from '@/assets/icons/call-icon';
+import CallIcon from '@/assets/icons/init-call-icon';
 
 import Avatar from '@/components/shared/Avatar';
 import ThemedText from '@/components/shared/ThemedText';
@@ -23,7 +22,7 @@ import BtnActionTextBox from '@/components/action/BtnActionTextBox';
 export default function Profile() {
   const { t } = useTranslation();
   const { bottom } = useSafeAreaInsets();
-  const dispatch = useAppDispatch();
+  const router = useRouter();
 
   const { id: currentID } = useLocalSearchParams<{ id: string }>();
   const { id: userID, name: userName } = useAppSelector((state) => selectContact(state, currentID));
@@ -45,11 +44,12 @@ export default function Profile() {
           {
             Icon: CallIcon,
             title: t('actions.call'),
+            handle: () => router.push(`call/${userID}`),
           },
           {
             Icon: CopyIcon,
             title: t('actions.copy'),
-            handle: handleCopy(userID),
+            handle: () => handleCopy(userID),
           },
         ]}
       />
@@ -57,38 +57,24 @@ export default function Profile() {
         btnData={[
           {
             title: t('actions.rename'),
-            handle: () =>
-              dispatch(
-                openModal({
-                  name: 'rename-contact',
-                  props: {
-                    userID: userID,
-                    valueField: userName,
-                  },
-                }),
-              ),
+            handle: () => router.push(`rename-contact/?id=${userID}`),
           },
           {
             title: t('actions.clear-chat'),
-            styleText: styles.btnDander,
-            handle: () =>
-              dispatch(
-                openModal({
-                  name: 'clear-chat-contact',
-                  props: { userID: userID },
-                }),
-              ),
+            styleText: styles.btnWarming,
+            handle: () => router.push(`clear-chat/?id=${userID}`),
+          },
+          {
+            title: t('actions.remove-chat'),
+            styleText: styles.btnDanger,
+            styleBtn: styles.btnDanger,
+            handle: () => router.push(`remove-chat/?id=${userID}`),
           },
           {
             title: t('actions.delete-contact'),
-            styleText: styles.btnDander,
-            handle: () =>
-              dispatch(
-                openModal({
-                  name: 'remove-contact',
-                  props: { userID: userID },
-                }),
-              ),
+            styleText: styles.btnDanger,
+            styleBtn: styles.btnDanger,
+            handle: () => router.push(`remove-contact/?id=${userID}`),
           },
         ]}
         styleBox={{ marginTop: 14, paddingBottom: bottom + 84 }}
@@ -127,7 +113,12 @@ const styles = StyleSheet.create({
     marginBottom: 12,
     color: Colors.titleDark,
   },
-  btnDander: {
+  btnWarming: {
     color: Colors.danger,
+  },
+
+  btnDanger: {
+    color: Colors.white,
+    backgroundColor: Colors.danger,
   },
 });

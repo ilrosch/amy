@@ -47,3 +47,37 @@ export const isChatExists = async (userID: string) => {
     console.log(err);
   }
 };
+
+export const getLastMessage = async (userID: string) => {
+  try {
+    const stmt = await db.prepareAsync(reqs.getLastMessage);
+    const res = await stmt.executeAsync(userID);
+    const message = await res.getFirstAsync();
+    await stmt.finalizeAsync();
+    return message;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const removeAllUserMessage = async (id: string) => {
+  try {
+    const stmt = await db.prepareAsync(reqs.removeUserMessage);
+    await stmt.executeAsync(id);
+    await stmt.finalizeAsync();
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+};
+
+export const removeChatDB = async (chatID: string) => {
+  try {
+    const stmt = await db.prepareAsync(reqs.removeChat);
+    await stmt.executeAsync(chatID);
+    await stmt.finalizeAsync();
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+};

@@ -13,7 +13,7 @@ export const resources = {
   ru: { translation: ru },
 };
 
-const i18nextInstance = createInstance();
+export const i18nextInstance = createInstance();
 
 i18nextInstance
   .use(initReactI18next)

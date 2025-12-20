@@ -1,6 +1,8 @@
 import ModalCustom from './ModalCustom';
 import Form, { FormDataType } from '../shared/Form';
+import { Alert } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { useRouter } from 'expo-router';
 
 export type FormModalType = {
   title: string;
@@ -21,25 +23,23 @@ export default function FormModal({
   placeholder,
   valueField = '',
   handler,
-  open,
-  close,
   userID,
 }: FormModalType) {
   const { t } = useTranslation();
+  const router = useRouter();
 
-  const handleSubmit = async ({ value, setError }: FormDataType) => {
-    setError('');
+  const handleSubmit = async ({ value }: FormDataType) => {
     try {
       await handler(value, userID);
-      close();
+      router.back();
     } catch (err) {
-      setError(t(err));
+      Alert.alert(t('errors.error'), err.code);
     }
   };
 
   return (
-    <ModalCustom title={t(title)} text={t(text)} line={true} visible={open} close={close}>
-      <Form buttonText={t(btnText)} placeholder={t(placeholder)} valueField={valueField} handler={handleSubmit} />
+    <ModalCustom title={title} text={text}>
+      <Form buttonText={btnText} placeholder={placeholder} valueField={valueField} handler={handleSubmit} />
     </ModalCustom>
   );
 }

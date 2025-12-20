@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Svg, { SvgProps, G, Path, Defs, ClipPath } from 'react-native-svg';
 
-const CallIcon = (props: SvgProps) => (
+const InitCallIcon = (props: SvgProps) => (
   <Svg xmlns="http://www.w3.org/2000/svg" width={24} height={24} fill="none" {...props}>
     <G clipPath="url(#a)">
       <Path
@@ -17,4 +17,4 @@ const CallIcon = (props: SvgProps) => (
   </Svg>
 );
 
-export default CallIcon;
+export default InitCallIcon;

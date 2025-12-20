@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import ModalCustom from './ModalCustom';
 import Btn from '../shared/Btn';
-import { useTranslation } from 'react-i18next';
 
 export type ConfirmModalType = {
   title: string;
@@ -12,20 +11,18 @@ export type ConfirmModalType = {
   handler: () => void;
 };
 
-export default function ConfirmModal({ title, text, btnText, open, close, handler }: ConfirmModalType) {
-  const { t } = useTranslation();
+export default function ConfirmModal({ title, text, btnText, handler }: ConfirmModalType) {
   const [loading, setLoading] = useState<boolean>(false);
 
   const handleSubmit = async () => {
     setLoading(true);
     await handler();
     setLoading(false);
-    close();
   };
 
   return (
-    <ModalCustom title={t(title)} text={t(text)} line={false} visible={open} close={close}>
-      <Btn btnText={t(btnText)} color={'danger'} handler={handleSubmit} loadStatus={loading} />
+    <ModalCustom title={title} text={text}>
+      <Btn btnText={btnText} color={'danger'} handler={handleSubmit} loadStatus={loading} />
     </ModalCustom>
   );
 }

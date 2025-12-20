@@ -12,14 +12,14 @@ import ContactsIcon from '@/assets/icons/contacts-icon';
 import SettingsIcon from '@/assets/icons/settings-icon';
 
 import Header from '@/components/header/Header';
-import { connServerNotice } from '@/components/Notice';
+import { showToast } from '@/scripts/toast';
 
 export default function TabsLayout() {
   const { t } = useTranslation();
   const { bottom } = useSafeAreaInsets();
 
   useEffect(() => {
-    connServerNotice();
+    showToast({ type: 'info', text1: t('toast.connecting-server'), autoHide: false });
     socket.connect();
   }, []);
 

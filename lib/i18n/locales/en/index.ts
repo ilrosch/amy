@@ -5,8 +5,9 @@ import actions from './actions.json';
 import chats from './chats.json';
 import modal from './modal.json';
 import info from './info.json';
-import notice from './notice.json';
+import toast from './toast.json';
 import rules from './rules.json';
+import call from './call.json';
 
 export default {
   welcome,
@@ -16,6 +17,7 @@ export default {
   chats,
   modal,
   info,
-  notice,
+  toast,
   rules,
+  call,
 };

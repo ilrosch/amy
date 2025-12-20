@@ -6,7 +6,12 @@ import handleSocketAddContact from '@/scripts/handlers/socket/add-contact';
 
 import type { Signaling } from '@/lib/communication/SignalingClient';
 import { p2pManager } from '@/scripts/p2p';
-import { closeNotice, reConnServerNotice } from '@/components/Notice';
+import { showToast } from '@/scripts/toast';
+import { i18nextInstance } from '../i18n';
+import { router } from 'expo-router';
+import { Alert } from 'react-native';
+import BaseP2P from '@/scripts/peer-to-peer/base';
+import { CallManager } from '@/scripts/peer-to-peer/call';
 
 // current user
 const getCurrentUserID = (): string | null => store.getState().auth?.id;
@@ -15,7 +20,7 @@ const getCurrentUserToken = (): string | null => store.getState().auth?.token;
 
 export class WebSocketManager implements Signaling {
   private socket: WebSocket | null = null;
-  private notice: boolean = false;
+  private offline: boolean = false;
 
   connect() {
     const token = getCurrentUserToken();
@@ -23,22 +28,22 @@ export class WebSocketManager implements Signaling {
     this.socket.addEventListener('open', this.onOpen.bind(this));
     this.socket.addEventListener('close', this.onClose.bind(this));
     this.socket.addEventListener('message', this.onMessage.bind(this));
-    p2pManager.setSignaling(socket);
+    BaseP2P.setSignaling(socket);
   }
 
   // --- Signaling interface ---
-  sendOffer(to: string, sdp: string): void {
+  sendOffer(type: 'call' | 'chat', to: string, sdp: string): void {
     this.sendMessage({
-      type: 'offer',
+      type: `offer-${type}`,
       payload: sdp,
       from: getCurrentUserID(),
       to,
     });
   }
 
-  sendAnswer(to: string, sdp: string): void {
+  sendAnswer(type: 'call' | 'chat', to: string, sdp: string): void {
     this.sendMessage({
-      type: 'answer',
+      type: `answer-${type}`,
       payload: sdp,
       from: getCurrentUserID(),
       to,
@@ -54,6 +59,15 @@ export class WebSocketManager implements Signaling {
     });
   }
 
+  sendClose(to: string): void {
+    this.sendMessage({
+      type: 'end-call',
+      payload: {},
+      from: getCurrentUserID(),
+      to,
+    });
+  }
+
   // --- WebSocket logic ---
   sendMessage(message: unknown) {
     this.socket?.send(JSON.stringify(message));
@@ -61,18 +75,14 @@ export class WebSocketManager implements Signaling {
 
   onOpen() {
     console.log('connection server: opened');
-    closeNotice();
-    this.notice = false;
+    showToast({ type: 'success', text1: i18nextInstance.t('toast.conn-server') });
   }
 
   onClose(e: CloseEvent) {
     if (!e.wasClean) {
       console.log('reconnect...');
       setTimeout(() => this.connect(), 5000);
-      if (!this.notice) {
-        reConnServerNotice();
-        this.notice = true;
-      }
+      showToast({ type: 'info', text1: i18nextInstance.t('toast.re-conn-server'), autoHide: false });
     }
     console.log('connection server: closed; reason:', e.reason);
   }
@@ -101,7 +111,35 @@ export class WebSocketManager implements Signaling {
         }
 
         case 'ice_candidate': {
-          p2pManager.addIceCandidate(data.from, data.payload);
+          CallManager.addIceCandidate(data.payload);
+          break;
+        }
+
+        case 'offer-call': {
+          if (CallManager.getCurrentPeerConn()) return;
+          CallManager.incomingOffer = data.payload;
+          router.push(`call-reply/${data.from}`);
+          break;
+        }
+
+        case 'answer-call': {
+          CallManager.setAnswerByCall(data.payload);
+          break;
+        }
+
+        case 'end-call': {
+          router.dismiss();
+          break;
+        }
+
+        case 'user_offline': {
+          if (this.offline) break;
+          this.offline = true;
+          setTimeout(() => {
+            router.back();
+            Alert.alert('User offline', 'Your contact will know you called when they are online.');
+            this.offline = false;
+          }, 3000);
           break;
         }
 

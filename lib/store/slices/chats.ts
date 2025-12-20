@@ -1,8 +1,9 @@
 import { createEntityAdapter, createSlice } from '@reduxjs/toolkit';
 import type { RootState } from '..';
 import { updateContact } from './contacts';
+import { addMessageStore } from './messages';
 
-export type ChatType = { id: string; name: string; message: string };
+export type ChatType = { id: string; name: string; message: string | null };
 
 const chatsAdapter = createEntityAdapter<ChatType>();
 
@@ -13,6 +14,7 @@ export const chatSlice = createSlice({
     addChat: chatsAdapter.addOne,
     addChats: chatsAdapter.addMany,
     updateChat: chatsAdapter.updateOne,
+    removeChat: chatsAdapter.removeOne,
   },
   extraReducers: (builder) => {
     builder.addCase(updateContact, (state, { payload }) => {
@@ -21,10 +23,18 @@ export const chatSlice = createSlice({
         changes: payload.changes,
       });
     });
+    builder.addCase(addMessageStore, (state, { payload }) => {
+      chatsAdapter.updateOne(state, {
+        id: payload.to_id,
+        changes: {
+          message: payload.body,
+        },
+      });
+    });
   },
 });
 
-export const { addChat, addChats } = chatSlice.actions;
+export const { addChat, addChats, updateChat, removeChat } = chatSlice.actions;
 
 const chatSelectors = chatsAdapter.getSelectors((state: RootState) => state.chats);
 

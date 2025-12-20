@@ -19,7 +19,7 @@ export default function Back({ style, ...props }: BackType) {
       style={({ pressed }) => [styles.back, pressed && styles.backPressed, style, { bottom: bottom + 24 }]}
       {...props}
     >
-      <BackIcon />
+      <BackIcon color={Colors.white} />
     </Pressable>
   );
 }

@@ -2,5 +2,6 @@
   "error": "Oops...",
   "invalid-name": "Your name invalid. Minimum 2 symbols",
   "server": "Server error",
-  "unknown": "Unknown error"
+  "unknown": "Unknown error",
+  "permissions": "Grant the necessary permissions"
 }

@@ -11,6 +11,9 @@ const reqs = {
   addMessage:
     'INSERT INTO messages (id, body, status, chat_id, from_id, to_id, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)',
   isChatExists: 'SELECT EXISTS (SELECT 1 FROM chats WHERE id = ?)',
+  getLastMessage: 'SELECT body FROM messages WHERE chat_id = ? ORDER BY created_at DESC LIMIT 1',
+  removeUserMessage: 'DELETE FROM messages WHERE chat_id=?',
+  removeChat: 'DELETE FROM chats WHERE id = ?',
 } as const;
 
 export default reqs;

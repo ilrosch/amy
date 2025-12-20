@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     borderStyle: 'solid',
     borderWidth: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: Colors.white,
 
     paddingVertical: 12,
     paddingHorizontal: 16,
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     fontStyle: 'normal',
     lineHeight: 24,
-    color: '#1E1E1E',
+    color: Colors.titleDark,
   },
 
   inputValid: {
@@ -59,6 +59,6 @@ const styles = StyleSheet.create({
   },
 
   inputInValid: {
-    borderColor: '#E41D30',
+    borderColor: Colors.danger,
   },
 });
