@@ -12,12 +12,10 @@ import { useAppSelector } from '@/lib/store/hooks';
 import { selectUserToken } from '@/lib/store/slices/auth';
 import prepareData from '@/scripts/prepareData';
 
-import HeaderSecondary from '@/components/header/HeaderSecondary';
-import Notice from '@/components/Notice';
 import Header from '@/components/header/Header';
-import { Button, View } from 'react-native';
 import Toast from 'react-native-toast-message';
-import { Foo } from '@/components/Test';
+
+import '@/lib/notify';
 
 SplashScreen.setOptions({ duration: 1000, fade: true });
 SplashScreen.preventAutoHideAsync();

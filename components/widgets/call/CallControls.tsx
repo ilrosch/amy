@@ -64,6 +64,11 @@ export function CallControls({
     setPhoneSpeaker(!isPhoneSpeaker);
   };
 
+  const handleExit = () => {
+    CallManager.sendEndCall();
+    router.back();
+  };
+
   return (
     <View style={[styles.box, { paddingBottom: bottom + 12 }]}>
       <Pressable onPress={handleCamera} style={[styles.btn, !isCamera && styles.btnBG]}>
@@ -75,7 +80,7 @@ export function CallControls({
       <Pressable onPress={handleSpeaker} style={[styles.btn, !isPhoneSpeaker && styles.btnBG]}>
         {isPhoneSpeaker ? <SpeakerPhoneIcon color={Colors.textDark} /> : <SpeakerIcon color={Colors.textDark} />}
       </Pressable>
-      <Pressable onPress={router.back} style={[styles.btn, { backgroundColor: Colors.danger }]}>
+      <Pressable onPress={handleExit} style={[styles.btn, { backgroundColor: Colors.danger }]}>
         <CloseIcon color={Colors.white} />
       </Pressable>
     </View>

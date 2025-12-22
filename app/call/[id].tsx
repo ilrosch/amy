@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useLocalSearchParams, useRouter } from 'expo-router';
@@ -35,6 +35,31 @@ export default function Call() {
   const [firstVideoEnable, setFirstVideoEnable] = useState<boolean>(true);
   const [isRemoteCameraEnable, setRemoteCamera] = useState<boolean>(false);
   const [isRemoteMicroEnable, setRemoteMicro] = useState<boolean>(true);
+
+  // Call duration
+  const [callDuration, setCallDuration] = useState(0);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+
+  const startCallTimer = () => {
+    intervalRef.current = setInterval(() => {
+      setCallDuration((prev) => prev + 1);
+    }, 1000);
+  };
+
+  const formatTime = (seconds: number): string => {
+    const hrs = Math.floor(seconds / 3600);
+    const mins = Math.floor((seconds % 3600) / 60);
+    const secs = seconds % 60;
+
+    const minsFormatted = mins.toString().padStart(2, '0');
+    const secsFormatted = secs.toString().padStart(2, '0');
+
+    if (hrs > 0) {
+      const hrsFormatted = hrs.toString().padStart(2, '0');
+      return `${hrsFormatted}:${minsFormatted}:${secsFormatted}`;
+    }
+    return `${minsFormatted}:${secsFormatted}`;
+  };
 
   // Handle status connection
   const handleStatus = (status: RTCPeerConnectionState) => {
@@ -87,6 +112,7 @@ export default function Call() {
     })();
 
     return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
       CallManager.clearCall();
     };
   }, []);
@@ -103,9 +129,12 @@ export default function Call() {
     })();
   }, [firstVideoEnable, isRemoteCameraEnable]);
 
-  // Stop ringtone
+  // Stop ringtone + start timing
   useEffect(() => {
-    if (remoteStream) player.pause();
+    if (remoteStream) {
+      player.pause();
+      startCallTimer();
+    }
   }, [player, remoteStream]);
 
   const { primary, secondary } = localFullScreen
@@ -122,7 +151,12 @@ export default function Call() {
     <View style={styles.container}>
       <View style={styles.body}>
         <CallPrimaryView stream={primary.stream} isMicro={primary.micro} />
-        <CallPlaceholder name={contactName} status={statusConn} isCamera={primary.camera} />
+        <CallPlaceholder
+          name={contactName}
+          time={formatTime(callDuration)}
+          status={statusConn}
+          isCamera={primary.camera}
+        />
         <CallSecondaryView
           stream={secondary.stream}
           isCamera={secondary.camera}

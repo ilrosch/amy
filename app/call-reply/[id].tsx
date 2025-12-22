@@ -12,6 +12,7 @@ import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Pressable, StyleSheet, View } from 'react-native';
 import ReceiveCallIcon from '@/assets/icons/receive-call-icon';
+import { incomingCallNotify } from '@/lib/notify';
 
 export default function CallReply() {
   const router = useRouter();
@@ -19,6 +20,11 @@ export default function CallReply() {
   const { id: remoteID } = useLocalSearchParams<{ id: string }>();
   const { name: contactName } = useAppSelector((state) => selectContact(state, remoteID));
   const player = useAudioPlayer(require('@/assets/sounds/call-receive.mp3'));
+
+  useEffect(() => {
+    if (!contactName) return;
+    incomingCallNotify(contactName);
+  }, [contactName]);
 
   useEffect(() => {
     player.loop = true;

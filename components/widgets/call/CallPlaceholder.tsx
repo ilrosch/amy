@@ -7,11 +7,12 @@ import Avatar from '../../shared/Avatar';
 
 export interface CallPlaceholderType {
   name: string;
+  time: string;
   status: string;
   isCamera: boolean;
 }
 
-export default function CallPlaceholder({ name, status, isCamera }: CallPlaceholderType) {
+export default function CallPlaceholder({ name, time, status, isCamera }: CallPlaceholderType) {
   const { t } = useTranslation();
   const { top } = useSafeAreaInsets();
 
@@ -33,12 +34,17 @@ export default function CallPlaceholder({ name, status, isCamera }: CallPlacehol
         isCamera && { display: 'none' },
       ]}
     >
-      <ThemedText style={{ color: Colors.textDark, marginBottom: 24 }}>{t('info.outgoing-call')}</ThemedText>
+      <ThemedText style={{ color: Colors.textDark, marginBottom: 16 }}>{t('info.outgoing-call')}</ThemedText>
+      <ThemedText title style={{ color: Colors.titleDark, marginBottom: 24 }}>
+        {time}
+      </ThemedText>
       <Avatar name={name} sizeText={'l'} styleBox={{ width: 100, height: 100, marginBottom: 12 }} />
-      <ThemedText title size={'l'} style={{ color: Colors.titleDark }}>
+      <ThemedText title size={'l'} style={{ color: Colors.titleDark, marginBottom: 6 }}>
         {name}
       </ThemedText>
-      <ThemedText>{status}</ThemedText>
+      <ThemedText size={'s'} style={{ color: Colors.textDark }}>
+        {status}
+      </ThemedText>
     </View>
   );
 }

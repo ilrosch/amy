@@ -5,7 +5,7 @@ import { store } from '../store';
 import handleSocketAddContact from '@/scripts/handlers/socket/add-contact';
 
 import type { Signaling } from '@/lib/communication/SignalingClient';
-import { p2pManager } from '@/scripts/p2p';
+
 import { showToast } from '@/scripts/toast';
 import { i18nextInstance } from '../i18n';
 import { router } from 'expo-router';
@@ -128,7 +128,7 @@ export class WebSocketManager implements Signaling {
         }
 
         case 'end-call': {
-          router.dismiss();
+          router.back();
           break;
         }
 

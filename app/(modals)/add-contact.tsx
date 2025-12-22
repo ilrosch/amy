@@ -1,5 +1,5 @@
 import { useRouter } from 'expo-router';
-import { Alert, Text } from 'react-native';
+import { Alert } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
 import addContactHandler from '@/scripts/handlers/add-contact';

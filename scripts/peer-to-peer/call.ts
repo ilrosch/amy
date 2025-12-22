@@ -21,6 +21,7 @@ class Call extends BaseP2P {
   private dataChannel: RTCDataChannel | null = null;
   private localStream: MediaStream | null = null;
   private remoteStream: MediaStream | null = null;
+  private remoteID: string | null = null;
   incomingOffer: string | null = null;
 
   private callHandlers: CallHandlersType = null;
@@ -32,6 +33,7 @@ class Call extends BaseP2P {
   // Outgoing call
   async initCall(remoteID: string, callHandlers: CallHandlersType) {
     try {
+      this.remoteID = remoteID;
       await this._prepareCall(remoteID, callHandlers);
       this.dataChannel = this.peerConn?.createDataChannel('call') ?? null;
       this._handleChannel();
@@ -45,6 +47,7 @@ class Call extends BaseP2P {
   // Init incoming call
   async initIncomingCall(remoteID: string, callHandlers: CallHandlersType) {
     try {
+      this.remoteID = remoteID;
       await this._prepareCall(remoteID, callHandlers);
       this.peerConn?.addEventListener('datachannel', (e) => {
         this.dataChannel = e.channel;
@@ -124,70 +127,70 @@ class Call extends BaseP2P {
 
   // Handlers peer connection
   private _handleCallPeerConn(peerConn: RTCPeerConnection, remoteID: string) {
-    try {
-      peerConn.addEventListener('connectionstatechange', (e) => {
-        console.log(peerConn.connectionState);
-        switch (peerConn.connectionState) {
-          // case 'new':
-          //   return onStatusConn('new');
-          // case 'connecting':
-          //   return onStatusConn('connecting');
-          // case 'connected':
-          //   return onStatusConn('connected');
-          // case 'disconnected':
-          //   return onStatusConn('disconnected');
-          // case 'failed':
-          //   return onStatusConn('failed');
+    peerConn.addEventListener('connectionstatechange', (e) => {
+      console.log(peerConn.connectionState);
+      switch (
+        peerConn.connectionState
+        // case 'new':
+        //   return onStatusConn('new');
+        // case 'connecting':
+        //   return onStatusConn('connecting');
+        // case 'connected':
+        //   return onStatusConn('connected');
+        // case 'disconnected':
+        //   return onStatusConn('disconnected');
+        // case 'failed':
+        //   return onStatusConn('failed');
 
-          // case 'connecting':
-          //   showToast({ type: 'info', text1: t('toast.conn-ing'), autoHide: false });
-          //   break;
-          // case 'disconnected':
-          //   showToast({ type: 'info', text1: t('toast.re-conn') });
-          //   break;
-          // case 'connected':
-          //   showToast({ type: 'success', text1: t('toast.conn') });
-          //   break;
-          // case 'failed':
-          //   showToast({ type: 'error', text1: '' });
-          //   // router.back();
-          //   break;
-          // case 'new':
-          //   showToast({ type: 'info', text1: 'Вызов' });
-          case 'closed':
-            if (BaseP2P.signaling) {
-              BaseP2P.signaling?.sendClose(remoteID);
-            }
-            break;
-        }
-      });
-      peerConn.addEventListener('icecandidate', (e) => {
-        if (e.candidate && BaseP2P.signaling) {
-          BaseP2P.signaling?.sendIceCandidate(remoteID, e.candidate);
-        }
-      });
-      peerConn.addEventListener('icecandidateerror', (e) => {
-        console.log(`Ice candidate failed ${remoteID}`);
-      });
-      peerConn.addEventListener('negotiationneeded', (e) => {
-        console.log('Negotition ', e);
-      });
-      peerConn.addEventListener('signalingstatechange', (e) => {
-        console.log(peerConn.signalingState);
-        switch (peerConn.signalingState) {
-          case 'have-local-offer':
-            return this.callHandlers?.onStatus('new');
-          case 'have-remote-offer':
-            return this.callHandlers?.onStatus('connecting');
-          case 'stable':
-            return this.callHandlers?.onStatus('connected');
-        }
-      });
-      peerConn.addEventListener('track', (e) => {
-        this.remoteStream?.addTrack(e.track);
-        this.callHandlers?.onRemoteStream(this.remoteStream);
-      });
-    } catch (err) {}
+        // case 'connecting':
+        //   showToast({ type: 'info', text1: t('toast.conn-ing'), autoHide: false });
+        //   break;
+        // case 'disconnected':
+        //   showToast({ type: 'info', text1: t('toast.re-conn') });
+        //   break;
+        // case 'connected':
+        //   showToast({ type: 'success', text1: t('toast.conn') });
+        //   break;
+        // case 'failed':
+        //   showToast({ type: 'error', text1: '' });
+        //   // router.back();
+        //   break;
+        // case 'new':
+        //   showToast({ type: 'info', text1: 'Вызов' });
+        // case 'closed':
+        //   if (BaseP2P.signaling) {
+
+        //   }
+        //   break;
+      ) {
+      }
+    });
+    peerConn.addEventListener('icecandidate', (e) => {
+      if (e.candidate && BaseP2P.signaling) {
+        BaseP2P.signaling?.sendIceCandidate(remoteID, e.candidate);
+      }
+    });
+    peerConn.addEventListener('icecandidateerror', (e) => {
+      console.log(`Ice candidate failed ${remoteID}`);
+    });
+    peerConn.addEventListener('negotiationneeded', (e) => {
+      console.log('Negotition ', e);
+    });
+    peerConn.addEventListener('signalingstatechange', (e) => {
+      console.log(peerConn.signalingState);
+      switch (peerConn.signalingState) {
+        case 'have-local-offer':
+          return this.callHandlers?.onStatus('new');
+        case 'have-remote-offer':
+          return this.callHandlers?.onStatus('connecting');
+        case 'stable':
+          return this.callHandlers?.onStatus('connected');
+      }
+    });
+    peerConn.addEventListener('track', (e) => {
+      this.remoteStream?.addTrack(e.track);
+      this.callHandlers?.onRemoteStream(this.remoteStream);
+    });
   }
 
   // Create and send offer sdp
@@ -243,6 +246,11 @@ class Call extends BaseP2P {
     }
   }
 
+  sendEndCall() {
+    if (!BaseP2P.signaling) return;
+    BaseP2P.signaling?.sendClose(this.remoteID);
+  }
+
   // Resource cleaning after call
   clearCall() {
     this.localStream?.getTracks().map((track) => track.stop());
@@ -252,6 +260,7 @@ class Call extends BaseP2P {
     this.dataChannel = null;
     this.localStream = null;
     this.remoteStream = null;
+    this.remoteID = null;
     this.incomingOffer = null;
     this.callHandlers = null;
   }

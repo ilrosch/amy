@@ -1,4 +1,3 @@
-import { ChatType } from '@/lib/store/slices/chats';
 import { db } from '../init';
 import reqs from './reqs';
 

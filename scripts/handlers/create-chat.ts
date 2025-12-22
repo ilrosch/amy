@@ -1,6 +1,6 @@
 import { store } from '@/lib/store';
 import { createChatDB, getChat } from '../database/handlers/create-chat-db';
-import { addChat, ChatType } from '@/lib/store/slices/chats';
+import { addChat } from '@/lib/store/slices/chats';
 
 export const createChat = async (userID: string) => {
   try {

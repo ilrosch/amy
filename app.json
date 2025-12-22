@@ -22,6 +22,7 @@
         "backgroundColor": "#ffffff"
       },
       "softwareKeyboardLayoutMode": "pan",
+      "usesCleartextTraffic": true,
       "package": "com.anonymous.amy"
     },
     "plugins": [
@@ -73,7 +74,8 @@
         {
           "microphonePermission": "Allow $(PRODUCT_NAME) to access your microphone."
         }
-      ]
+      ],
+      "expo-background-task"
     ]
   }
 }

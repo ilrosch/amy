@@ -1,20 +1,6 @@
-import {
-  Animated,
-  Image,
-  KeyboardAvoidingView,
-  Modal,
-  Platform,
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
-import SeparatorLine from '../shared/SeparatorLine';
+import { Animated, Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import { ReactNode, useEffect, useRef, useState } from 'react';
 import ThemedText from '../shared/ThemedText';
-import { useTranslation } from 'react-i18next';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useRouter } from 'expo-router';
 import SafeView from '../shared/SafeView';
 import { Colors } from '@/assets/tokens';

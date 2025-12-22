@@ -21,7 +21,7 @@ export default function TabsLayout() {
   useEffect(() => {
     showToast({ type: 'info', text1: t('toast.connecting-server'), autoHide: false });
     socket.connect();
-  }, []);
+  }, [t]);
 
   const tabIcon = (Icon: FC<SvgProps>, focused: boolean) => (
     <Icon color={focused ? Colors.primary : Colors.textDark} width={24} height={24} />

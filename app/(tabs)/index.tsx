@@ -1,9 +1,9 @@
-import { Button, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
 import { useAppSelector } from '@/lib/store/hooks';
 import { selectAllChats } from '@/lib/store/slices/chats';
-import handleCopy, { handleCopyCurrentID } from '@/scripts/handleCopyID';
+import { handleCopyCurrentID } from '@/scripts/handleCopyID';
 
 import AddChatIcon from '@/assets/icons/add-chat-icon';
 import AddUserIcon from '@/assets/icons/add-user-icon';

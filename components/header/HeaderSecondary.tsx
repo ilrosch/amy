@@ -1,7 +1,6 @@
-import { Image, Pressable, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import ThemedText from '../shared/ThemedText';
 import { HeaderType } from './Header';
-import { router } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export default function HeaderSecondary({ title }: HeaderType) {
@@ -9,13 +8,6 @@ export default function HeaderSecondary({ title }: HeaderType) {
 
   return (
     <View style={[styles.header, { paddingTop: top }]}>
-      {/* <Pressable
-        onPress={router.back}
-        style={({ pressed }) => [styles.headerBtn]}
-      >
-        <Image source={require("@/assets/images/back.png")} alt="back" />
-      </Pressable> */}
-
       <ThemedText title={true} style={styles.headerTitle}>
         {title}
       </ThemedText>
