@@ -25,5 +25,5 @@ func Setup(app *fiber.App, cfg *config.Config, db *db.DBConnect, v *validator.Va
 
 	// routes app
 	PublicRouter(app, uHandler)
-	PrivateRouter(app, cfg, uHandler)
+	PrivateRouter(app, cfg, tService, uHandler)
 }

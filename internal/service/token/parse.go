@@ -12,7 +12,7 @@ type JWTClaims struct {
 	jwt.RegisteredClaims
 }
 
-func (s *TokenService) parse(tokenString string) (*JWTClaims, error) {
+func (s *TokenService) Parse(tokenString string) (*JWTClaims, error) {
 	var claims JWTClaims
 	_, err := jwt.ParseWithClaims(tokenString, &claims, func(t *jwt.Token) (any, error) {
 		if _, ok := t.Method.(*jwt.SigningMethodHMAC); !ok {

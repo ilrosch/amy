@@ -7,7 +7,7 @@ import (
 )
 
 func (s *TokenService) Refresh(tokenString string) (string, error) {
-	claims, err := s.parse(tokenString)
+	claims, err := s.Parse(tokenString)
 	if errors.Is(err, jwt.ErrTokenExpired) {
 		t, err := s.Create(claims.ID)
 		return t, err
