@@ -6,3 +6,6 @@ lint:
 
 fmt:
 	golangci-lint fmt
+
+sql:
+	sqlc generate
