@@ -5,6 +5,5 @@ type (
 		Name string `json:"name" validate:"required,min=2,max=255"`
 	}
 
-	DeleteUserRequest struct{}
 	UpdateUserRequest struct{}
 )

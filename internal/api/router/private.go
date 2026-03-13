@@ -14,5 +14,6 @@ func PrivateRouter(app *fiber.App, cfg *config.Config, ts *token.TokenService, u
 
 	private.Use(middleware.JWTMiddleware(&cfg.JWT, ts))
 
-	private.Delete("/delete_account", uh.Delete)
+	private.Delete("/delete_user", uh.Delete)
+	private.Put("/update_user", uh.Update)
 }

@@ -3,8 +3,8 @@
 CREATE TABLE IF NOT EXISTS users(
     id UUID PRIMARY KEY NOT NULL,
     name VARCHAR(255) NOT NULL,
-    updated_at TIMESTAMP DEFAULT NOW() NOT NULL,
-    created_at TIMESTAMP DEFAULT NOW() NOT NULL
+    updated_at TIMESTAMPTZ DEFAULT NOW() NOT NULL,
+    created_at TIMESTAMPTZ DEFAULT NOW() NOT NULL
 );
 
 -- +goose StatementEnd
