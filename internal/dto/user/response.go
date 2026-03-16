@@ -1,6 +1,6 @@
 package user
 
-import "amybackend/internal/db"
+import "amybackend/internal/storage/db"
 
 type (
 	CreateUserResponse struct {

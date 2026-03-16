@@ -3,7 +3,7 @@ package main
 import (
 	"amybackend/internal/api/router"
 	"amybackend/internal/config"
-	"amybackend/internal/db"
+	"amybackend/internal/storage/db"
 
 	"github.com/go-playground/validator/v10"
 	"github.com/gofiber/fiber/v2"

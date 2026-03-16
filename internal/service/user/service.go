@@ -1,8 +1,8 @@
 package user
 
 import (
-	"amybackend/internal/db"
 	"amybackend/internal/service/token"
+	"amybackend/internal/storage/db"
 )
 
 type UserService struct {

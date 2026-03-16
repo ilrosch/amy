@@ -1,8 +1,8 @@
 package user
 
 import (
-	"amybackend/internal/db"
 	"amybackend/internal/dto/user"
+	"amybackend/internal/storage/db"
 	"context"
 	"fmt"
 
