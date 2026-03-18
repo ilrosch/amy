@@ -32,7 +32,7 @@ func (s *UserService) Create(ctx context.Context, userData *user.CreateUserReque
 			return fmt.Errorf("failed to create token: %w", err)
 		}
 
-		result = &user.CreateUserResponse{User: u, Token: token}
+		result = &user.CreateUserResponse{User: u, Token: *token}
 
 		return nil
 	})

@@ -1,12 +1,13 @@
 package token
 
 import (
+	"amybackend/internal/dto/token"
 	"errors"
 
 	"github.com/golang-jwt/jwt/v5"
 )
 
-func (s *TokenService) Refresh(tokenString string) (string, error) {
+func (s *TokenService) Refresh(tokenString string) (*token.TokenResponse, error) {
 	claims, err := s.Parse(tokenString)
 	if errors.Is(err, jwt.ErrTokenExpired) {
 		t, err := s.Create(claims.ID)
@@ -14,7 +15,7 @@ func (s *TokenService) Refresh(tokenString string) (string, error) {
 	}
 
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 
 	t, err := s.Create(claims.ID)

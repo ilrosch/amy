@@ -1,6 +1,7 @@
 package token
 
 import (
+	"amybackend/internal/dto/token"
 	"fmt"
 	"time"
 
@@ -8,17 +9,23 @@ import (
 	"github.com/google/uuid"
 )
 
-func (s *TokenService) Create(userID uuid.UUID) (string, error) {
-	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
-		"id":  userID,
-		"isp": time.Now().Unix(),
-		"exp": time.Now().Add(time.Duration(s.cfg.Expiration) * 24 * time.Hour).Unix(),
+func (s *TokenService) Create(userID uuid.UUID) (*token.TokenResponse, error) {
+	now := time.Now()
+	expiresAt := now.Add(time.Duration(s.cfg.Expiration) * 24 * time.Hour)
+
+	t := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
+		"sub": userID.String(),
+		"iat": now.Unix(),
+		"exp": expiresAt.Unix(),
 	})
 
-	tokenString, err := token.SignedString([]byte(s.cfg.Secret))
+	tokenString, err := t.SignedString([]byte(s.cfg.Secret))
 	if err != nil {
-		return "", fmt.Errorf("failed to create token: %w", err)
+		return nil, fmt.Errorf("failed to sign token: %w", err)
 	}
 
-	return tokenString, nil
+	return &token.TokenResponse{
+		Token:     tokenString,
+		ExpiresAt: expiresAt,
+	}, nil
 }

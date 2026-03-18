@@ -22,5 +22,5 @@ func (h *UserHandler) RefreshToken(c *fiber.Ctx) error {
 		return c.SendStatus(fiber.StatusInternalServerError)
 	}
 
-	return c.JSON(fiber.Map{"access_token": token})
+	return c.JSON(token)
 }
