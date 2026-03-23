@@ -5,7 +5,7 @@ import "github.com/google/uuid"
 type Contact struct {
 	ID     uuid.UUID `json:"id" validate:"required"`
 	Status string    `json:"status" validate:"required"`
-	Name   string    `json:"name"`
+	Name   string    `json:"name,omitempty"`
 }
 
 type ContactSync struct {

@@ -19,6 +19,7 @@ type Querier interface {
 	GetContacts(ctx context.Context, userTo uuid.UUID) ([]GetContactsRow, error)
 	GetUser(ctx context.Context, id uuid.UUID) (User, error)
 	UpdateUser(ctx context.Context, arg UpdateUserParams) error
+	UpsertContactRequest(ctx context.Context, arg UpsertContactRequestParams) error
 }
 
 var _ Querier = (*Queries)(nil)

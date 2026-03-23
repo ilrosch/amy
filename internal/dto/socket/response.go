@@ -6,6 +6,7 @@ type SocketResponse struct {
 }
 
 var (
-	NewContactResponse string = "new_contact"
-	ContactsResponse   string = "contacts"
+	NewContactResponse    string = "new_contact"
+	ChangeContactResponse string = "change_contact"
+	ContactsResponse      string = "contacts"
 )

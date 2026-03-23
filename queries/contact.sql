@@ -27,3 +27,9 @@ WHERE user_to = $1;
 -- name: DelContact :exec
 DELETE FROM contacts
 WHERE user_from = $1 AND user_to = $2;
+
+-- name: UpsertContactRequest :exec
+INSERT INTO contacts (user_from, user_to, status)
+VALUES ($1, $2, $3)
+ON CONFLICT (user_from, user_to) 
+DO UPDATE SET status = EXCLUDED.status;

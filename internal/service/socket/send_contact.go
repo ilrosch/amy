@@ -37,3 +37,23 @@ func (s *SocketService) SendContact(userID uuid.UUID, contactID uuid.UUID) bool 
 
 	return true
 }
+
+func (s *SocketService) SendContactStatus(userID uuid.UUID, contactID uuid.UUID, status string) bool {
+	if _, exists := s.storage.GetConnection(contactID); !exists {
+		return false
+	}
+
+	response := contact.Contact{
+		ID:     userID,
+		Status: status,
+	}
+
+	if err := s.storage.Send(contactID, &socket.SocketResponse{
+		Type:    socket.ChangeContactResponse,
+		Payload: response,
+	}); err != nil {
+		return false
+	}
+
+	return true
+}

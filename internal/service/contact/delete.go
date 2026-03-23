@@ -16,7 +16,7 @@ func (s *ContactService) DelSync(ctx context.Context, userID uuid.UUID) error {
 	return nil
 }
 
-func (s *ContactService) DelBackground(userFrom uuid.UUID, userTo uuid.UUID) error {
+func (s *ContactService) DelContactRequest(userFrom uuid.UUID, userTo uuid.UUID) error {
 	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
 	defer cancel()
 

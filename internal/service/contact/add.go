@@ -26,7 +26,7 @@ func (s *ContactService) Add(ctx context.Context, userFrom uuid.UUID, userTo uui
 
 	go func(userFrom uuid.UUID, userTo uuid.UUID) {
 		if ok := s.serSocket.SendContact(userFrom, userTo); ok {
-			_ = s.DelBackground(userFrom, userTo)
+			_ = s.DelContactRequest(userFrom, userTo)
 		}
 	}(userFrom, userTo)
 

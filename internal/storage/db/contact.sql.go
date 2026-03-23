@@ -105,3 +105,21 @@ func (q *Queries) GetContacts(ctx context.Context, userTo uuid.UUID) ([]GetConta
 	}
 	return items, nil
 }
+
+const upsertContactRequest = `-- name: UpsertContactRequest :exec
+INSERT INTO contacts (user_from, user_to, status)
+VALUES ($1, $2, $3)
+ON CONFLICT (user_from, user_to) 
+DO UPDATE SET status = EXCLUDED.status
+`
+
+type UpsertContactRequestParams struct {
+	UserFrom uuid.UUID `json:"user_from"`
+	UserTo   uuid.UUID `json:"user_to"`
+	Status   string    `json:"status"`
+}
+
+func (q *Queries) UpsertContactRequest(ctx context.Context, arg UpsertContactRequestParams) error {
+	_, err := q.db.Exec(ctx, upsertContactRequest, arg.UserFrom, arg.UserTo, arg.Status)
+	return err
+}
