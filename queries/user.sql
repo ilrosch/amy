@@ -10,3 +10,8 @@ DELETE FROM users WHERE id = $1;
 UPDATE users
 SET name = sqlc.arg(name), updated_at = sqlc.arg(updated_at)
 WHERE id = sqlc.arg(id);
+
+-- name: GetUser :one
+SELECT id, name, updated_at, created_at
+FROM users
+WHERE id = $1;

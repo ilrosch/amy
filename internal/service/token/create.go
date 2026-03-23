@@ -14,7 +14,7 @@ func (s *TokenService) Create(userID uuid.UUID) (*token.TokenResponse, error) {
 	expiresAt := now.Add(time.Duration(s.cfg.Expiration) * 24 * time.Hour)
 
 	t := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
-		"sub": userID.String(),
+		"id":  userID.String(),
 		"iat": now.Unix(),
 		"exp": expiresAt.Unix(),
 	})

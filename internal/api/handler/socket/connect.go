@@ -1,6 +1,7 @@
 package socket
 
 import (
+	"context"
 	"encoding/json"
 
 	ws "github.com/gofiber/websocket/v2"
@@ -16,21 +17,17 @@ type SocketRequest struct {
 func (h *SocketHandler) Connect(c *ws.Conn) {
 	userID := c.Locals("userID").(uuid.UUID)
 
-	h.s.MU.Lock()
-	h.s.Conn[userID] = c
-	h.s.MU.Unlock()
+	h.s.AddConnection(userID, c)
+	defer h.s.DeleteConnection(userID)
 
-	defer func() {
-		if err := c.Close(); err == nil {
-			h.s.MU.Lock()
-			delete(h.s.Conn, userID)
-			h.s.MU.Unlock()
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
 
-			log.WithField("user_id", userID).Info("user disconnected")
+	go func() {
+		if err := h.sync.ContactSync(ctx, userID); err != nil {
+			log.WithError(err).Warn("failed sync contacts")
 		}
 	}()
-
-	log.WithField("user_id", userID).Info("user connected")
 
 	var (
 		mt   int

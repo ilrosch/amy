@@ -9,6 +9,13 @@ import (
 	"github.com/jackc/pgx/v5/pgtype"
 )
 
+type Contact struct {
+	UserFrom  uuid.UUID          `json:"user_from"`
+	UserTo    uuid.UUID          `json:"user_to"`
+	Status    string             `json:"status"`
+	CreatedAt pgtype.Timestamptz `json:"created_at"`
+}
+
 type User struct {
 	ID        uuid.UUID          `json:"id"`
 	Name      string             `json:"name"`

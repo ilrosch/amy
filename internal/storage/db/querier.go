@@ -11,8 +11,13 @@ import (
 )
 
 type Querier interface {
+	AddContact(ctx context.Context, arg AddContactParams) (AddContactRow, error)
 	CreateUser(ctx context.Context, arg CreateUserParams) (User, error)
+	DelContact(ctx context.Context, arg DelContactParams) error
+	DelContacts(ctx context.Context, userTo uuid.UUID) error
 	DeleteUser(ctx context.Context, id uuid.UUID) error
+	GetContacts(ctx context.Context, userTo uuid.UUID) ([]GetContactsRow, error)
+	GetUser(ctx context.Context, id uuid.UUID) (User, error)
 	UpdateUser(ctx context.Context, arg UpdateUserParams) error
 }
 
