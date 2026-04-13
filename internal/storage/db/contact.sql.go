@@ -16,6 +16,8 @@ const addContact = `-- name: AddContact :one
 WITH inserted AS (
     INSERT INTO contacts (user_from, user_to, status)
     VALUES ($1, $2, $3)
+    ON CONFLICT (user_from, user_to) 
+    DO UPDATE SET status = EXCLUDED.status
     RETURNING user_to, status
 )
 SELECT 

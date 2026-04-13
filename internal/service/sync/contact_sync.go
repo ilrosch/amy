@@ -22,6 +22,10 @@ func (s *SyncService) ContactSync(ctx context.Context, userID uuid.UUID) error {
 		return err
 	}
 
+	if response.IsEmpty() {
+		return nil
+	}
+
 	err = s.storage.Send(userID, &socket.SocketResponse{
 		Type:    socket.ContactsResponse,
 		Payload: response,

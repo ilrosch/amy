@@ -2,6 +2,8 @@
 WITH inserted AS (
     INSERT INTO contacts (user_from, user_to, status)
     VALUES (sqlc.arg(user_from), sqlc.arg(user_to), sqlc.arg(status))
+    ON CONFLICT (user_from, user_to) 
+    DO UPDATE SET status = EXCLUDED.status
     RETURNING user_to, status
 )
 SELECT 

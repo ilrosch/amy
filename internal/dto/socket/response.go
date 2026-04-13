@@ -9,4 +9,6 @@ var (
 	NewContactResponse    string = "new_contact"
 	ChangeContactResponse string = "change_contact"
 	ContactsResponse      string = "contacts"
+
+	PeerClose string = "peer_close"
 )

@@ -10,8 +10,8 @@ import (
 )
 
 type SocketRequest struct {
-	Type    string `json:"type" validate:"required"`
-	Payload any    `json:"payload"`
+	Type    string          `json:"type" validate:"required"`
+	Payload json.RawMessage `json:"payload,omitempty"`
 }
 
 func (h *SocketHandler) Connect(c *ws.Conn) {
@@ -46,7 +46,7 @@ func (h *SocketHandler) Connect(c *ws.Conn) {
 			break
 		}
 
-		log.Print(mt)
+		log.Printf("%s", data)
 
 		var request *SocketRequest
 		if err = json.Unmarshal(data, &request); err != nil {
@@ -55,7 +55,16 @@ func (h *SocketHandler) Connect(c *ws.Conn) {
 		}
 
 		switch request.Type {
-		// case "":
+		case "peer":
+			log.WithFields(log.Fields{
+				"type":    request.Type,
+				"payload": request.Payload,
+				"user_id": userID,
+			}).Debug("peer connection")
+
+			if err := h.peer.ForwardSignaling(userID, request.Payload); err != nil {
+				log.WithError(err).Warn("fail signal")
+			}
 		default:
 			log.WithFields(log.Fields{
 				"mt":      mt,

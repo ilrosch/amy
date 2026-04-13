@@ -4,8 +4,8 @@ import (
 	"amybackend/internal/api/router"
 	"amybackend/internal/config"
 	"amybackend/internal/storage/db"
+	"amybackend/internal/validator"
 
-	"github.com/go-playground/validator/v10"
 	"github.com/gofiber/fiber/v2"
 	"github.com/joho/godotenv"
 	log "github.com/sirupsen/logrus"

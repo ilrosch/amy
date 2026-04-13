@@ -9,7 +9,11 @@ type Contact struct {
 }
 
 type ContactSync struct {
-	New      []Contact   `json:"new"`
-	Accepted []uuid.UUID `json:"accepted"`
-	Rejected []uuid.UUID `json:"rejected"`
+	New      []Contact   `json:"new,omitempty"`
+	Accepted []uuid.UUID `json:"accepted,omitempty"`
+	Rejected []uuid.UUID `json:"rejected,omitempty"`
+}
+
+func (cs ContactSync) IsEmpty() bool {
+	return len(cs.New) == 0 && len(cs.Accepted) == 0 && len(cs.Rejected) == 0
 }

@@ -2,15 +2,14 @@ package user
 
 import (
 	"amybackend/internal/service/user"
-
-	"github.com/go-playground/validator/v10"
+	"amybackend/internal/validator"
 )
 
 type UserHandler struct {
 	s *user.UserService
-	v *validator.Validate
+	v *validator.Validator
 }
 
-func New(s *user.UserService, v *validator.Validate) *UserHandler {
+func New(s *user.UserService, v *validator.Validator) *UserHandler {
 	return &UserHandler{s: s, v: v}
 }
