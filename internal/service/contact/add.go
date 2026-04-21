@@ -9,9 +9,15 @@ import (
 )
 
 func (s *ContactService) Add(ctx context.Context, userFrom uuid.UUID, userTo uuid.UUID) (*contact.Contact, error) {
+	chatID, err := uuid.NewV7()
+	if err != nil {
+		return nil, err
+	}
+
 	contactData, err := s.DB.Q.AddContact(ctx, db.AddContactParams{
 		UserFrom: userFrom,
 		UserTo:   userTo,
+		ChatID:   chatID,
 		Status:   contact.StatusNew,
 	})
 	if err != nil {
@@ -21,11 +27,12 @@ func (s *ContactService) Add(ctx context.Context, userFrom uuid.UUID, userTo uui
 	response := contact.Contact{
 		ID:     contactData.ID,
 		Name:   contactData.Name,
+		ChatID: contactData.ChatID,
 		Status: contact.StatusPending,
 	}
 
 	go func(userFrom uuid.UUID, userTo uuid.UUID) {
-		if ok := s.serSocket.SendContact(userFrom, userTo); ok {
+		if ok := s.serSocket.SendContact(userFrom, userTo, chatID); ok {
 			_ = s.DelContactRequest(userFrom, userTo)
 		}
 	}(userFrom, userTo)

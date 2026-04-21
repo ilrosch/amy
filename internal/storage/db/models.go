@@ -12,6 +12,25 @@ import (
 type Contact struct {
 	UserFrom  uuid.UUID          `json:"user_from"`
 	UserTo    uuid.UUID          `json:"user_to"`
+	ChatID    uuid.UUID          `json:"chat_id"`
+	Status    string             `json:"status"`
+	CreatedAt pgtype.Timestamptz `json:"created_at"`
+}
+
+type Message struct {
+	ID        uuid.UUID          `json:"id"`
+	UserFrom  uuid.UUID          `json:"user_from"`
+	UserTo    uuid.UUID          `json:"user_to"`
+	ChatID    uuid.UUID          `json:"chat_id"`
+	Content   string             `json:"content"`
+	CreatedAt pgtype.Timestamptz `json:"created_at"`
+}
+
+type MessageStatus struct {
+	ID        uuid.UUID          `json:"id"`
+	UserFrom  uuid.UUID          `json:"user_from"`
+	UserTo    uuid.UUID          `json:"user_to"`
+	ChatID    uuid.UUID          `json:"chat_id"`
 	Status    string             `json:"status"`
 	CreatedAt pgtype.Timestamptz `json:"created_at"`
 }

@@ -9,7 +9,7 @@ import (
 	"github.com/google/uuid"
 )
 
-func (s *SocketService) SendContact(userID uuid.UUID, contactID uuid.UUID) bool {
+func (s *SocketService) SendContact(userID, contactID, chatID uuid.UUID) bool {
 	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
 	defer cancel()
 
@@ -25,6 +25,7 @@ func (s *SocketService) SendContact(userID uuid.UUID, contactID uuid.UUID) bool 
 	response := contact.Contact{
 		ID:     userData.ID,
 		Name:   userData.Name,
+		ChatID: chatID,
 		Status: contact.StatusNew,
 	}
 

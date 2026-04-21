@@ -9,6 +9,7 @@ import (
 	"amybackend/internal/api/middleware"
 	"amybackend/internal/config"
 	cs "amybackend/internal/service/contact"
+	ms "amybackend/internal/service/message"
 	"amybackend/internal/service/peer"
 	ss "amybackend/internal/service/socket"
 	sy "amybackend/internal/service/sync"
@@ -30,13 +31,14 @@ func Setup(app *fiber.App, cfg *config.Config, db *db.DBConnect, v *validator.Va
 	uService := us.New(db, tService)
 	sService := ss.New(socketStore, uService)
 	cService := cs.New(db, socketStore, uService, sService)
+	mService := ms.New(db, socketStore, uService, sService)
 
-	syncService := sy.New(cService, socketStore)
+	syncService := sy.New(cService, mService, socketStore)
 	peerService := peer.New(socketStore, v)
 
 	// handlers
 	uHandler := uh.New(uService, v)
-	sHandler := sh.New(socketStore, syncService, peerService)
+	sHandler := sh.New(socketStore, syncService, peerService, mService)
 	cHandler := ch.New(cService)
 
 	// general middleware

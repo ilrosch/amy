@@ -11,6 +11,7 @@ func ContactRouter(app fiber.Router, middleJWT fiber.Handler, ch *contact.Contac
 
 	contactGroup.Use(middleJWT)
 
+	contactGroup.Get("/:id/status", ch.Status)
 	contactGroup.Post("/:id/new", ch.Add)
 	contactGroup.Post("/:id/accept", ch.Accept)
 	contactGroup.Post("/:id/reject", ch.Reject)

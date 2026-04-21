@@ -29,6 +29,12 @@ func (h *SocketHandler) Connect(c *ws.Conn) {
 		}
 	}()
 
+	go func() {
+		if err := h.sync.MessageSync(ctx, userID); err != nil {
+			log.WithError(err).Warn("failed sync messages")
+		}
+	}()
+
 	var (
 		mt   int
 		data []byte
@@ -64,6 +70,14 @@ func (h *SocketHandler) Connect(c *ws.Conn) {
 
 			if err := h.peer.ForwardSignaling(userID, request.Payload); err != nil {
 				log.WithError(err).Warn("fail signal")
+			}
+		case "message":
+			if err := h.message.Add(request.Payload); err != nil {
+				log.WithError(err).Warn("fail message")
+			}
+		case "message_status":
+			if err := h.message.AddStatus(request.Payload); err != nil {
+				log.WithError(err).Warn("fail message status")
 			}
 		default:
 			log.WithFields(log.Fields{

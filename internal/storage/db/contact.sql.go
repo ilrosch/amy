@@ -14,14 +14,15 @@ import (
 
 const addContact = `-- name: AddContact :one
 WITH inserted AS (
-    INSERT INTO contacts (user_from, user_to, status)
-    VALUES ($1, $2, $3)
+    INSERT INTO contacts (user_from, user_to, chat_id, status)
+    VALUES ($1, $2, $3, $4)
     ON CONFLICT (user_from, user_to) 
     DO UPDATE SET status = EXCLUDED.status
-    RETURNING user_to, status
+    RETURNING user_to, chat_id, status
 )
 SELECT 
     c.user_to AS id,
+    c.chat_id AS chat_id,
     c.status AS status,
     u.name AS name
 FROM inserted c
@@ -31,19 +32,31 @@ INNER JOIN users u ON c.user_to = u.id
 type AddContactParams struct {
 	UserFrom uuid.UUID `json:"user_from"`
 	UserTo   uuid.UUID `json:"user_to"`
+	ChatID   uuid.UUID `json:"chat_id"`
 	Status   string    `json:"status"`
 }
 
 type AddContactRow struct {
 	ID     uuid.UUID `json:"id"`
+	ChatID uuid.UUID `json:"chat_id"`
 	Status string    `json:"status"`
 	Name   string    `json:"name"`
 }
 
 func (q *Queries) AddContact(ctx context.Context, arg AddContactParams) (AddContactRow, error) {
-	row := q.db.QueryRow(ctx, addContact, arg.UserFrom, arg.UserTo, arg.Status)
+	row := q.db.QueryRow(ctx, addContact,
+		arg.UserFrom,
+		arg.UserTo,
+		arg.ChatID,
+		arg.Status,
+	)
 	var i AddContactRow
-	err := row.Scan(&i.ID, &i.Status, &i.Name)
+	err := row.Scan(
+		&i.ID,
+		&i.ChatID,
+		&i.Status,
+		&i.Name,
+	)
 	return i, err
 }
 
@@ -76,6 +89,7 @@ const getContacts = `-- name: GetContacts :many
 SELECT
     c.user_from AS id,
     c.status AS status,
+    c.chat_id AS chat_id,
     u.name AS name
 FROM contacts c
 LEFT JOIN users u ON c.user_from = u.id
@@ -85,6 +99,7 @@ WHERE c.user_to = $1
 type GetContactsRow struct {
 	ID     uuid.UUID   `json:"id"`
 	Status string      `json:"status"`
+	ChatID uuid.UUID   `json:"chat_id"`
 	Name   pgtype.Text `json:"name"`
 }
 
@@ -97,7 +112,12 @@ func (q *Queries) GetContacts(ctx context.Context, userTo uuid.UUID) ([]GetConta
 	var items []GetContactsRow
 	for rows.Next() {
 		var i GetContactsRow
-		if err := rows.Scan(&i.ID, &i.Status, &i.Name); err != nil {
+		if err := rows.Scan(
+			&i.ID,
+			&i.Status,
+			&i.ChatID,
+			&i.Name,
+		); err != nil {
 			return nil, err
 		}
 		items = append(items, i)
@@ -109,8 +129,8 @@ func (q *Queries) GetContacts(ctx context.Context, userTo uuid.UUID) ([]GetConta
 }
 
 const upsertContactRequest = `-- name: UpsertContactRequest :exec
-INSERT INTO contacts (user_from, user_to, status)
-VALUES ($1, $2, $3)
+INSERT INTO contacts (user_from, user_to, status, chat_id)
+VALUES ($1, $2, $3, $4)
 ON CONFLICT (user_from, user_to) 
 DO UPDATE SET status = EXCLUDED.status
 `
@@ -119,9 +139,15 @@ type UpsertContactRequestParams struct {
 	UserFrom uuid.UUID `json:"user_from"`
 	UserTo   uuid.UUID `json:"user_to"`
 	Status   string    `json:"status"`
+	ChatID   uuid.UUID `json:"chat_id"`
 }
 
 func (q *Queries) UpsertContactRequest(ctx context.Context, arg UpsertContactRequestParams) error {
-	_, err := q.db.Exec(ctx, upsertContactRequest, arg.UserFrom, arg.UserTo, arg.Status)
+	_, err := q.db.Exec(ctx, upsertContactRequest,
+		arg.UserFrom,
+		arg.UserTo,
+		arg.Status,
+		arg.ChatID,
+	)
 	return err
 }

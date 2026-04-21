@@ -6,6 +6,7 @@ type Contact struct {
 	ID     uuid.UUID `json:"id" validate:"required"`
 	Status string    `json:"status" validate:"required"`
 	Name   string    `json:"name,omitempty"`
+	ChatID uuid.UUID `json:"chat_id,omitempty"`
 }
 
 type ContactSync struct {
