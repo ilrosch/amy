@@ -7,11 +7,12 @@
         "./*"
       ]
     },
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "resolvePackageJsonExports": false
   },
   "include": [
     "**/*.ts",
     "**/*.tsx",
     "eslint.config.js",
-  ]
+  ],
 }

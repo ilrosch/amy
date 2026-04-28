@@ -1,0 +1,9 @@
+{
+  "exit_title": "Exit app",
+  "exit_text": "Are you sure you want to exit?",
+
+  "btn_cancel": "Cancel",
+  "btn_exit": "Exit",
+  "btn_back": "Back",
+  "btn_delete": "Delete"
+}

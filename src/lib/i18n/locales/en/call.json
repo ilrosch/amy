@@ -1,0 +1,9 @@
+{
+  "direction-incoming": "Incoming call",
+  "direction-outgoing": "Outgoing call",
+
+  "status-pending": "Pending",
+  "status-connecting": "Connecting",
+  "status-reconnecting": "Reconnecting",
+  "status-connected": "Connected"
+}

@@ -1,30 +1,32 @@
-import * as SplashScreen from 'expo-splash-screen';
 import { useEffect, useState } from 'react';
+
+import * as SplashScreen from 'expo-splash-screen';
 import { Stack } from 'expo-router';
 import { Provider } from 'react-redux';
 import { StatusBar } from 'expo-status-bar';
 import { useTranslation } from 'react-i18next';
 import { initialWindowMetrics, SafeAreaProvider } from 'react-native-safe-area-context';
 
-import '@/lib/i18n';
-import { store } from '@/lib/store';
-import { useAppSelector } from '@/lib/store/hooks';
-import { selectUserToken } from '@/lib/store/slices/auth';
-import prepareData from '@/scripts/prepareData';
+import '@/src/lib/i18n';
+import { store } from '@/src/lib/store';
+import { useAppSelector } from '@/src/lib/store/hooks';
 
-import Header from '@/components/header/Header';
+import Header from '@/src/components/header/Header';
 import Toast from 'react-native-toast-message';
-
-import '@/lib/notify';
+import { selectTokenString } from '@/src/lib/store/slices/user';
+import { prepareData } from '@/src/scripts/app/prepare/all';
+import { useNotification } from '@/src/hooks/notification/use-notification';
 
 SplashScreen.setOptions({ duration: 1000, fade: true });
 SplashScreen.preventAutoHideAsync();
 
 function LayoutContent() {
   const { t } = useTranslation();
-  const token = useAppSelector(selectUserToken);
+  const token = useAppSelector(selectTokenString);
 
   const [isReady, setIsReady] = useState<boolean>(false);
+
+  useNotification();
 
   useEffect(() => {
     if (isReady) {
@@ -48,28 +50,30 @@ function LayoutContent() {
     return null;
   }
 
+  console.log(token);
+
   return (
     <Stack screenOptions={{ headerShown: false, animation: 'ios_from_right' }}>
       <Stack.Protected guard={!!token}>
         <Stack.Screen name="(tabs)" />
         <Stack.Screen
-          name="profile/[id]"
+          name="(screens)/profile/[id]"
           options={{
             headerShown: true,
             header: () => <Header title={t('pages.profile')} />,
           }}
         />
-        <Stack.Screen name="chat/[id]" />
-        <Stack.Screen name="call/[id]" />
+        <Stack.Screen name="(screens)/chat/[id]" />
+        <Stack.Screen name="(screens)/call/[id]" />
 
-        <Stack.Screen
+        {/* <Stack.Screen
           name="(modals)/new-chat"
           options={{
             presentation: 'transparentModal',
             animation: 'fade',
             animationDuration: 300,
           }}
-        />
+        /> */}
         <Stack.Screen
           name="(modals)/add-contact"
           options={{
@@ -87,25 +91,34 @@ function LayoutContent() {
           }}
         />
 
-        <Stack.Screen
+        {/* <Stack.Screen
           name="(modals)/clear-chat"
           options={{
             presentation: 'transparentModal',
             animation: 'fade',
             animationDuration: 300,
           }}
-        />
-        <Stack.Screen
+        /> */}
+        {/* <Stack.Screen
           name="(modals)/remove-chat"
           options={{
             presentation: 'transparentModal',
             animation: 'fade',
             animationDuration: 300,
           }}
-        />
+        /> */}
+        {/* <Stack.Screen
+          name="(modals)/rename-user"
+          options={{
+            presentation: 'transparentModal',
+            animation: 'fade',
+            animationDuration: 300,
+          }}
+        /> */}
       </Stack.Protected>
-      <Stack.Screen name="sign-in" />
-      <Stack.Screen name="rules" />
+      <Stack.Screen name="(sign-in)/first" />
+      <Stack.Screen name="(sign-in)/second" />
+      <Stack.Screen name="(screens)/rules" />
     </Stack>
   );
 }

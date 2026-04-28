@@ -1,0 +1,10 @@
+{
+  "noChats": "No chats",
+  "noContacts": "No contacts",
+  "empty-chat": "Empty chat",
+  "incoming-call": "Incoming call",
+  "outgoing-call": "Outgoing call",
+  "app-version": "App version",
+  "invite_pending": "Pending approval",
+  "invite_rejected": "Invitation declined"
+}

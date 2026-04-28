@@ -1,52 +1,43 @@
-import { StyleSheet, View } from 'react-native';
-import { useTranslation } from 'react-i18next';
-
-import { useAppSelector } from '@/lib/store/hooks';
-import { selectAllContacts } from '@/lib/store/slices/contacts';
-import { handleCopyCurrentID } from '@/scripts/handleCopyID';
-
-import AddUserIcon from '@/assets/icons/add-user-icon';
-import CopyIcon from '@/assets/icons/copy-icon';
-
-import BtnActionIconBox from '@/components/action/BtnActionIconBox';
-import ContactItemsList from '@/components/widgets/ContactItemsList';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'expo-router';
 
+import { useAppSelector } from '@/src/lib/store/hooks';
+import { selectAllContacts } from '@/src/lib/store/slices/contacts';
+
+import { ContactType } from '@/src/assets/entities/contact';
+import { Colors } from '@/src/assets/tokens';
+import PlusIcon from '@/src/assets/icons/plus-icon';
+
+import Container from '@/src/components/shared/Container';
+import ContainerScroll from '@/src/components/shared/ContainerScroll';
+import ContactList from '@/src/components/widgets/contacts/ContactList';
+import BtnIconFixed from '@/src/components/shared/BtnIconFixed';
+import SearchForm from '@/src/components/widgets/SearchForm';
+
 export default function Contacts() {
-  const { t } = useTranslation();
   const router = useRouter();
   const contacts = useAppSelector(selectAllContacts).sort((a, b) => a.name.localeCompare(b.name));
+  const [currentContacts, setCurrentContacts] = useState<ContactType[]>(contacts);
+
+  useEffect(() => {
+    setCurrentContacts(contacts);
+  }, [contacts]);
+
+  const handleSearch = (value: string) => {
+    setCurrentContacts(
+      contacts.filter(({ name }) => name.toLowerCase().includes(value.toLowerCase())),
+    );
+  };
 
   return (
-    <View style={styles.container}>
-      <BtnActionIconBox
-        btnData={[
-          {
-            Icon: AddUserIcon,
-            title: t('actions.add-user'),
-            handle: () => router.push('add-contact'),
-          },
-          {
-            Icon: CopyIcon,
-            title: t('actions.copy'),
-            handle: handleCopyCurrentID,
-          },
-        ]}
-      />
-      <ContactItemsList items={contacts} route={'profile'} />
-    </View>
+    <Container>
+      <ContainerScroll>
+        {contacts.length > 3 && <SearchForm handleSearch={handleSearch} />}
+        <ContactList items={currentContacts} />
+      </ContainerScroll>
+      <BtnIconFixed handle={() => router.push('add-contact')}>
+        <PlusIcon color={Colors.white} size={20} />
+      </BtnIconFixed>
+    </Container>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    paddingVertical: 6,
-    paddingHorizontal: 12,
-    flex: 1,
-    gap: 6,
-  },
-  contactBox: {
-    paddingHorizontal: 12,
-    marginBottom: 100,
-  },
-});

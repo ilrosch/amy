@@ -1,53 +1,43 @@
-import { StyleSheet, View } from 'react-native';
-import { useTranslation } from 'react-i18next';
+import { useEffect, useState } from 'react';
+import { Link, useRouter } from 'expo-router';
 
-import { useAppSelector } from '@/lib/store/hooks';
-import { selectAllChats } from '@/lib/store/slices/chats';
-import { handleCopyCurrentID } from '@/scripts/handleCopyID';
+import { useAppSelector } from '@/src/lib/store/hooks';
+import { selectAllChats } from '@/src/lib/store/slices/chats';
 
-import AddChatIcon from '@/assets/icons/add-chat-icon';
-import AddUserIcon from '@/assets/icons/add-user-icon';
-import CopyIcon from '@/assets/icons/copy-icon';
+import { ChatType } from '@/src/assets/entities/chat';
+import { Colors } from '@/src/assets/tokens';
+import PlusIcon from '@/src/assets/icons/plus-icon';
 
-import BtnActionIconBox from '@/components/action/BtnActionIconBox';
-import ChatContactsList from '@/components/widgets/ChatContactsList';
-import { router } from 'expo-router';
+import Container from '@/src/components/shared/Container';
+import ContainerScroll from '@/src/components/shared/ContainerScroll';
+import ChatsList from '@/src/components/widgets/chats/ChatsList';
+import BtnIconFixed from '@/src/components/shared/BtnIconFixed';
+import SearchForm from '@/src/components/widgets/SearchForm';
+// import Notify from '@/src/components/widgets/notify';
 
 export default function Chats() {
-  const { t } = useTranslation();
+  const router = useRouter();
   const chats = useAppSelector(selectAllChats);
+  const [currentChats, setCurrentChats] = useState<ChatType[]>(chats);
+
+  useEffect(() => {
+    setCurrentChats(chats);
+  }, [chats]);
+
+  const handleSearch = (value: string) => {
+    setCurrentChats(chats.filter(({ name }) => name.toLowerCase().includes(value.toLowerCase())));
+  };
 
   return (
-    <View style={styles.container}>
-      <BtnActionIconBox
-        btnData={[
-          {
-            Icon: AddChatIcon,
-            title: t('actions.add-chat'),
-            handle: () => router.push('new-chat'),
-          },
-          {
-            Icon: AddUserIcon,
-            title: t('actions.add-user'),
-            handle: () => router.push('add-contact'),
-          },
-          {
-            Icon: CopyIcon,
-            title: t('actions.copy'),
-            handle: handleCopyCurrentID,
-          },
-        ]}
-      />
-      <ChatContactsList items={chats} />
-    </View>
+    <Container>
+      <ContainerScroll>
+        {chats.length > 3 && <SearchForm handleSearch={handleSearch} />}
+        <ChatsList items={currentChats} />
+      </ContainerScroll>
+      {/* <Notify /> */}
+      <BtnIconFixed handle={() => router.push('new-chat')}>
+        <PlusIcon color={Colors.white} size={20} />
+      </BtnIconFixed>
+    </Container>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    paddingVertical: 6,
-    paddingHorizontal: 12,
-    flex: 1,
-    gap: 6,
-  },
-});

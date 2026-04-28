@@ -5,25 +5,50 @@
     "scheme": "amy",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "src/assets/icon.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
+    "locales": {
+      "ru": "src/assets/ru.json"
+    },
     "splash": {
-      "image": "./assets/icon.png",
+      "image": "src/assets/icon.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "c9bd2255-8424-4267-ab5c-37fff7345abf"
+      },
+      "router": {}
     },
     "ios": {
       "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/icon.png",
+        "foregroundImage": "src/assets/icon.png",
         "backgroundColor": "#ffffff"
       },
       "softwareKeyboardLayoutMode": "pan",
       "usesCleartextTraffic": true,
-      "package": "com.anonymous.amy"
+      "package": "com.ilrosch.amy",
+      "googleServicesFile": "google-services.json",
+      "permissions": [
+        "RECEIVE_BOOT_COMPLETED",
+        "SCHEDULE_EXACT_ALARM",
+        "WAKE_LOCK",
+        "CAMERA",
+        "RECORD_AUDIO",
+        "ACCESS_NETWORK_STATE",
+        "CHANGE_NETWORK_STATE",
+        "MODIFY_AUDIO_SETTINGS",
+        "INTERNET",
+        "USE_FULL_SCREEN_INTENT",
+        "FOREGROUND_SERVICE",
+        "FOREGROUND_SERVICE_PHONE_CALL",
+        "VIBRATE"
+      ]
     },
     "plugins": [
       "expo-router",
@@ -35,12 +60,12 @@
               "fontFamily": "Roboto",
               "fontDefinitions": [
                 {
-                  "path": "./assets/fonts/Roboto-Regular.ttf",
+                  "path": "src/assets/fonts/Roboto-Regular.ttf",
                   "weight": 400,
                   "style": "normal"
                 },
                 {
-                  "path": "./assets/fonts/Roboto-Medium.ttf",
+                  "path": "src/assets/fonts/Roboto-Medium.ttf",
                   "weight": 500,
                   "style": "normal"
                 }
@@ -49,9 +74,7 @@
           ]
         }
       ],
-      [
-        "expo-localization"
-      ],
+      ["expo-localization"],
       [
         "expo-sqlite",
         {
@@ -62,20 +85,27 @@
             "useSQLCipher": false
           },
           "ios": {
-            "customBuildFlags": [
-              "-DSQLITE_ENABLE_DBSTAT_VTAB=1 -DSQLITE_ENABLE_SNAPSHOT=1"
-            ]
+            "customBuildFlags": ["-DSQLITE_ENABLE_DBSTAT_VTAB=1 -DSQLITE_ENABLE_SNAPSHOT=1"]
           }
         }
       ],
       "expo-secure-store",
       [
-        "expo-audio",
+        "expo-notifications",
         {
-          "microphonePermission": "Allow $(PRODUCT_NAME) to access your microphone."
+          "enableBackgroundRemoteNotifications": true
         }
       ],
-      "expo-background-task"
-    ]
+      "expo-background-task",
+      "./plugins/withUsesFeatures",
+      "@config-plugins/react-native-webrtc",
+      [
+        "react-native-full-screen-notification-incoming-call",
+        {
+          "statusBarColor": "#000000"
+        }
+      ]
+    ],
+    "owner": "ilrosch"
   }
 }

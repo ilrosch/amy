@@ -2,13 +2,13 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Alert } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
-import renameContactHandler from '@/scripts/handlers/rename-contact';
-import { useAppSelector } from '@/lib/store/hooks';
-import { selectContact } from '@/lib/store/slices/contacts';
+import { useAppSelector } from '@/src/lib/store/hooks';
+import { selectContact } from '@/src/lib/store/slices/contacts';
 
-import ModalCustom from '@/components/modal/ModalCustom';
-import Form from '@/components/shared/Form';
-import { showToast } from '@/scripts/toast';
+import ModalCustom from '@/src/components/modal/ModalCustom';
+import Form from '@/src/components/shared/Form';
+import { showToast } from '@/src/scripts/toast';
+import renameContactHandler from '@/src/scripts/app/handlers/rename-contact';
 
 export default function RenameContactModal() {
   const { t } = useTranslation();
@@ -18,7 +18,7 @@ export default function RenameContactModal() {
 
   const handleSubmit = async ({ value }: { value: string }) => {
     try {
-      await renameContactHandler(value, contactID);
+      await renameContactHandler(contactID, value);
       showToast({ type: 'success', text1: t('toast.rename-contact') });
       router.back();
     } catch (err) {

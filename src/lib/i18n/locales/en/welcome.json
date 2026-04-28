@@ -1,0 +1,11 @@
+{
+    "title_1": "Welcome to Amy",
+    "title_2": "Your account",
+    "text_1": "Read our <0>Terms of services</0>. Tap «Agree and continue» to accept them.",
+    "text_2": "Enter your name below.",
+    "tip": "Tip: Avoid using personal information to enhance your privacy.",
+    "terms_services": "Terms of services",
+    "btn_agree": "Agree and continue",
+    "btn_create": "Create account",
+    "placeholder": "For example, Amy"
+}
