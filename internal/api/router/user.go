@@ -13,4 +13,5 @@ func UserRouter(app fiber.Router, middleJWT fiber.Handler, uh *user.UserHandler)
 	userGroup.Post("/refresh", uh.RefreshToken)
 	userGroup.Use(middleJWT).Delete("/delete", uh.Delete)
 	userGroup.Use(middleJWT).Put("/update", uh.Update)
+	userGroup.Use(middleJWT).Post("/push", uh.Push)
 }

@@ -9,12 +9,12 @@ import (
 )
 
 type Signal struct {
-	Type    string          `json:"type" validate:"required,oneof=offer answer ice_candidate"`
+	Type    string          `json:"type" validate:"required"`
 	UserID  uuid.UUID       `json:"user_id" validate:"required"`
 	Payload json.RawMessage `json:"payload" validate:"required"`
 }
 
-func (s *PeerService) ForwardSignaling(userFrom uuid.UUID, request json.RawMessage) error {
+func (s *PeerService) ForwardSignaling(t string, userFrom uuid.UUID, request json.RawMessage) error {
 	var signal Signal
 
 	if err := json.Unmarshal(request, &signal); err != nil {
@@ -28,7 +28,7 @@ func (s *PeerService) ForwardSignaling(userFrom uuid.UUID, request json.RawMessa
 	}
 
 	if err := s.storage.Send(signal.UserID, &socket.SocketResponse{
-		Type: "peer",
+		Type: t,
 		Payload: Signal{
 			Type:    signal.Type,
 			UserID:  userFrom,

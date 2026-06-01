@@ -10,7 +10,7 @@ var (
 	ChangeContactResponse   string = "change_contact"
 	ContactsResponse        string = "contacts"
 	MessagesResponse        string = "new_messages"
-	MessageStatusesResponse string = "new_message_statuses"
+	MessageStatusesResponse string = "message_statuses"
 
 	PeerClose string = "peer_close"
 )

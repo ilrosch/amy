@@ -37,7 +37,7 @@ func (s *SyncService) MessageSync(ctx context.Context, userID uuid.UUID) error {
 			Type:    socket.MessagesResponse,
 			Payload: chunk,
 		})
-		
+
 		if err != nil {
 			return err
 		}

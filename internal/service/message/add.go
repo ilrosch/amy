@@ -28,6 +28,8 @@ func (s *MessageService) Add(data json.RawMessage) error {
 		return fmt.Errorf("failed to save message: %w", err)
 	}
 
+	go s.push.Send(msg.UserTo, "newMessage", "newMessageBody", map[string]string{})
+
 	return nil
 }
 

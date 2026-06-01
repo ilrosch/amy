@@ -61,14 +61,14 @@ func (h *SocketHandler) Connect(c *ws.Conn) {
 		}
 
 		switch request.Type {
-		case "peer":
+		case "peer", "call":
 			log.WithFields(log.Fields{
 				"type":    request.Type,
 				"payload": request.Payload,
 				"user_id": userID,
 			}).Debug("peer connection")
 
-			if err := h.peer.ForwardSignaling(userID, request.Payload); err != nil {
+			if err := h.peer.ForwardSignaling(request.Type, userID, request.Payload); err != nil {
 				log.WithError(err).Warn("fail signal")
 			}
 		case "message":

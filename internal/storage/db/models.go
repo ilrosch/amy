@@ -35,6 +35,14 @@ type MessageStatus struct {
 	CreatedAt pgtype.Timestamptz `json:"created_at"`
 }
 
+type PushNotification struct {
+	ID        int32              `json:"id"`
+	UserID    uuid.UUID          `json:"user_id"`
+	ExpoToken string             `json:"expo_token"`
+	UserLang  string             `json:"user_lang"`
+	CreatedAt pgtype.Timestamptz `json:"created_at"`
+}
+
 type User struct {
 	ID        uuid.UUID          `json:"id"`
 	Name      string             `json:"name"`

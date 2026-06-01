@@ -17,4 +17,13 @@ func Setup(app *fiber.App) {
 		LimiterMiddleware: limiter.SlidingWindow{},
 	}))
 	app.Use(recover.New())
+
+	// app.Use(
+	// 	fiberi18n.New(&fiberi18n.Config{
+	// 		RootPath:        "./internal/localize",
+	// 		FormatBundleFile: "yml",
+	// 		AcceptLanguages: []language.Tag{language.Russian, language.English},
+	// 		DefaultLanguage: language.English,
+	// 	}),
+	// )
 }

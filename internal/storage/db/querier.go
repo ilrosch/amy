@@ -14,6 +14,7 @@ type Querier interface {
 	AddContact(ctx context.Context, arg AddContactParams) (AddContactRow, error)
 	AddMessage(ctx context.Context, arg AddMessageParams) error
 	AddMessageStatus(ctx context.Context, arg AddMessageStatusParams) error
+	AddPush(ctx context.Context, arg AddPushParams) error
 	CreateUser(ctx context.Context, arg CreateUserParams) (User, error)
 	DelContact(ctx context.Context, arg DelContactParams) error
 	DelContacts(ctx context.Context, userTo uuid.UUID) error
@@ -23,6 +24,7 @@ type Querier interface {
 	GetContacts(ctx context.Context, userTo uuid.UUID) ([]GetContactsRow, error)
 	GetMessageStatuses(ctx context.Context, userTo uuid.UUID) ([]GetMessageStatusesRow, error)
 	GetMessages(ctx context.Context, userTo uuid.UUID) ([]GetMessagesRow, error)
+	GetPush(ctx context.Context, userID uuid.UUID) ([]GetPushRow, error)
 	GetUser(ctx context.Context, id uuid.UUID) (User, error)
 	UpdateUser(ctx context.Context, arg UpdateUserParams) error
 	UpsertContactRequest(ctx context.Context, arg UpsertContactRequestParams) error
