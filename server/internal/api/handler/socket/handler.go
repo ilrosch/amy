@@ -1,0 +1,21 @@
+package socket
+
+import (
+	"amybackend/internal/service/message"
+	"amybackend/internal/service/peer"
+	"amybackend/internal/service/push"
+	"amybackend/internal/service/sync"
+	"amybackend/internal/storage/socket"
+)
+
+type SocketHandler struct {
+	s       *socket.SocketStorage
+	sync    *sync.SyncService
+	peer    *peer.PeerService
+	message *message.MessageService
+	push    *push.PushService
+}
+
+func New(s *socket.SocketStorage, sync *sync.SyncService, peer *peer.PeerService, message *message.MessageService, push *push.PushService) *SocketHandler {
+	return &SocketHandler{s: s, sync: sync, peer: peer, message: message, push: push}
+}
