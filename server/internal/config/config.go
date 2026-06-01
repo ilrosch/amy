@@ -29,16 +29,16 @@ type (
 func Load() *Config {
 	return &Config{
 		DB: DatabaseConfig{
-			Host:     getEnv("DB_HOST", ""),
+			Host:     getEnv("DB_HOST", "localhost"),
 			Port:     getEnvAsInt("DB_PORT", 5432),
-			User:     getEnv("DB_USER", ""),
+			User:     getEnv("DB_USER", "postgres"),
 			Password: getEnv("DB_PASSWORD", ""),
-			Name:     getEnv("DB_NAME", ""),
-			SSL:      getEnv("DB_TLS", "disable"),
+			Name:     getEnv("DB_NAME", "amy"),
+			SSL:      getEnv("DB_SSL_MODE", "disable"),
 		},
 		JWT: JWTConfig{
 			Secret:     getEnv("JWT_SECRET", ""),
-			Expiration: getEnvAsInt("JWT_Expiration", 14),
+			Expiration: getEnvAsInt("JWT_EXPIRATION", 14),
 		},
 	}
 }

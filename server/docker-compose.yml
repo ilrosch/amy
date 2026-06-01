@@ -1,0 +1,51 @@
+services:
+  app:
+    build: .
+    container_name: amy_server
+    ports:
+      - "${PORT:-5500}:3000"
+    environment:
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_NAME=${DB_NAME:-amy_db}
+      - DB_USER=${DB_USER:-amy}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_SSL_MODE=disable
+      - JWT_SECRET=${JWT_SECRET}
+      - JWT_EXPIRATION=${JWT_EXPIRATION:-14}  
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: always
+  db:
+    image: postgres:18
+    restart: always
+    container_name: amy_db
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=${DB_NAME:-amy_db}
+      - POSTGRES_USER=${DB_USER:-amy}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    volumes:
+      - pgdata:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER:-amy} -d $${POSTGRES_DB:-amy_db}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  migrations:
+    image: kukymbr/goose-docker
+    restart: no
+    environment:
+      - GOOSE_DRIVER=postgres
+      - GOOSE_DBSTRING=host=db port=5432 user=${DB_USER:-amy} password=${DB_PASSWORD} dbname=${DB_NAME:-amy_db} sslmode=disable
+    volumes:
+      - ./migrations:/migrations
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  pgdata:

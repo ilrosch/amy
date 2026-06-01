@@ -22,7 +22,7 @@ func init() {
 
 	fileENVs := []string{".env"}
 	if err := godotenv.Load(fileENVs...); err != nil {
-		log.WithError(err).Fatal("not found .env file")
+		log.WithError(err).Info("not found .env file")
 	}
 }
 
@@ -40,7 +40,7 @@ func main() {
 
 	// init fiber app
 	app := fiber.New(fiber.Config{
-		Prefork:       true,
+		// Prefork:       true,
 		CaseSensitive: true,
 		StrictRouting: true,
 		AppName:       "Amy (server)",
