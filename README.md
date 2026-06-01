@@ -1,1 +1,1 @@
-# amy
+# Amy client
