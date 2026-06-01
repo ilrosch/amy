@@ -1,0 +1,17 @@
+{
+  "btnExit": "Выйти",
+  "btnBack": "Назад",
+  "btnCancel": "Отмена",
+  "titleExit": "Закрыть приложение",
+  "textExit": "Вы уверены, что хотите закрыть приложение?",
+  "termsServices": "Правилами использования",
+  "search": "Поиск",
+  "empty": "Пусто",
+
+
+  "confirm": {
+    "title": "Confirmation",
+    "message": "Are you sure you want to perform this action?",
+    "btn": "OK"
+  }
+}

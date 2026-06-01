@@ -1,0 +1,8 @@
+{
+  "placeholder": "Contact ID",
+  "btn": "Add contact",
+  "invalidFormat": "Invalid Format",
+  "invalidFormatText": "The ID must follow the UUID v7 standard. Please check your input.",
+  "alreadyExists": "Already in Contacts",
+  "alreadyExistsText": "This user is already present in your contact list."
+}

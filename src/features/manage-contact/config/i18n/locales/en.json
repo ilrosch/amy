@@ -1,0 +1,7 @@
+{
+  "title": "Settings",
+  "actions": {
+    "rename": "Rename contact",
+    "delete": "Delete contact"
+  }
+}

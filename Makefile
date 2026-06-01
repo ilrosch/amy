@@ -1,8 +1,5 @@
-run-1:
-	npx expo run:android --device RMX1921
-
-run-2:
-	npx expo run:android --device ASUS_X00TDB --port 8082
+run:
+	npx expo start 
 
 clean:
 	rm -rf node_modules

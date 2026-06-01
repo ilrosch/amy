@@ -1,0 +1,13 @@
+{
+  "title": "Invite",
+  "actions": {
+    "accept": "Accept",
+    "reject": "Reject",
+    "resend": "Resend request",
+    "revoke": "Cancel request"
+  },
+  "status": {
+    "pending": "Request sent",
+    "received": "Incoming invitation"
+  }
+}

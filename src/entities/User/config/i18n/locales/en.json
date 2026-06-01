@@ -1,0 +1,6 @@
+{
+  "nameTooShort": "Name is too short",
+  "nameTooShortText": "Your name should be at least 2 characters long. Let's add a bit more!",
+  "nameTooLong": "Name is too long",
+  "nameTooLongText": "Whoops! Please keep your name under 255 characters."
+}

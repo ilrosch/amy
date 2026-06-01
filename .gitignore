@@ -42,3 +42,6 @@ yarn-error.*
 /android
 
 google-services.json
+
+/*_old/
+.vscode

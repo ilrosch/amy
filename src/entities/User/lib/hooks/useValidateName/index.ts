@@ -1,0 +1,1 @@
+export { useValidateName } from './useValidateName';

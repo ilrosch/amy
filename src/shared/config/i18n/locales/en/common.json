@@ -1,0 +1,17 @@
+{
+  "btnExit": "Exit",
+  "btnBack": "Back",
+  "btnCancel": "Cancel",
+  "titleExit": "Exit app",
+  "textExit": "Are you sure you want to exit?",
+  "termsServices": "Terms of services",
+  "search": "Search",
+  "empty": "Empty",
+
+
+  "confirm": {
+    "title": "Confirmation",
+    "message": "Are you sure you want to perform this action?",
+    "btn": "OK"
+  }
+}

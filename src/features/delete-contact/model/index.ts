@@ -1,0 +1,1 @@
+export { useDeleteContact } from './useDeleteContact';
