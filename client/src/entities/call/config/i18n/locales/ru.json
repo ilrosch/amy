@@ -1,0 +1,10 @@
+{
+  "incoming-direction": "Входящий звонок",
+  "outgoing-direction": "Исходящий звонок",
+  "status": {
+    "pending": "Вызов",
+    "connecting": "Соединение",
+    "reconnecting": "Переподключение",
+    "connected": "Подключено"
+  }
+}

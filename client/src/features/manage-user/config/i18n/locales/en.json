@@ -1,0 +1,8 @@
+{
+  "title": "Account",
+  "actions": {
+    "rename": "Rename",
+    "delete": "Delete"
+  },
+  "invite_message": "Hi! Let's chat on Amy. My unique ID is: `{{id}}`. Just copy it and paste it into the add contact bar in the app!"
+}

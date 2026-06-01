@@ -1,0 +1,1 @@
+export { usePressAnimScale } from './usePressAnimScale';

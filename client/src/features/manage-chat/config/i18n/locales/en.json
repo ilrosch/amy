@@ -1,0 +1,19 @@
+{
+  "title": "Chat settings",
+  "actions": {
+    "clear": "Clear",
+    "delete": "Delete"
+  },
+  "modals": {
+    "clearConfirm": {
+      "title": "Clear chat history?",
+      "message": "This action will permanently erase all messages in this chat from your device. This cannot be undone.",
+      "confirm": "Clear"
+    },
+    "deleteConfirm": {
+      "title": "Delete chat?",
+      "message": "Are you sure you want to completely delete this chat? All history, media files, and contact associations will be removed permanently.",
+      "confirm": "Delete"
+    }
+  }
+}
