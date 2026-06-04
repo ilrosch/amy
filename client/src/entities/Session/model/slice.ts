@@ -6,7 +6,7 @@ export const initSession = createAsyncThunk('entities/session/init', async () =>
   try {
     const session = await getSessionFromStorage();
     return session;
-  } catch (e) {
+  } catch {
     return null;
   }
 });

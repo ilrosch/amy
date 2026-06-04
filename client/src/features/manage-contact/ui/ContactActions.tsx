@@ -1,11 +1,8 @@
 import { useTranslation } from 'react-i18next';
 import { useAppSelector } from '@/app-root/store';
-import { ContactStatus, selectContactByID } from '@/entities/Contact';
+import { ContactStatus, selectContactByID } from '@/entities/contact';
 import { BtnGroup, BtnGroupItem } from '@/shared/ui/buttons/BtnGroup';
-import { useCallback } from 'react';
-import { Alert } from 'react-native';
 import { confirmModal } from '@/shared/lib/modal/confirm';
-import { useSpinner } from '@/app-root/providers/SpinnerProvider';
 import { useRouter } from 'expo-router';
 import { ROUTES } from '@/shared/config/routes';
 import { useDeleteContact } from '@/features/delete-contact';
@@ -15,42 +12,10 @@ export type ContactsActionsType = {
 };
 
 export default function ContactActions({ contactID }: ContactsActionsType) {
-  const { t } = useTranslation('manageContact');
   const router = useRouter();
-  const { showLoader, hideLoader } = useSpinner();
+  const { t } = useTranslation('manageContact');
   const contact = useAppSelector((s) => selectContactByID(s, contactID));
   const { handleDeleteContact } = useDeleteContact();
-
-  // const { handleAcceptContact } = useAcceptContact();
-  // const { handleRejectContact } = useRejectContact();
-  // const { handleResendContact } = useResendContact();
-
-  const handleRequestInvite = useCallback(async () => {
-    // const executeAction = async () => {
-    //   switch (action) {
-    //     case InviteAction.ACCEPT:
-    //       return handleAcceptContact(contact);
-    //     case InviteAction.REJECT:
-    //       return handleRejectContact(contact);
-    //     case InviteAction.RESEND:
-    //       return handleResendContact(contact);
-    //   }
-    // };
-    // const needsConfirm = [InviteAction.REJECT, InviteAction.REVOKE].includes(action);
-    // if (needsConfirm) {
-    //   const confirmed = await confirmModal();
-    //   if (!confirmed) return;
-    // }
-    // showLoader();
-    // try {
-    //   await executeAction();
-    // } catch (err) {
-    //   Alert.alert(t('errors:unknown'), t('errors:unknownText'));
-    //   console.error('failed to invite contact:', err);
-    // } finally {
-    //   hideLoader();
-    // }
-  }, []);
 
   if (!contact) return null;
 
@@ -67,7 +32,12 @@ export default function ContactActions({ contactID }: ContactsActionsType) {
           },
           {
             text: t('actions.delete'),
-            onPress: () => handleDeleteContact(contactID),
+            onPress: async () => {
+              const confirmed = await confirmModal();
+              if (!confirmed) return;
+
+              await handleDeleteContact(contactID);
+            },
             btnProps: { variant: 'danger' },
           },
         ];

@@ -1,3 +1,3 @@
-import Contacts from './Contacts.tsx'
+import Contacts from './Contacts.tsx';
 
-export { Contacts }
+export { Contacts };

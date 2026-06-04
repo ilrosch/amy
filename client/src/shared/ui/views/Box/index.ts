@@ -1,1 +1,1 @@
-export { }
+export { Box, BoxType } from './Box';

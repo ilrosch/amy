@@ -3,7 +3,7 @@ import { TouchableWithoutFeedback, View } from 'react-native';
 import { useLocalSearchParams } from 'expo-router';
 import { useCallManager } from '@/app-root/providers/SocketProvider/SocketProvider';
 import { useAppSelector } from '@/app-root/store';
-import { selectContactByID } from '@/entities/Contact';
+import { selectContactByID } from '@/entities/contact';
 import { useBack } from '@/shared/lib/hooks/useBack';
 import { SafeView } from '@/shared/ui/views/SafeView';
 import { useCall } from '../model/useCall';

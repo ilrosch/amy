@@ -24,5 +24,6 @@ const styles = StyleSheet.create({
     aspectRatio: 1 / 1,
     borderRadius: 20,
     backgroundColor: COLORS.primary,
+    zIndex: 2,
   },
 });

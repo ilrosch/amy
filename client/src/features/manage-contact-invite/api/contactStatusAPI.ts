@@ -1,5 +1,5 @@
 import { ENDPOINTS } from '@/shared/api/http';
-import { contactApi } from '@/entities/Contact';
+import { contactApi } from '@/entities/contact';
 
 export const contactStatusAPI = contactApi.injectEndpoints({
   endpoints: (build) => ({

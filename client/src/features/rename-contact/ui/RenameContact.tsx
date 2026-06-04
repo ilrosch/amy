@@ -3,7 +3,7 @@ import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useRenameContact } from '../model/useRenameContact';
 import { useAppSelector } from '@/app-root/store';
-import { selectContactByID } from '@/entities/Contact';
+import { selectContactByID } from '@/entities/contact';
 import { useBack } from '@/shared/lib/hooks/useBack';
 
 export default function RenameContactForm({ contactID }: { contactID: string }) {

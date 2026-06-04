@@ -5,13 +5,13 @@ import { useTranslation } from 'react-i18next';
 
 import { useCallManager } from '@/app-root/providers/SocketProvider/SocketProvider';
 import { useAppSelector } from '@/app-root/store';
-import { selectContactByID } from '@/entities/Contact';
+import { selectContactByID } from '@/entities/contact';
 import { ROUTES } from '@/shared/config/routes';
 import { COLORS } from '@/shared/config/theme';
 import { useBack } from '@/shared/lib/hooks/useBack';
-import { Avatar } from '@/shared/ui/blocks/Avatar/Avatar';
+import { Avatar } from '@/shared/ui/blocks/Avatar';
 import { Txt } from '@/shared/ui/texts/Txt';
-import { Box } from '@/shared/ui/views/Box/Box';
+import { Box } from '@/shared/ui/views/Box';
 import { Container } from '@/shared/ui/views/Container';
 import { SafeView } from '@/shared/ui/views/SafeView';
 

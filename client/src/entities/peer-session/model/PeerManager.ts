@@ -1,7 +1,7 @@
 import { RTCIceCandidate, RTCPeerConnection } from 'react-native-webrtc';
 import { RTCOfferOptions } from 'react-native-webrtc/lib/typescript/RTCUtil';
 import { store } from '@/app-root/store';
-import { contactApi } from '@/entities/Contact';
+import { contactApi } from '@/entities/contact';
 import { IPeerSignaling } from '../config/signaling';
 import { CONNECTION_CONFIG } from '../config/connection';
 import { PeerEventHandler, PeerEvents } from '../config/events';
@@ -54,7 +54,7 @@ export class PeerManager {
     try {
       const result = await store.dispatch(contactApi.endpoints.isOnline.initiate(peerID)).unwrap();
       return result.status === 'online';
-    } catch (err) {
+    } catch {
       return false;
     }
   }

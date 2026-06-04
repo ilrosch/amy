@@ -1,3 +1,3 @@
-import ContactList from './ContactList.tsx'
+import ContactList from './ContactList.tsx';
 
-export { ContactList }
+export { ContactList };

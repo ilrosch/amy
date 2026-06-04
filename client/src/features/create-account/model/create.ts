@@ -1,7 +1,7 @@
 import { store } from '@/app-root/store';
-import { mapUserDtoToEntity, setUser } from '@/entities/User';
-import { mapSessionDtoToEntity, setSession } from '@/entities/Session';
-import { useCreateUserMutation } from '@/entities/User/api/user.api';
+import { mapUserDtoToEntity, setUser } from '@/entities/user';
+import { mapSessionDtoToEntity, setSession } from '@/entities/session';
+import { useCreateUserMutation } from '@/entities/user/api/user.api';
 import { useCallback } from 'react';
 
 export const useCreateUserAccount = () => {

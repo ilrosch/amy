@@ -32,7 +32,7 @@
       },
       "softwareKeyboardLayoutMode": "resize",
       "package": "com.ilrosch.amy",
-      "googleServicesFile": "google-services.json",
+      "googleServicesFile": "./google-services.json",
       "permissions": [
         "RECEIVE_BOOT_COMPLETED",
         "SCHEDULE_EXACT_ALARM",

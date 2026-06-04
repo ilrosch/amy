@@ -1,5 +1,6 @@
 import { useAppDispatch, useAppSelector } from '@/app-root/store';
-import { saveChat, selectChatsIDS, setChat } from '@/entities/Chat';
+import { saveChat, selectChatsIDS, setChat } from '@/entities/chat';
+import { selectAllContacts } from '@/entities/contact';
 import { ROUTES } from '@/shared/config/routes';
 import { ModalView } from '@/shared/ui/views/ModalView';
 import { ContactList } from '@/widgets/ContactList';
@@ -11,15 +12,15 @@ export default function AddChat() {
   const { t } = useTranslation('addChatModal');
   const router = useRouter();
   const dispatch = useAppDispatch();
+  const contacts = useAppSelector(selectAllContacts);
   const existsIDS = useAppSelector(selectChatsIDS);
 
   const handleRouteChat = useCallback(
     async (chatID: string) => {
-      console.log(chatID);
-
       if (!existsIDS.includes(chatID)) {
         await saveChat(chatID);
-        dispatch(setChat({ chatID }));
+        const contactName = contacts.find((c) => c.chatID === chatID)?.name || '';
+        dispatch(setChat({ id: chatID, contactName, lastMessage: null }));
       }
 
       router.replace(ROUTES.CHAT(chatID));

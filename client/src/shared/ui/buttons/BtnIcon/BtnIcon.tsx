@@ -6,7 +6,9 @@ export function BtnIcon({ text, children, ...props }) {
   return (
     <TouchableOpacity activeOpacity={0.7} style={styles.btn} {...props}>
       {children}
-      <Txt size="s">{text}</Txt>
+      <Txt size="s" numberOfLines={1} ellipsizeMode="tail">
+        {text}
+      </Txt>
     </TouchableOpacity>
   );
 }

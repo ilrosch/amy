@@ -2,6 +2,7 @@ import { withDB } from '@/shared/api/db';
 import { MessageDTO } from '../config/types';
 import { SAVE_MESSAGE } from './queries';
 import { withTx } from '@/shared/api/db/connection';
+import { updateChat } from '@/entities/chat';
 
 export const saveMessage = (message: MessageDTO) =>
   withDB(async (db) => {
@@ -15,6 +16,21 @@ export const saveMessage = (message: MessageDTO) =>
         message.content,
         message.status,
         message.created_at,
+      );
+
+      const { store } = await import('@/app-root/store');
+
+      store.dispatch(
+        updateChat({
+          id: message.chat_id,
+          changes: {
+            lastMessage: {
+              at: message.created_at,
+              status: message.status,
+              content: message.content,
+            },
+          },
+        }),
       );
     } catch (err) {
       console.error('failed to save message:', err);
@@ -34,5 +50,20 @@ export const saveMessages = (messages: MessageDTO[]) =>
         message.status,
         message.created_at,
       ]);
+
+      const { store } = await import('@/app-root/store');
+
+      store.dispatch(
+        updateChat({
+          id: message.chat_id,
+          changes: {
+            lastMessage: {
+              at: message.created_at,
+              status: message.status,
+              content: message.content,
+            },
+          },
+        }),
+      );
     }
   });

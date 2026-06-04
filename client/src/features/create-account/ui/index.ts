@@ -1,3 +1,3 @@
-import CreateAccount from './CreateAccount.tsx'
+import CreateAccount from './CreateAccount.tsx';
 
-export { CreateAccount }
+export { CreateAccount };

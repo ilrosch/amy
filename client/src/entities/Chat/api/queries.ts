@@ -16,6 +16,5 @@ ORDER BY m.created_at DESC;
 
 export const UPSERT_CHAT = `
 INSERT INTO chats (id) VALUES (?)
-ON CONFLICT (id) DO NOTHING
-
+ON CONFLICT (id) DO NOTHING;
 `;

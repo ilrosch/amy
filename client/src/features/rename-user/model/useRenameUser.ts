@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { useAppDispatch, useAppSelector } from '@/app-root/store';
-import { saveUserToStorage, selectUser, updateUser, User } from '@/entities/User';
-import { useUpdateUserMutation } from '@/entities/User/api/user.api';
+import { saveUserToStorage, selectUser, updateUser, User } from '@/entities/user';
+import { useUpdateUserMutation } from '@/entities/user/api/user.api';
 import { useBack } from '@/shared/lib/hooks/useBack';
 
 export const useRenameUser = () => {
@@ -18,7 +18,7 @@ export const useRenameUser = () => {
         await saveUserToStorage({ ...user, ...changed });
         dispatch(updateUser(changed));
         handleBack();
-      } catch (err) {}
+      } catch {}
     },
     [dispatch, handleBack, updateUserServer, user],
   );

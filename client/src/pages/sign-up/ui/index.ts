@@ -1,3 +1,3 @@
-import SignUp from './SignUp.tsx'
+import SignUp from './SignUp.tsx';
 
-export { SignUp }
+export { SignUp };

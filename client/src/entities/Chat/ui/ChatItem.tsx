@@ -1,11 +1,11 @@
 import { COLORS } from '@/shared/config/theme';
-import { Avatar } from '@/shared/ui/blocks/Avatar/Avatar';
+import { Avatar } from '@/shared/ui/blocks/Avatar';
 import { Txt } from '@/shared/ui/texts/Txt';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Chat } from '../model/types';
 import { useTranslation } from 'react-i18next';
 import { formatTime } from '@/shared/lib/date';
-import { Box } from '@/shared/ui/views/Box/Box';
+import { Box } from '@/shared/ui/views/Box';
 
 export type IChatItem = {
   chat: Chat;

@@ -1,3 +1,3 @@
-import AddChat from './AddChat.tsx'
+import AddChat from './AddChat.tsx';
 
-export { AddChat }
+export { AddChat };

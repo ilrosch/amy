@@ -2,35 +2,41 @@ import { useAppSelector } from '@/app-root/store';
 import CallIcon from '@/assets/icons/call';
 import ChatIcon from '@/assets/icons/chats';
 import CopyIcon from '@/assets/icons/copy';
-import { ContactStatus, selectContactByID } from '@/entities/Contact';
+import { ContactStatus, selectContactByID } from '@/entities/contact';
 import { ChatActions } from '@/features/manage-chat';
 import { ContactActions } from '@/features/manage-contact';
 import { InviteActions } from '@/features/manage-contact-invite';
 import { ROUTES } from '@/shared/config/routes';
 import { COLORS } from '@/shared/config/theme';
 import { share } from '@/shared/lib/share';
-import { Avatar } from '@/shared/ui/blocks/Avatar/Avatar';
-import { Btn } from '@/shared/ui/buttons/Btn';
-import { BtnBack } from '@/shared/ui/buttons/BtnBack/BtnBack';
-import { BtnGroup } from '@/shared/ui/buttons/BtnGroup';
+import { BtnBack } from '@/shared/ui/buttons/BtnBack';
 import { BtnIcon } from '@/shared/ui/buttons/BtnIcon';
 import { Txt } from '@/shared/ui/texts/Txt';
-import { Container } from '@/shared/ui/views/Container';
 import { ContainerScroll } from '@/shared/ui/views/ContainerScroll';
 import { SafeView } from '@/shared/ui/views/SafeView';
 import { Section } from '@/shared/ui/views/Section';
-import { router } from 'expo-router';
-import { useLocalSearchParams, useSearchParams } from 'expo-router/build/hooks';
+import { useLocalSearchParams, useRouter } from 'expo-router/build/hooks';
+import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
 
 export default function Profile() {
+  const router = useRouter();
+  const { t } = useTranslation('common');
   const { id: contactID } = useLocalSearchParams<{ id: string }>();
   const contact = useAppSelector((s) => selectContactByID(s, contactID));
-  const isAccepted = contact.status === ContactStatus.ACCEPTED;
+  const isAccepted = contact?.status === ContactStatus.ACCEPTED;
+
+  useEffect(() => {
+    if (!contact) router.replace(ROUTES.HOME);
+  }, [contact, router]);
+
+  if (!contact) return;
 
   return (
     <SafeView style={{ paddingTop: 0 }}>
       <Section>
+        <BtnBack />
         <ContainerScroll>
           <Txt color="textHeader" size="l" isBold>
             {contact.name}
@@ -46,22 +52,22 @@ export default function Profile() {
           >
             {isAccepted && (
               <>
-                <BtnIcon text="Chat">
+                <BtnIcon text={t('chat')} onPress={() => router.push(ROUTES.CHAT(contact.chatID))}>
                   <ChatIcon color={COLORS.textMain} />
                 </BtnIcon>
-                <BtnIcon text="Call" onPress={() => router.push(ROUTES.CALL.ROOM(contactID))}>
+                <BtnIcon text={t('call')} onPress={() => router.push(ROUTES.CALL.ROOM(contactID))}>
                   <CallIcon color={COLORS.textMain} />
                 </BtnIcon>
               </>
             )}
-            <BtnIcon text="Copy" onPress={() => share({ message: contactID })}>
+            <BtnIcon text={t('copy')} onPress={() => share({ message: contactID })}>
               <CopyIcon color={COLORS.textMain} />
             </BtnIcon>
           </View>
           <ContactActions contactID={contactID} />
           <ChatActions contactID={contactID} />
           <InviteActions contactID={contactID} />
-          <BtnBack />
+          <View style={{ height: 80 }} />
         </ContainerScroll>
       </Section>
     </SafeView>

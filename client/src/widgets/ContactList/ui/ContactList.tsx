@@ -1,9 +1,10 @@
 import { useAppSelector } from '@/app-root/store';
-import { selectAllContacts } from '@/entities/Contact';
-import { ContactCard } from '@/entities/Contact/ui/ContactCard';
+import { selectAllContacts } from '@/entities/contact';
+import { ContactCard } from '@/entities/contact/ui/ContactCard';
 import { Search } from '@/shared/ui/blocks/Search';
 import { Txt } from '@/shared/ui/texts/Txt';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { FlatList, View } from 'react-native';
 
 export type ContactListType = {
@@ -17,11 +18,10 @@ export default function ContactList({
   param = 'id',
   isScrollEnabled = true,
 }: ContactListType) {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
 
-  const allContacts = useAppSelector(selectAllContacts).sort((a, b) =>
-    a.name.localeCompare(b.name),
-  );
+  const allContacts = useAppSelector(selectAllContacts);
 
   const filtered = useMemo(() => {
     const lowerQuery = searchQuery.toLowerCase();
@@ -41,7 +41,7 @@ export default function ContactList({
         renderItem={({ item }) => <ContactCard contact={item} onPress={onPress} param={param} />}
         contentContainerStyle={{ gap: 4 }}
         showsVerticalScrollIndicator={false}
-        ListEmptyComponent={<Txt>Нет контактов</Txt>}
+        ListEmptyComponent={<Txt>{t('empty')}</Txt>}
         scrollEnabled={isScrollEnabled}
       />
     </View>

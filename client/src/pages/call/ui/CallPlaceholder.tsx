@@ -1,6 +1,6 @@
 import { StyleSheet, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { Avatar } from '@/shared/ui/blocks/Avatar/Avatar';
+import { Avatar } from '@/shared/ui/blocks/Avatar';
 import { Txt } from '@/shared/ui/texts/Txt';
 
 export interface ICallPlaceholder {

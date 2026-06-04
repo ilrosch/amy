@@ -5,11 +5,11 @@ import {
   removeContact,
   setContact,
   setContacts,
-} from '@/entities/Contact';
+} from '@/entities/contact';
 import { Chat } from './types';
 import { saveChat } from '../api/saveChat';
 import { getAllChats } from '../api/getAllChats';
-import { updateContact } from '@/entities/Contact/model';
+import { updateContact } from '@/entities/contact/model';
 
 export const initChats = createAsyncThunk('entities/chat/init', getAllChats);
 
@@ -24,10 +24,27 @@ export const chatSlice = createSlice({
     setAllChats: chatAdapter.setAll,
     setChats: chatAdapter.addMany,
     setChat: chatAdapter.addOne,
-    updateChat: chatAdapter.updateOne,
     delChat: chatAdapter.removeOne,
     delChats: chatAdapter.removeMany,
     delAllChats: chatAdapter.removeAll,
+    updateChat: chatAdapter.updateOne,
+    updateChatStatus: (s, { payload }) => {
+      const { id, status } = payload;
+      const chat = s.entities[id];
+
+      if (chat && chat.lastMessage) {
+        chatAdapter.updateOne(s, {
+          id,
+          changes: {
+            ...chat,
+            lastMessage: {
+              ...chat.lastMessage,
+              status,
+            },
+          },
+        });
+      }
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(setContact, (s, { payload }) => {
@@ -69,6 +86,14 @@ export const chatSlice = createSlice({
 });
 
 export const { reducer: chatReducer } = chatSlice;
-export const { setAllChats, setChats, setChat, updateChat, delChat, delChats, delAllChats } =
-  chatSlice.actions;
+export const {
+  setAllChats,
+  setChats,
+  setChat,
+  updateChat,
+  delChat,
+  delChats,
+  delAllChats,
+  updateChatStatus,
+} = chatSlice.actions;
 export { chatAdapter };

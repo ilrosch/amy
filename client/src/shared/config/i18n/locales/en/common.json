@@ -8,10 +8,17 @@
   "search": "Search",
   "empty": "Empty",
 
-
   "confirm": {
     "title": "Confirmation",
     "message": "Are you sure you want to perform this action?",
     "btn": "OK"
-  }
+  },
+
+  "success": {
+    "title": "Success"
+  },
+
+  "chat": "Chat",
+  "call": "Call",
+  "copy": "Copy"
 }

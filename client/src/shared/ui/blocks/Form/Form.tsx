@@ -10,13 +10,7 @@ export type FormType = {
   onSubmit: (v: string) => void;
 } & ViewProps;
 
-export function Form({
-  inputProps,
-  btnProps,
-  onSubmit,
-  initValue = '019e6854-bf3b-7464-816d-3a9fb648408f',
-  ...props
-}: FormType) {
+export function Form({ inputProps, btnProps, onSubmit, initValue = '', ...props }: FormType) {
   const [value, setValue] = useState<string>(initValue);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 

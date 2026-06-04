@@ -20,9 +20,10 @@ export const useClearChat = (chatID: string) => {
 
       await clearChatDB(chatID);
       await showModal({
+        title: t('alerts.clear.success'),
         message: t('alerts.clear.success'),
       });
-    } catch (err) {
+    } catch {
       await showModal({
         message: t('alerts.clear.error'),
       });

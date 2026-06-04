@@ -1,1 +1,1 @@
-export { }
+export { InitProvider } from './InitProvider';

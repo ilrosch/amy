@@ -1,5 +1,5 @@
 import { Stack } from 'expo-router';
-import { useSession } from '@/entities/Session';
+import { useSession } from '@/entities/session';
 
 export function LayoutRoot() {
   const { isAuthenticated } = useSession();

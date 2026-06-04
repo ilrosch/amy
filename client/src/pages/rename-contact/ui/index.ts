@@ -1,3 +1,3 @@
-import RenameContact from './RenameContact.tsx'
+import RenameContact from './RenameContact.tsx';
 
-export { RenameContact }
+export { RenameContact };

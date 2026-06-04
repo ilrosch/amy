@@ -1,3 +1,3 @@
-import Call from './Call.tsx'
+import Call from './Call.tsx';
 
-export { Call }
+export { Call };

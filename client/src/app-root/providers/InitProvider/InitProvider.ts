@@ -1,9 +1,9 @@
 import { featuresResources } from '@/app-root/i18n/registry';
 import { useAppDispatch, useAppSelector } from '@/app-root/store';
-import { initChats } from '@/entities/Chat';
-import { initContacts } from '@/entities/Contact';
-import { initSession, selectIsSessionInitialized } from '@/entities/Session';
-import { initUser, selectIsUserInitialized } from '@/entities/User';
+import { initChats } from '@/entities/chat';
+import { initContacts } from '@/entities/contact';
+import { initSession, selectIsSessionInitialized } from '@/entities/session';
+import { initUser, selectIsUserInitialized } from '@/entities/user';
 import { getDB } from '@/shared/api/db';
 import { registerFeatureResources } from '@/shared/config/i18n';
 import * as SplashScreen from 'expo-splash-screen';

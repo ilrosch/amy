@@ -1,3 +1,1 @@
-import LayoutTabs from './LayoutTabs';
-
-export { LayoutTabs };
+export { LayoutTabs } from './LayoutTabs';
