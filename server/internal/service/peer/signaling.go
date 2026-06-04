@@ -11,7 +11,7 @@ import (
 type Signal struct {
 	Type    string          `json:"type" validate:"required"`
 	UserID  uuid.UUID       `json:"user_id" validate:"required"`
-	Payload json.RawMessage `json:"payload" validate:"required"`
+	Payload json.RawMessage `json:"payload"`
 }
 
 func (s *PeerService) ForwardSignaling(t string, userFrom uuid.UUID, request json.RawMessage) error {
