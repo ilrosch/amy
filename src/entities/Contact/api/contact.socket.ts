@@ -1,27 +1,40 @@
 import { mapDtoToPayload } from '@/entities/peer-session/model/mapper';
-import { updateContact } from './updateContact';
 import { saveContact } from './saveContact';
-import { contactSlice, mapContactDtoToEntity } from '../model';
+import { mapContactDtoToEntity, selectContactByID, setContact, updateContact } from '../model';
 import { store } from '@/app-root/store';
 
 export const contactSocketHandler = async (payload: any) => {
-  const { type, peerID, data } = mapDtoToPayload(payload);
+  const { type, data } = mapDtoToPayload(payload);
 
   switch (type) {
     case 'new_contact':
       const contact = mapContactDtoToEntity(data);
+      const exists = selectContactByID(store.getState(), contact.id);
       await saveContact(contact);
-      store.dispatch(contactSlice.actions.setContact(contact));
+      if (exists) {
+        store.dispatch(
+          updateContact({
+            contactID: contact.id,
+            changes: {
+              status: contact.status,
+              chatID: contact.chatID,
+            },
+          }),
+        );
+      } else {
+        store.dispatch(setContact(contact));
+      }
       break;
     case 'change_contact':
       const updatedContact = mapContactDtoToEntity(data);
       store.dispatch(
-        contactSlice.actions.updateContact({
+        updateContact({
           contactID: updatedContact.id,
           changes: { status: updatedContact.status },
         }),
       );
-      await saveContact(updatedContact);
+      const upsertContact = selectContactByID(store.getState(), updatedContact.id);
+      await saveContact(upsertContact);
       break;
   }
 };

@@ -1,10 +1,9 @@
 import { useAppSelector } from '@/app-root/store';
 import BackIcon from '@/assets/icons/back';
 import CallIcon from '@/assets/icons/call';
-import { ContactStatus, selectContactByID } from '@/entities/Contact';
+import { ContactStatus, selectContactByID } from '@/entities/contact';
 import { ROUTES } from '@/shared/config/routes';
 import { COLORS } from '@/shared/config/theme';
-import { useBack } from '@/shared/lib/hooks/useBack';
 import { Txt } from '@/shared/ui/texts/Txt';
 import { useRouter } from 'expo-router';
 import { useCallback } from 'react';
@@ -12,7 +11,6 @@ import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export function ChatHeader({ contactID }: { contactID: string }) {
-  const handleBack = useBack();
   const router = useRouter();
   const { top } = useSafeAreaInsets();
 
@@ -26,7 +24,7 @@ export function ChatHeader({ contactID }: { contactID: string }) {
 
   return (
     <View style={[styles.box, { paddingTop: top + 12 }]}>
-      <TouchableOpacity onPress={handleBack} activeOpacity={0.7}>
+      <TouchableOpacity onPress={() => router.navigate(ROUTES.HOME)} activeOpacity={0.7}>
         <BackIcon color={COLORS.textMain} />
       </TouchableOpacity>
 

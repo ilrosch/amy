@@ -1,8 +1,8 @@
 import { withDB } from '@/shared/api/db';
 import { Contact } from '../model';
-import { UPDATE_CONTACT, UPSERT_CONTACT } from './queries';
+import { UPDATE_CONTACT } from './queries';
 
-export const updateContact = async (contact: Contact) =>
+export const updateContactDB = async (contact: Contact) =>
   withDB(async (db) => {
     try {
       await db.runAsync(UPDATE_CONTACT, [contact.name, contact.chatID, contact.status, contact.id]);

@@ -1,6 +1,6 @@
 export const UPSERT_CONTACT = `
 INSERT INTO contacts (id, name, chat_id, status) VALUES (?, ?, ?, ?)
-ON CONFLICT (id) DO UPDATE SET status = EXCLUDED.status;
+ON CONFLICT (id) DO UPDATE SET status = EXCLUDED.status, chat_id = EXCLUDED.chat_id;
 `;
 
 export const GET_ALL_CONTACTS = `

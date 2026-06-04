@@ -6,13 +6,14 @@ import { COLORS } from '@/shared/config/theme';
 import SendIcon from '@/assets/icons/send';
 import { Message, setMessage } from '@/entities/peer-chat';
 import { useAppDispatch, useAppSelector } from '@/app-root/store';
-import { useChatManager, useSocket } from '@/app-root/providers/SocketProvider/SocketProvider';
+import { useChatManager } from '@/app-root/providers/SocketProvider/SocketProvider';
 import { v7 } from 'uuid';
-import { selectUser, selectUserID } from '@/entities/User';
+import { selectUserID } from '@/entities/user';
 
 import * as Crypto from 'expo-crypto';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { ContactStatus, selectContactByID } from '@/entities/Contact';
+import { ContactStatus, selectContactByID } from '@/entities/contact';
+
 if (typeof global.crypto === 'undefined') {
   global.crypto = {
     getRandomValues: Crypto.getRandomValues,
@@ -52,7 +53,7 @@ export default function SendMessageForm({ chatID, contactID }: SendMessageFormTy
       await chatManager.sendMessage(contactID, message);
       setMsg('');
     } catch (err) {
-      console.error('failed to send message');
+      console.error('failed to send message:', err);
       setMsg(message.content);
     }
   }, [chatID, chatManager, contactID, dispatch, msg, userID]);

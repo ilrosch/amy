@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { useAppDispatch } from '@/app-root/store';
-import { saveContact, setContact, useAddContactMutation } from '@/entities/Contact';
+import { saveContact, setContact, useAddContactMutation } from '@/entities/contact';
 import { useValidateID } from './useValidateID';
 
 export const useAddContact = () => {

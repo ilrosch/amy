@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { deleteChatDB } from '../api';
 import { showModal } from '@/shared/lib/modal/modal';
 import { useAppDispatch } from '@/app-root/store';
-import { delChat } from '@/entities/Chat';
+import { delChat } from '@/entities/chat';
 
 export const useDeleteChat = (chatID: string) => {
   const { t } = useTranslation('chatManage');
@@ -26,7 +26,7 @@ export const useDeleteChat = (chatID: string) => {
       await showModal({
         message: t('alerts.delete.success'),
       });
-    } catch (err) {
+    } catch {
       await showModal({
         message: t('alerts.delete.error'),
       });

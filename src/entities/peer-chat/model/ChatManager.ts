@@ -50,7 +50,7 @@ export class ChatManager {
   }
 
   setCallback(callbacks: IChatCallbacks) {
-    this.callbacks = { ...this.callbacks, ...callbacks };
+    this.callbacks = callbacks;
   }
 
   private _getSession(peerID: string): PeerChatSession | undefined {
@@ -264,6 +264,7 @@ export class ChatManager {
   async onChangeStatus(peerID: string, status: MessageStatusChange) {
     const statusDTO = mapStatusChangeEntityToDto(status);
     await updateMessageStatus(status.id, status.status);
+
     try {
       const channel = await this.init(peerID);
       this._resetTimer(peerID);

@@ -5,7 +5,7 @@ import { initialWindowMetrics, SafeAreaProvider } from 'react-native-safe-area-c
 import { Provider } from 'react-redux';
 import { LayoutRoot } from '../../ui/LayoutRoot';
 import { StatusBar } from 'expo-status-bar';
-import { InitProvider } from '../InitProvider/InitProvider';
+import { InitProvider } from '../InitProvider';
 import { SpinnerProvider } from '../SpinnerProvider';
 
 export function AppProvider() {

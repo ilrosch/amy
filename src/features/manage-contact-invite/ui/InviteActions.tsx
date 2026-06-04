@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { useAppSelector } from '@/app-root/store';
-import { ContactStatus, selectContactByID } from '@/entities/Contact';
+import { ContactStatus, selectContactByID } from '@/entities/contact';
 import { BtnGroup, BtnGroupItem } from '@/shared/ui/buttons/BtnGroup';
 import { useAcceptContact } from '../model/useAcceptContact';
 import { useCallback } from 'react';

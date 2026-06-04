@@ -1,6 +1,5 @@
 import { useCallback } from 'react';
-import { Contact, ContactStatus, saveContact } from '@/entities/Contact';
-import { updateContact } from '@/entities/Contact/model/slice';
+import { Contact, ContactStatus, saveContact, updateContact } from '@/entities/contact';
 import { useAppDispatch } from '@/app-root/store';
 import { useAcceptContactMutation } from '../api/contactStatusAPI';
 

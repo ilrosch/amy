@@ -1,7 +1,6 @@
 import { useAppSelector } from '@/app-root/store';
-import { selectUser } from '@/entities/User';
+import { selectUser } from '@/entities/user';
 import { Form } from '@/shared/ui/blocks/Form';
-import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useRenameUser } from '../model/useRenameUser';
 

@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { useAppSelector } from '@/app-root/store';
-import { selectContactsIDS } from '@/entities/Contact';
+import { selectContactsIDS } from '@/entities/contact';
 import { validateUUIDV7 } from '@/shared/lib/uuid';
 import { ERRORS } from '@/shared/config/errors';
 import { ValidationErr } from '../config/errors';

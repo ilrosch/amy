@@ -1,4 +1,4 @@
-import { Avatar } from '@/shared/ui/blocks/Avatar/Avatar';
+import { Avatar } from '@/shared/ui/blocks/Avatar';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Contact } from '../model';
 import { Txt } from '@/shared/ui/texts/Txt';

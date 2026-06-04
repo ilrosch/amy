@@ -1,12 +1,9 @@
 import { useAppDispatch, useAppSelector } from '@/app-root/store';
 import { FlatList } from 'react-native';
-import { Txt } from '@/shared/ui/texts/Txt';
 import { useCallback, useEffect, useState } from 'react';
 import {
   cleanupMessages,
   getMessages,
-  initMessages,
-  MessageCard,
   MessageItem,
   selectMessages,
   setChatID,
@@ -15,8 +12,9 @@ import {
   updateMessage,
 } from '@/entities/peer-chat';
 import { useChatManager } from '@/app-root/providers/SocketProvider/SocketProvider';
-import { selectUserID } from '@/entities/User';
+import { selectUserID } from '@/entities/user';
 import { COLORS } from '@/shared/config/theme';
+import { updateChatStatus } from '@/entities/chat';
 
 export type MessageListType = {
   chatID: string;
@@ -44,7 +42,11 @@ export default function MessageList({ chatID, contactID }: MessageListType) {
       onStatusChange: (status) =>
         dispatch(updateMessage({ id: status.id, changes: { status: status.status } })),
     });
-  }, [chatManager, dispatch]);
+
+    return () => {
+      chatManager.setCallback({});
+    };
+  }, [chatManager, contactID, dispatch]);
 
   const [page, setPage] = useState<number>(1);
   const [hasMore, setHasMore] = useState<boolean>(true);
@@ -63,7 +65,7 @@ export default function MessageList({ chatID, contactID }: MessageListType) {
         }
 
         newMessages.forEach((msg) => {
-          if (msg.userFrom === contactID && msg.status === 'new') {
+          if (msg.userFrom === contactID && (msg.status === 'new' || msg.status === 'delivered')) {
             chatManager.onChangeStatus(contactID, {
               id: msg.id,
               chatID: msg.chatID,
@@ -82,7 +84,7 @@ export default function MessageList({ chatID, contactID }: MessageListType) {
         setLoading(false);
       }
     },
-    [chatID, chatManager, contactID, dispatch],
+    [chatID, chatManager, contactID, dispatch, hasMore, loading],
   );
 
   useEffect(() => {
@@ -90,9 +92,18 @@ export default function MessageList({ chatID, contactID }: MessageListType) {
     setPage(1);
     setHasMore(true);
     fetchMoreMessage(1);
+  }, [chatID, dispatch, fetchMoreMessage]);
 
+  useEffect(() => {
     return () => {
       dispatch(cleanupMessages());
+    };
+  }, []);
+
+  useEffect(() => {
+    dispatch(updateChatStatus({ id: chatID, status: 'read' }));
+    return () => {
+      dispatch(updateChatStatus({ id: chatID, status: 'read' }));
     };
   }, [chatID, dispatch]);
 

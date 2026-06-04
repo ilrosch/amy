@@ -1,3 +1,3 @@
-import Chats from './Chats.tsx'
+import Chats from './Chats.tsx';
 
-export { Chats }
+export { Chats };

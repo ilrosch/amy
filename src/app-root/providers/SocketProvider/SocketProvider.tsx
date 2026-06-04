@@ -2,10 +2,10 @@ import { socket } from '@/app-root/init/socket';
 import { callHandler, callManager } from '../../init/call';
 import { peerHandler, peerManager } from '../../init/peer-session';
 import { createContext, ReactNode, useContext, useEffect } from 'react';
-import { useSession } from '@/entities/Session';
+import { useSession } from '@/entities/session';
 import { SocketConfig } from '@/shared/api/socket';
 import { chatManager } from '@/app-root/init/peer-chat';
-import { contactSocketHandler } from '@/entities/Contact/api/contact.socket';
+import { contactSocketHandler } from '@/entities/contact/api/contact.socket';
 import { chatSocketHandler } from '@/entities/peer-chat';
 
 export const SocketContext = createContext({

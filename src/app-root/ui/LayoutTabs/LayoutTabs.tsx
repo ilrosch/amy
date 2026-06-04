@@ -4,12 +4,10 @@ import SettingsIcon from '@/assets/icons/settings';
 import { COLORS } from '@/shared/config/theme';
 import { Header } from '@/shared/ui/views/Header';
 import { Tabs } from 'expo-router';
-import { FC, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { SvgProps } from 'react-native-svg';
 
-export default function LayoutTabs() {
+export function LayoutTabs() {
   const { t } = useTranslation('pages');
   const { bottom } = useSafeAreaInsets();
 

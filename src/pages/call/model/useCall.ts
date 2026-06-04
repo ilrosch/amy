@@ -61,7 +61,7 @@ export const useCall = ({ isOutgoing }: IUseCall) => {
 
   // call state
   const stopwatch = useCallDuration();
-  const [status, setStatus] = useState<string>(CallStatus.PENDING);
+  const [status, setStatus] = useState<string>(t(CallStatus.PENDING));
   const [isLocalFullScreen, setIsLocalFullScreen] = useState<boolean>(true);
   const [localStream, setLocalStream] = useState<MediaStream | null>(null);
   const [remoteStream, setRemoteStream] = useState<MediaStream | null>(null);
@@ -77,7 +77,7 @@ export const useCall = ({ isOutgoing }: IUseCall) => {
 
   useEffect(() => {
     return () => {
-      setStatus(CallStatus.PENDING);
+      setStatus(t(CallStatus.PENDING));
       setIsLocalFullScreen(true);
       setLocalStream(null);
       setRemoteStream(null);

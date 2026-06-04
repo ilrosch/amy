@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { userApi, userReducer } from '@/entities/User';
-import { sessionReducer } from '@/entities/Session';
-import { chatReducer } from '@/entities/Chat';
-import { contactApi, contactReducer } from '@/entities/Contact';
+import { userApi, userReducer } from '@/entities/user';
+import { sessionReducer } from '@/entities/session';
+import { chatReducer } from '@/entities/chat';
+import { contactApi, contactReducer } from '@/entities/contact';
 import { messageReducer } from '@/entities/peer-chat';
 
 export const store = configureStore({

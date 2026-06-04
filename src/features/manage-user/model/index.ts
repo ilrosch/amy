@@ -1,1 +1,1 @@
-export { }
+export { useDeleteUser } from './useDeleteUser';

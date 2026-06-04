@@ -1,6 +1,5 @@
 import { useAppDispatch } from '@/app-root/store';
-import { Contact, updateContact as uc } from '@/entities/Contact';
-import { updateContact } from '@/entities/Contact/model';
+import { Contact, updateContact, updateContactDB } from '@/entities/contact';
 import { useCallback } from 'react';
 
 export const useRenameContact = () => {
@@ -10,7 +9,7 @@ export const useRenameContact = () => {
     async (contact: Contact, contactName: string) => {
       try {
         const newContact: Contact = { ...contact, name: contactName };
-        await uc(newContact);
+        await updateContactDB(newContact);
         dispatch(updateContact({ contactID: contact.id, changes: newContact }));
       } catch (err) {
         console.error('failed to save new contact name:', err);

@@ -2,4 +2,4 @@ export { contactApi, useAddContactMutation } from './contactApi';
 export { getAllContact } from './getAllContacts';
 export { saveContact } from './saveContact';
 export { deleteContact } from './deleteContact';
-export { updateContact } from './updateContact';
+export { updateContactDB } from './updateContact';

@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { useDeleteUser } from '../model/useDeleteUser';
 import { share } from '@/shared/lib/share';
 import { useAppSelector } from '@/app-root/store';
-import { selectUserID } from '@/entities/User';
+import { selectUserID } from '@/entities/user';
 
 export default function UserActions() {
   const { t } = useTranslation('userManage');

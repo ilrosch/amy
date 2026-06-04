@@ -1,10 +1,11 @@
 import { useAppSelector } from '@/app-root/store';
-import { ChatItem, selectAllChats } from '@/entities/Chat';
+import { ChatItem, selectAllChats } from '@/entities/chat';
 import { ROUTES } from '@/shared/config/routes';
 import { Search } from '@/shared/ui/blocks/Search';
 import { Txt } from '@/shared/ui/texts/Txt';
 import { useRouter } from 'expo-router';
 import { useCallback, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { FlatList, View } from 'react-native';
 
 export interface IChatList {
@@ -12,6 +13,7 @@ export interface IChatList {
 }
 
 export default function ChatList({ isScrollEnabled = true }: IChatList) {
+  const { t } = useTranslation('common');
   const router = useRouter();
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -42,7 +44,7 @@ export default function ChatList({ isScrollEnabled = true }: IChatList) {
         renderItem={({ item }) => <ChatItem chat={item} onPress={handleRouteChat} />}
         contentContainerStyle={{ gap: 4 }}
         showsVerticalScrollIndicator={false}
-        ListEmptyComponent={<Txt>No chats</Txt>}
+        ListEmptyComponent={<Txt>{t('empty')}</Txt>}
         scrollEnabled={isScrollEnabled}
       />
     </View>

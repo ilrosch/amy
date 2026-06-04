@@ -3,5 +3,6 @@
   "text": "Enter your name below.",
   "tip": "Tip: Avoid using personal information to enhance your privacy.",
   "placeholder": "For example, Amy",
+  "placeholder_server": "Default server Amy",
   "btnCreate": "Create account"
 }

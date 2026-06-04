@@ -1,3 +1,3 @@
 import RenameContactForm from './RenameContact';
 
-export { RenameContactForm }
+export { RenameContactForm };

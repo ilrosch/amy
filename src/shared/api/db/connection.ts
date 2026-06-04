@@ -9,7 +9,6 @@ export const getDB = async (): Promise<SQLiteDatabase> => {
   if (dbInstance) return dbInstance;
 
   try {
-
     const db = await SQLite.openDatabaseAsync(DB_NAME);
     await db.execAsync('PRAGMA foreign_keys = ON;');
     await applyMigrations(db);

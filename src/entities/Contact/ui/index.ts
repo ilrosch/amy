@@ -1,3 +1,1 @@
-import Contact from './Contact.tsx'
-
-export { Contact }
+export { ContactCard } from './ContactCard';

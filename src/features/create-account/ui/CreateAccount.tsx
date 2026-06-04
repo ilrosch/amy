@@ -7,7 +7,7 @@ import { AnimView } from '@/shared/ui/views/AnimView';
 import { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { styles } from './CreateAccount.style';
-import { useValidateName } from '@/entities/User';
+import { useValidateName } from '@/entities/user';
 import { useRouter } from 'expo-router';
 import { useCreateUserAccount } from '../model/create';
 
@@ -17,6 +17,7 @@ export default function CreateAccount() {
   const router = useRouter();
   const handleBack = useBack();
   const [userName, setUserName] = useState<string>('');
+  const [server, setServer] = useState<string>('');
 
   const { handleCreateAccount } = useCreateUserAccount();
 
@@ -47,6 +48,12 @@ export default function CreateAccount() {
           value={userName}
           onChangeText={setUserName}
           placeholder={t('placeholder')}
+          isEditable={!isLoading}
+        />
+        <Input
+          value={server}
+          onChangeText={setServer}
+          placeholder={t('placeholder_server')}
           isEditable={!isLoading}
         />
         <Txt style={{ marginTop: 12 }}>{t('tip')}</Txt>

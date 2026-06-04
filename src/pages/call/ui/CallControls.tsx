@@ -8,12 +8,11 @@ import {
 } from 'react-native';
 import { useCallManager } from '@/app-root/providers/SocketProvider/SocketProvider';
 import { CallEventType } from '@/entities/call/config/event';
-import { Box } from '@/shared/ui/views/Box/Box';
+import { Box } from '@/shared/ui/views/Box';
 import { COLORS } from '@/shared/config/theme';
 import { useSlide } from '@/shared/lib/hooks/useSlide';
 import CameraIcon from '@/assets/icons/camera';
 import CameraMuteIcon from '@/assets/icons/camera-mute';
-import CloseIcon from '@/assets/icons/close';
 import MicrophoneIcon from '@/assets/icons/microphone';
 import MicrophoneMuteIcon from '@/assets/icons/microphone-mute';
 import SpeakerIcon from '@/assets/icons/speaker';

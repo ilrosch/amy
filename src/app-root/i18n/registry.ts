@@ -1,5 +1,5 @@
 import { callResources } from '@/entities/call';
-import { userResources } from '@/entities/User';
+import { userResources } from '@/entities/user';
 import { addContactFeatherResources } from '@/features/add-contact';
 import { chatManageFeatherResources } from '@/features/manage-chat/config/i18n/resources';
 import { manageContactInviteFeatherResources } from '@/features/manage-contact-invite';
